@@ -276,6 +276,9 @@ frontend:
         - working: true
           agent: "main"
           comment: "✅ Implemented bidirectional synchronization between calendar date selection and week buttons. Created dateUtils.js with week calculation utilities. When user selects date in calendar, corresponding week button (Current/Next) becomes active automatically. If date is outside current/next week range, both buttons become disabled. When clicking week button, if selected date doesn't match that week, date automatically updates to that week's Monday. Compiled successfully without errors."
+        - working: true
+          agent: "main"
+          comment: "✅ Added haptic feedback to all interactive buttons: week buttons (medium impact), day selector buttons (light impact), schedule card expand/collapse (selection), and change group button (medium impact). Integrated with Telegram WebApp HapticFeedback API through TelegramContext. All components compiled successfully."
 
 metadata:
   created_by: "testing_agent"
