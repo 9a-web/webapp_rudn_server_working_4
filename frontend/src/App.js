@@ -163,6 +163,29 @@ const Home = () => {
     }
   };
 
+  const handleWeekChange = (newWeekNumber) => {
+    setWeekNumber(newWeekNumber);
+    
+    // Если выбранная дата не входит в новую неделю, обновляем дату на первый день новой недели
+    const currentWeekNum = getWeekNumberForDate(selectedDate);
+    if (currentWeekNum !== newWeekNumber) {
+      const today = new Date();
+      const day = today.getDay();
+      const diff = day === 0 ? -6 : 1 - day;
+      const monday = new Date(today);
+      monday.setDate(today.getDate() + diff);
+      
+      if (newWeekNumber === 2) {
+        // Следующая неделя - добавляем 7 дней
+        monday.setDate(monday.getDate() + 7);
+      }
+      
+      setSelectedDate(monday);
+      console.log('Week changed to:', newWeekNumber, 'Date updated to:', monday);
+    }
+  };
+
+
   const handleChangeGroup = () => {
     hapticFeedback('impact', 'medium');
     setShowGroupSelector(true);
