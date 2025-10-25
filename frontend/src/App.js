@@ -257,7 +257,7 @@ const Home = () => {
             selectedDate={selectedDate}
             mockSchedule={schedule}
             weekNumber={weekNumber}
-            onWeekChange={setWeekNumber}
+            onWeekChange={handleWeekChange}
             groupName={userSettings?.group_name}
             onChangeGroup={handleChangeGroup}
           />
