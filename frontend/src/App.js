@@ -16,6 +16,7 @@ import './i18n/config';
 
 const Home = () => {
   const { user, isReady, showAlert, hapticFeedback } = useTelegram();
+  const { t } = useTranslation();
   
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
