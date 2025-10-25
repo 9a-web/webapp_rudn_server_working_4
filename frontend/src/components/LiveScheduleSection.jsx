@@ -75,6 +75,7 @@ export const LiveScheduleSection = ({
   };
 
   const toggleExpand = (index) => {
+    if (hapticFeedback) hapticFeedback('selection');
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
