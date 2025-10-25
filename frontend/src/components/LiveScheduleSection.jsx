@@ -190,8 +190,8 @@ export const LiveScheduleSection = ({
           <div className="text-center py-12">
             <p className="text-gray-400 text-base md:text-lg">
               {mockSchedule.length === 0 
-                ? 'Загрузка расписания...' 
-                : 'На этот день занятий нет'}
+                ? t('liveScheduleSection.loading')
+                : t('liveScheduleSection.noClasses')}
             </p>
           </div>
         ) : (
