@@ -265,6 +265,18 @@ frontend:
           agent: "testing"
           comment: "✅ Time updates in real-time every second. Verified during testing with time change from 17:20 to 17:21. Time format is correct (HH:MM)."
 
+  - task: "Calendar-Week Buttons Synchronization"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/App.js, /app/frontend/src/components/LiveScheduleSection.jsx, /app/frontend/src/utils/dateUtils.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "✅ Implemented bidirectional synchronization between calendar date selection and week buttons. Created dateUtils.js with week calculation utilities. When user selects date in calendar, corresponding week button (Current/Next) becomes active automatically. If date is outside current/next week range, both buttons become disabled. When clicking week button, if selected date doesn't match that week, date automatically updates to that week's Monday. Compiled successfully without errors."
+
 metadata:
   created_by: "testing_agent"
   version: "1.1"
