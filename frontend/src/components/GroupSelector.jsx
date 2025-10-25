@@ -165,15 +165,15 @@ const GroupSelector = ({ onGroupSelected, onCancel }) => {
   const getStepTitle = () => {
     switch (step) {
       case 'faculty':
-        return 'Выберите факультет';
+        return t('groupSelector.selectFaculty');
       case 'level':
-        return 'Выберите уровень обучения';
+        return t('groupSelector.selectLevel');
       case 'course':
-        return 'Выберите курс';
+        return t('groupSelector.selectCourse');
       case 'form':
-        return 'Выберите форму обучения';
+        return t('groupSelector.selectForm');
       case 'group':
-        return 'Выберите группу';
+        return t('groupSelector.selectGroup');
       default:
         return '';
     }
