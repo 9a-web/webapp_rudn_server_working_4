@@ -226,7 +226,7 @@ const Home = () => {
             onClick={loadUserData}
             className="bg-white text-black px-6 py-3 rounded-full font-medium"
           >
-            Повторить
+            {t('common.retry')}
           </button>
         </div>
       </div>
