@@ -186,14 +186,14 @@ export const LiveScheduleSection = ({
         {/* Schedule list */}
         {todaySchedule.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-base md:text-lg">
               {mockSchedule.length === 0 
                 ? 'Загрузка расписания...' 
                 : 'На этот день занятий нет'}
             </p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
             {todaySchedule.map((classItem, index) => {
               const { status, color } = getClassStatus(classItem);
               const isExpanded = expandedIndex === index;
@@ -201,7 +201,7 @@ export const LiveScheduleSection = ({
               return (
                 <div 
                   key={index} 
-                  className="rounded-2xl p-4 transition-all duration-300 cursor-pointer"
+                  className="rounded-2xl md:rounded-3xl p-4 md:p-5 transition-all duration-300 cursor-pointer hover:shadow-md"
                   style={{ 
                     backgroundColor: '#F5F5F5',
                   }}
@@ -210,9 +210,8 @@ export const LiveScheduleSection = ({
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <p 
-                        className="font-bold mb-2"
+                        className="font-bold mb-2 text-base md:text-lg"
                         style={{ 
-                          fontSize: '16px',
                           color: '#2C2C2C',
                           fontFamily: 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif'
                         }}
