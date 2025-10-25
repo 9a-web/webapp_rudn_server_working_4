@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, hapticFeedback }) => {
   const [weekDays, setWeekDays] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     generateWeekDays(weekNumber);
