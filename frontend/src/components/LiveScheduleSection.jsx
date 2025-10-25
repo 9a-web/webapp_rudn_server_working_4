@@ -86,14 +86,13 @@ export const LiveScheduleSection = ({
 
   return (
     <div className="bg-white rounded-t-[40px] mt-6 min-h-screen">
-      <div className="px-6 pt-8 pb-6">
+      <div className="px-6 md:px-8 lg:px-10 pt-8 md:pt-10 pb-6">
         {/* Header section */}
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex items-start justify-between mb-4 md:mb-6">
           <div>
             <h2 
-              className="font-bold mb-1"
+              className="font-bold mb-1 text-2xl md:text-3xl lg:text-4xl"
               style={{ 
-                fontSize: '30px',
                 color: '#1C1C1C',
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
                 lineHeight: '1.2'
@@ -103,12 +102,11 @@ export const LiveScheduleSection = ({
             </h2>
             {groupName && (
               <p 
-                className="mt-1"
+                className="mt-1 text-sm md:text-base"
                 style={{ 
                   color: '#666666',
                   fontFamily: 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '14px'
+                  fontWeight: 500
                 }}
               >
                 Группа: {groupName}
@@ -118,14 +116,14 @@ export const LiveScheduleSection = ({
           
           {/* Date button */}
           <button
-            className="flex items-center gap-2 px-4 py-2.5 rounded-[30px] transition-all duration-300 hover:opacity-80"
+            className="flex items-center gap-2 px-4 md:px-5 py-2.5 md:py-3 rounded-[30px] transition-all duration-300 hover:opacity-80"
             style={{ 
               backgroundColor: '#1C1C1C'
             }}
           >
-            <Calendar className="w-4 h-4 text-white" />
+            <Calendar className="w-4 h-4 md:w-5 md:h-5 text-white" />
             <span 
-              className="text-sm font-medium text-white"
+              className="text-sm md:text-base font-medium text-white"
               style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               {dateButton}
