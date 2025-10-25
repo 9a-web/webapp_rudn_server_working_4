@@ -59,18 +59,18 @@ export const CalendarModal = ({ isOpen, onClose, onDateSelect }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-card rounded-3xl p-6 w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-card rounded-3xl p-6 md:p-8 w-full max-w-md md:max-w-lg shadow-2xl animate-in zoom-in-95 duration-300">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-lg md:text-xl font-bold text-foreground">
             {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
           </h2>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-accent/50 hover:bg-accent transition-colors"
+            className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg md:rounded-xl bg-accent/50 hover:bg-accent transition-colors"
           >
-            <X className="w-5 h-5 text-foreground" />
+            <X className="w-5 h-5 md:w-6 md:h-6 text-foreground" />
           </button>
         </div>
 
@@ -78,22 +78,22 @@ export const CalendarModal = ({ isOpen, onClose, onDateSelect }) => {
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={prevMonth}
-            className="w-10 h-10 flex items-center justify-center rounded-lg bg-accent/50 hover:bg-accent transition-all hover:scale-105 active:scale-95"
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-accent/50 hover:bg-accent transition-all hover:scale-105 active:scale-95"
           >
-            <ChevronLeft className="w-5 h-5 text-foreground" />
+            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-foreground" />
           </button>
           <button
             onClick={nextMonth}
-            className="w-10 h-10 flex items-center justify-center rounded-lg bg-accent/50 hover:bg-accent transition-all hover:scale-105 active:scale-95"
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-accent/50 hover:bg-accent transition-all hover:scale-105 active:scale-95"
           >
-            <ChevronRight className="w-5 h-5 text-foreground" />
+            <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-foreground" />
           </button>
         </div>
 
         {/* Week days */}
         <div className="grid grid-cols-7 gap-2 mb-2">
           {weekDays.map((day) => (
-            <div key={day} className="text-center text-sm font-medium text-muted-foreground">
+            <div key={day} className="text-center text-sm md:text-base font-medium text-muted-foreground">
               {day}
             </div>
           ))}
@@ -114,7 +114,7 @@ export const CalendarModal = ({ isOpen, onClose, onDateSelect }) => {
                 key={day}
                 onClick={() => handleDateClick(day)}
                 className={`
-                  aspect-square rounded-lg text-sm font-medium transition-all duration-200
+                  aspect-square rounded-lg md:rounded-xl text-sm md:text-base font-medium transition-all duration-200
                   ${isSelected(day)
                     ? 'bg-gradient-live text-card shadow-glow scale-105'
                     : isToday(day)
