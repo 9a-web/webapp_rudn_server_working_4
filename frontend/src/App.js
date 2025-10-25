@@ -246,6 +246,7 @@ const Home = () => {
           selectedDate={selectedDate}
           onDateSelect={handleDateSelect}
           weekNumber={weekNumber}
+          hapticFeedback={hapticFeedback}
         />
         
         {loading ? (
