@@ -10,6 +10,7 @@ import { LiveScheduleSection } from './components/LiveScheduleSection';
 import GroupSelector from './components/GroupSelector';
 import { TelegramProvider, useTelegram } from './contexts/TelegramContext';
 import { scheduleAPI, userAPI } from './services/api';
+import { getWeekNumberForDate } from './utils/dateUtils';
 
 const Home = () => {
   const { user, isReady, showAlert, hapticFeedback } = useTelegram();
