@@ -136,7 +136,10 @@ export const LiveScheduleSection = ({
         {onWeekChange && (
           <div className="flex gap-2 mb-4">
             <button
-              onClick={() => onWeekChange(1)}
+              onClick={() => {
+                if (hapticFeedback) hapticFeedback('impact', 'medium');
+                onWeekChange(1);
+              }}
               disabled={selectedWeekNumber === null}
               className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-all ${
                 selectedWeekNumber === 1
@@ -149,7 +152,10 @@ export const LiveScheduleSection = ({
               Текущая неделя
             </button>
             <button
-              onClick={() => onWeekChange(2)}
+              onClick={() => {
+                if (hapticFeedback) hapticFeedback('impact', 'medium');
+                onWeekChange(2);
+              }}
               disabled={selectedWeekNumber === null}
               className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-all ${
                 selectedWeekNumber === 2
