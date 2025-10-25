@@ -152,7 +152,15 @@ const Home = () => {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    console.log('Selected date:', date);
+    
+    // Автоматически определяем и устанавливаем номер недели
+    const weekNum = getWeekNumberForDate(date);
+    if (weekNum !== null) {
+      setWeekNumber(weekNum);
+      console.log('Selected date:', date, 'Week number:', weekNum);
+    } else {
+      console.log('Selected date:', date, 'is outside current/next week range');
+    }
   };
 
   const handleChangeGroup = () => {
