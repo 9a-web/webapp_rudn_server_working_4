@@ -93,7 +93,7 @@ const Home = () => {
     } catch (err) {
       console.error('Error loading schedule:', err);
       setError(err.message);
-      showAlert('Ошибка загрузки расписания: ' + err.message);
+      showAlert(t('common.scheduleError', { message: err.message }));
     } finally {
       setLoading(false);
     }
