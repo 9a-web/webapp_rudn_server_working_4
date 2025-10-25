@@ -87,8 +87,8 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
   };
 
   return (
-    <div className="px-6 overflow-x-auto scrollbar-hide">
-      <div className="flex gap-3 justify-start min-w-max pl-1 items-center" style={{ height: '127px' }}>
+    <div className="px-6 md:px-8 lg:px-10 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-3 md:gap-4 justify-start md:justify-center min-w-max md:min-w-0 pl-1 items-center" style={{ height: '127px' }}>
         {weekDays.map((day, index) => {
           const isSelected = index === selectedIndex;
           
@@ -106,7 +106,7 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
                 }
               `}
               style={{ 
-                width: '61px', 
+                width: isSelected ? '61px' : '61px',
                 height: isSelected ? '127px' : '99px'
               }}
             >
