@@ -234,7 +234,8 @@ const Home = () => {
     <div className="min-h-screen bg-background telegram-webapp relative">
       <TopGlow />
       
-      <div className="relative" style={{ zIndex: 10 }}>
+      {/* Adaptive container with max-width for desktop */}
+      <div className="relative mx-auto max-w-[430px] md:max-w-2xl lg:max-w-4xl" style={{ zIndex: 10 }}>
         <Header onCalendarClick={handleCalendarClick} />
         
         <LiveScheduleCard 
