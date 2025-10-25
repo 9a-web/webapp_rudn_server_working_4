@@ -100,7 +100,7 @@ export const LiveScheduleSection = ({
                 lineHeight: '1.2'
               }}
             >
-              Live Schedule
+              {t('liveScheduleSection.title')}
             </h2>
             {groupName && (
               <p 
@@ -111,7 +111,7 @@ export const LiveScheduleSection = ({
                   fontWeight: 500
                 }}
               >
-                Группа: {groupName}
+                {t('liveScheduleSection.group', { groupName })}
               </p>
             )}
           </div>
