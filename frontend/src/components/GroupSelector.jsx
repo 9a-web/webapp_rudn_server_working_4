@@ -5,11 +5,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { scheduleAPI } from '../services/api';
+import { useTranslation } from 'react-i18next';
 
 const GroupSelector = ({ onGroupSelected, onCancel }) => {
   const [step, setStep] = useState('faculty'); // faculty, level, course, form, group
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { t } = useTranslation();
 
   // Данные выбора
   const [faculties, setFaculties] = useState([]);
