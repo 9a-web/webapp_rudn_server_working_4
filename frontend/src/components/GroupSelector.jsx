@@ -228,7 +228,7 @@ const GroupSelector = ({ onGroupSelected, onCancel }) => {
               onClick={handleBack}
               className="text-white/70 hover:text-white transition-colors"
             >
-              ← Назад
+              ← {t('groupSelector.back')}
             </button>
           )}
           {onCancel && step === 'faculty' && (
@@ -236,7 +236,7 @@ const GroupSelector = ({ onGroupSelected, onCancel }) => {
               onClick={onCancel}
               className="text-white/70 hover:text-white transition-colors ml-auto"
             >
-              Отмена
+              {t('groupSelector.cancel')}
             </button>
           )}
         </div>
