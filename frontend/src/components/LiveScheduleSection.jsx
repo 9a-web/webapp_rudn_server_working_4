@@ -269,7 +269,7 @@ export const LiveScheduleSection = ({
                                 fontFamily: 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif'
                               }}
                             >
-                              Аудитория: <span style={{ color: '#3B3B3B' }}>{classItem.auditory}</span>
+                              {t('classDetails.auditory')} <span style={{ color: '#3B3B3B' }}>{classItem.auditory}</span>
                             </p>
                           )}
                           {classItem.teacher && (
@@ -280,7 +280,7 @@ export const LiveScheduleSection = ({
                                 fontFamily: 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif'
                               }}
                             >
-                              Преподаватель: <span style={{ color: '#3B3B3B' }}>{classItem.teacher}</span>
+                              {t('classDetails.teacher')} <span style={{ color: '#3B3B3B' }}>{classItem.teacher}</span>
                             </p>
                           )}
                         </div>
