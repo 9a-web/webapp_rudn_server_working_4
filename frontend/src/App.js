@@ -11,6 +11,8 @@ import GroupSelector from './components/GroupSelector';
 import { TelegramProvider, useTelegram } from './contexts/TelegramContext';
 import { scheduleAPI, userAPI } from './services/api';
 import { getWeekNumberForDate } from './utils/dateUtils';
+import { useTranslation } from 'react-i18next';
+import './i18n/config';
 
 const Home = () => {
   const { user, isReady, showAlert, hapticFeedback } = useTelegram();
