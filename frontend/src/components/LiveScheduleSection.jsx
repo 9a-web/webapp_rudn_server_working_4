@@ -8,7 +8,8 @@ export const LiveScheduleSection = ({
   weekNumber = 1,
   onWeekChange,
   groupName,
-  onChangeGroup 
+  onChangeGroup,
+  hapticFeedback 
 }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
