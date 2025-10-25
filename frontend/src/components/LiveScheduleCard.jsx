@@ -63,7 +63,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
             <div className="flex-1">
               <div className="mb-2">
                 <p className="font-bold text-base md:text-lg lg:text-xl" style={{ color: '#FFFFFF' }}>
-                  {currentClass ? 'Сейчас идёт:' : 'Сейчас ничего не идёт!'}
+                  {currentClass ? t('liveScheduleCard.currentClass') : t('liveScheduleCard.noClass')}
                 </p>
                 {currentClass && (
                   <p className="font-bold text-base md:text-lg lg:text-xl" style={{ color: '#FFFFFF' }}>
@@ -72,7 +72,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                 )}
               </div>
               <p className="font-medium text-sm md:text-base" style={{ color: '#999999' }}>
-                {currentClass ? `Осталось: ${minutesLeft} минут` : 'Отдыхай! :)'}
+                {currentClass ? t('liveScheduleCard.timeLeft', { minutes: minutesLeft }) : t('liveScheduleCard.relax')}
               </p>
             </div>
 
