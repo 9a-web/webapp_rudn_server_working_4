@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, ChevronRight, ChevronDown, RefreshCw, Users } from 'lucide-react';
 import { getWeekNumberForDate } from '../utils/dateUtils';
+import { useTranslation } from 'react-i18next';
 
 export const LiveScheduleSection = ({ 
   selectedDate, 
@@ -13,6 +14,7 @@ export const LiveScheduleSection = ({
 }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { t } = useTranslation();
 
   // Update current time every minute
   useEffect(() => {
