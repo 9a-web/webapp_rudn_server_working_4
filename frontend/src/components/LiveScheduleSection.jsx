@@ -136,9 +136,12 @@ export const LiveScheduleSection = ({
           <div className="flex gap-2 mb-4">
             <button
               onClick={() => onWeekChange(1)}
+              disabled={selectedWeekNumber === null}
               className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-all ${
-                weekNumber === 1 
+                selectedWeekNumber === 1
                   ? 'bg-black text-white' 
+                  : selectedWeekNumber === null
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -146,9 +149,12 @@ export const LiveScheduleSection = ({
             </button>
             <button
               onClick={() => onWeekChange(2)}
+              disabled={selectedWeekNumber === null}
               className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-all ${
-                weekNumber === 2 
+                selectedWeekNumber === 2
                   ? 'bg-black text-white' 
+                  : selectedWeekNumber === null
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
