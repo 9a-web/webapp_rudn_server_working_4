@@ -45,7 +45,7 @@ export const LiveScheduleSection = ({
     const isToday = selectedDate.toDateString() === today.toDateString();
 
     const timeRange = classItem.time.split('-');
-    if (timeRange.length !== 2) return { status: 'Предстоит', color: '#FF6B6B' };
+    if (timeRange.length !== 2) return { status: t('classStatus.upcoming'), color: '#FF6B6B' };
 
     const [startHour, startMin] = timeRange[0].trim().split(':').map(Number);
     const [endHour, endMin] = timeRange[1].trim().split(':').map(Number);
@@ -54,26 +54,26 @@ export const LiveScheduleSection = ({
 
     // Если выбран прошлый день - все пары закончились
     if (selectedDate < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
-      return { status: 'Закончилась', color: '#76EF83' };
+      return { status: t('classStatus.finished'), color: '#76EF83' };
     }
 
     // Если выбран будущий день - все пары предстоят
     if (selectedDate > new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
-      return { status: 'Предстоит', color: '#FF6B6B' };
+      return { status: t('classStatus.upcoming'), color: '#FF6B6B' };
     }
 
     // Если сегодня - проверяем по времени
     if (isToday) {
       if (currentMinutes >= endTime) {
-        return { status: 'Закончилась', color: '#76EF83' };
+        return { status: t('classStatus.finished'), color: '#76EF83' };
       } else if (currentMinutes >= startTime && currentMinutes < endTime) {
-        return { status: 'В процессе', color: '#FFC83F' };
+        return { status: t('classStatus.inProgress'), color: '#FFC83F' };
       } else {
-        return { status: 'Предстоит', color: '#FF6B6B' };
+        return { status: t('classStatus.upcoming'), color: '#FF6B6B' };
       }
     }
 
-    return { status: 'Предстоит', color: '#FF6B6B' };
+    return { status: t('classStatus.upcoming'), color: '#FF6B6B' };
   };
 
   const toggleExpand = (index) => {
