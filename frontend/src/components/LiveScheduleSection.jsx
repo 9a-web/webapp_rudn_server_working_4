@@ -173,7 +173,10 @@ export const LiveScheduleSection = ({
         {/* Change group button */}
         {onChangeGroup && (
           <button
-            onClick={onChangeGroup}
+            onClick={() => {
+              if (hapticFeedback) hapticFeedback('impact', 'medium');
+              onChangeGroup();
+            }}
             className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all mb-4"
           >
             <Users className="w-4 h-4" />
