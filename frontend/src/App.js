@@ -141,10 +141,10 @@ const Home = () => {
       
       setUserSettings(settings);
       setShowGroupSelector(false);
-      showAlert(`Группа ${groupData.group_name} выбрана!`);
+      showAlert(t('common.groupSelected', { groupName: groupData.group_name }));
     } catch (err) {
       console.error('Error saving user settings:', err);
-      showAlert('Ошибка сохранения настроек: ' + err.message);
+      showAlert(t('common.settingsError', { message: err.message }));
     }
   };
 
