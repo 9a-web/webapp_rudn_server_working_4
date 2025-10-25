@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, ChevronRight, ChevronDown, RefreshCw, Users } from 'lucide-react';
+import { getWeekNumberForDate } from '../utils/dateUtils';
 
 export const LiveScheduleSection = ({ 
   selectedDate, 
@@ -19,6 +20,9 @@ export const LiveScheduleSection = ({
     }, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  // Определяем, к какой неделе относится выбранная дата
+  const selectedWeekNumber = getWeekNumberForDate(selectedDate);
 
   // Format date for display
   const dayNumber = selectedDate.getDate();
