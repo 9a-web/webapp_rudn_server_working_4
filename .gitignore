@@ -12,5 +12,15 @@ frontend/node_modules/
 frontend/dist/
 frontend/build/
 
+# Environment files - НЕ загружать в репозиторий
+.env
+*.env
+backend/.env
+frontend/.env# Environment files - НЕ загружать в репозиторий
+.env
+*.env
+backend/.env
+frontend/.env
+
 # Logs
 *.log
