@@ -76,8 +76,16 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
   };
 
   const getDayName = (dayIndex) => {
-    const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-    return days[dayIndex];
+    const daysMap = {
+      0: t('weekDays.short.sun'),
+      1: t('weekDays.short.mon'),
+      2: t('weekDays.short.tue'),
+      3: t('weekDays.short.wed'),
+      4: t('weekDays.short.thu'),
+      5: t('weekDays.short.fri'),
+      6: t('weekDays.short.sat')
+    };
+    return daysMap[dayIndex];
   };
 
   const handleDayClick = (index, day) => {
