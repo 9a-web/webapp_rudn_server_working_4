@@ -150,7 +150,7 @@ export const LiveScheduleSection = ({
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
-              Текущая неделя
+              {t('liveScheduleSection.currentWeek')}
             </button>
             <button
               onClick={() => {
@@ -166,7 +166,7 @@ export const LiveScheduleSection = ({
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
-              Следующая неделя
+              {t('liveScheduleSection.nextWeek')}
             </button>
           </div>
         )}
