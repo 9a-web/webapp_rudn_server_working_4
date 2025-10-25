@@ -266,7 +266,7 @@ const GroupSelector = ({ onGroupSelected, onCancel }) => {
         <div className="space-y-2">
           {getCurrentList().length === 0 ? (
             <div className="text-center py-12 text-white/50">
-              Нет доступных вариантов
+              {t('groupSelector.noOptions')}
             </div>
           ) : (
             getCurrentList().map((item, index) => (
@@ -280,7 +280,7 @@ const GroupSelector = ({ onGroupSelected, onCancel }) => {
                   {item.name || item.label || item.value}
                 </p>
                 {item.disabled && (
-                  <p className="text-white/50 text-sm mt-1">Недоступно</p>
+                  <p className="text-white/50 text-sm mt-1">{t('groupSelector.unavailable')}</p>
                 )}
               </button>
             ))
