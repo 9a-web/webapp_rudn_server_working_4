@@ -22,11 +22,17 @@ export const CalendarModal = ({ isOpen, onClose, onDateSelect }) => {
   ).getDay();
 
   const monthNames = [
-    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+    t('months.january'), t('months.february'), t('months.march'), 
+    t('months.april'), t('months.may'), t('months.june'),
+    t('months.july'), t('months.august'), t('months.september'), 
+    t('months.october'), t('months.november'), t('months.december')
   ];
 
-  const weekDays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+  const weekDays = [
+    t('weekDays.short.sun'), t('weekDays.short.mon'), t('weekDays.short.tue'), 
+    t('weekDays.short.wed'), t('weekDays.short.thu'), t('weekDays.short.fri'), 
+    t('weekDays.short.sat')
+  ];
 
   const prevMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
