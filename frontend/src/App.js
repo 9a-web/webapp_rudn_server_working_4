@@ -294,9 +294,6 @@ const Home = () => {
             isOpen={isNotificationSettingsOpen}
           />
         )}
-          onClose={() => setIsCalendarOpen(false)}
-          onDateSelect={handleDateSelect}
-        />
       </div>
     </div>
   );
