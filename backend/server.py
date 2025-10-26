@@ -337,6 +337,36 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
+# ============ События жизненного цикла приложения ============
+
+@app.on_event("startup")
+async def startup_event():
+    """Инициализация при запуске приложения"""
+    logger.info("Starting RUDN Schedule API...")
+    
+    # Запускаем планировщик уведомлений
+    try:
+        scheduler = get_scheduler(db)
+        scheduler.start()
+        logger.info("Notification scheduler started successfully")
+    except Exception as e:
+        logger.error(f"Failed to start notification scheduler: {e}")
+
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    """Очистка ресурсов при остановке"""
+    logger.info("Shutting down RUDN Schedule API...")
+    
+    # Останавливаем планировщик
+    try:
+        scheduler = get_scheduler(db)
+        scheduler.stop()
+        logger.info("Notification scheduler stopped")
+    except Exception as e:
+        logger.error(f"Error stopping scheduler: {e}")
+    
+    # Закрываем подключение к БД
     client.close()
+    logger.info("Database connection closed")
