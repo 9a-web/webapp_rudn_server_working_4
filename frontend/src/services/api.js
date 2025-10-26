@@ -158,6 +158,35 @@ export const userAPI = {
       handleError(error);
     }
   },
+
+  /**
+   * Получить настройки уведомлений
+   * @param {number} telegramId - Telegram ID пользователя
+   */
+  getNotificationSettings: async (telegramId) => {
+    try {
+      const response = await api.get(`/user-settings/${telegramId}/notifications`);
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  /**
+   * Обновить настройки уведомлений
+   * @param {number} telegramId - Telegram ID пользователя
+   * @param {Object} settings - Настройки уведомлений
+   * @param {boolean} settings.notifications_enabled - Включены ли уведомления
+   * @param {number} settings.notification_time - За сколько минут уведомлять (5-30)
+   */
+  updateNotificationSettings: async (telegramId, settings) => {
+    try {
+      const response = await api.put(`/user-settings/${telegramId}/notifications`, settings);
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
 };
 
 export default api;
