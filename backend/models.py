@@ -93,6 +93,10 @@ class UserSettings(BaseModel):
     kurs: str
     form_code: str
     
+    # Настройки уведомлений
+    notifications_enabled: bool = False
+    notification_time: int = Field(default=10, ge=5, le=30)  # минут до начала пары
+    
     # Метаданные
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
