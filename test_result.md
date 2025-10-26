@@ -352,6 +352,7 @@ metadata:
 test_plan:
   current_focus:
     - "Notification Settings Modal - Save and Close"
+    - "Status Colors - Text Color Update"
   stuck_tasks:
     - "Language Switching - i18n Integration"
   test_all: false
