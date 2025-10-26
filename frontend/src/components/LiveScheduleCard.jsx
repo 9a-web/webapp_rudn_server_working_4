@@ -201,81 +201,62 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                 }}
               />
               
-              {/* SVG Progress Bar (только когда идет пара) */}
-              {currentClass && (
-                <svg 
-                  className="absolute w-24 h-24 md:w-28 md:h-28"
-                  style={{ transform: 'rotate(-90deg)' }}
-                >
-                  {/* Background circle */}
-                  <circle
-                    cx="48"
-                    cy="48"
-                    r={circleRadius}
-                    stroke="rgba(255, 255, 255, 0.1)"
-                    strokeWidth="4"
-                    fill="none"
-                  />
-                  {/* Progress circle with gradient */}
-                  <defs>
-                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#A3F7BF" />
-                      <stop offset="25%" stopColor="#FFE66D" />
-                      <stop offset="50%" stopColor="#FFB4D1" />
-                      <stop offset="75%" stopColor="#C4A3FF" />
-                      <stop offset="100%" stopColor="#80E8FF" />
-                    </linearGradient>
-                  </defs>
-                  <motion.circle
-                    cx="48"
-                    cy="48"
-                    r={circleRadius}
-                    stroke="url(#progressGradient)"
-                    strokeWidth="5"
-                    fill="none"
-                    strokeLinecap="round"
-                    initial={{ 
-                      strokeDasharray: circleCircumference,
-                      strokeDashoffset: circleCircumference
-                    }}
-                    animate={{ 
-                      strokeDashoffset: circleCircumference - (circleCircumference * progressPercentage) / 100
-                    }}
-                    transition={{ 
-                      duration: 1,
-                      ease: [0.25, 0.1, 0.25, 1]
-                    }}
-                    style={{
-                      filter: 'drop-shadow(0 0 8px rgba(163, 247, 191, 0.6))'
-                    }}
-                  />
-                </svg>
-              )}
-              
-              {/* Static gradient ring (когда нет пары) */}
-              {!currentClass && (
-                <>
-                  <motion.img 
-                    src="/circle-gradient.png" 
-                    alt="Gradient circle" 
-                    className="absolute w-24 h-24 md:w-28 md:h-28"
-                    style={{ filter: 'blur(4px)' }}
-                    animate={{ 
-                      opacity: [0.6, 0.9, 0.6]
-                    }}
-                    transition={{ 
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  <img 
-                    src="/circle-gradient.png" 
-                    alt="Gradient circle" 
-                    className="absolute w-24 h-24 md:w-28 md:h-28"
-                  />
-                </>
-              )}
+              {/* SVG Progress Bar (всегда отображается) */}
+              <svg 
+                className="absolute w-24 h-24 md:w-28 md:h-28"
+                style={{ transform: 'rotate(-90deg)' }}
+              >
+                {/* Gradient definitions */}
+                <defs>
+                  <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#A3F7BF" />
+                    <stop offset="25%" stopColor="#FFE66D" />
+                    <stop offset="50%" stopColor="#FFB4D1" />
+                    <stop offset="75%" stopColor="#C4A3FF" />
+                    <stop offset="100%" stopColor="#80E8FF" />
+                  </linearGradient>
+                </defs>
+                
+                {/* Background circle - всегда видимое */}
+                <circle
+                  cx="48"
+                  cy="48"
+                  r={circleRadius}
+                  stroke="url(#progressGradient)"
+                  strokeWidth="4"
+                  fill="none"
+                  opacity="0.2"
+                />
+                
+                {/* Progress circle - заполняется во время пары */}
+                <motion.circle
+                  cx="48"
+                  cy="48"
+                  r={circleRadius}
+                  stroke="url(#progressGradient)"
+                  strokeWidth="5"
+                  fill="none"
+                  strokeLinecap="round"
+                  initial={{ 
+                    strokeDasharray: circleCircumference,
+                    strokeDashoffset: circleCircumference
+                  }}
+                  animate={{ 
+                    strokeDashoffset: currentClass 
+                      ? circleCircumference - (circleCircumference * progressPercentage) / 100
+                      : circleCircumference
+                  }}
+                  transition={{ 
+                    duration: 1,
+                    ease: [0.25, 0.1, 0.25, 1]
+                  }}
+                  style={{
+                    filter: currentClass 
+                      ? 'drop-shadow(0 0 8px rgba(163, 247, 191, 0.6))' 
+                      : 'none'
+                  }}
+                />
+              </svg>
               
               {/* Center content with time */}
               <motion.div 
