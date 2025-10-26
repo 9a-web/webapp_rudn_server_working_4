@@ -64,15 +64,17 @@ export const NotificationSettings = ({
           : '🔕 Уведомления выключены'
       );
       
+      // Закрываем окно после успешного сохранения
+      setSaving(false);
+      
       // Небольшая задержка перед закрытием для отображения сообщения
       setTimeout(() => {
         onClose && onClose();
-      }, 500);
+      }, 300);
     } catch (error) {
       console.error('Error saving notification settings:', error);
-      showAlert && showAlert('Ошибка сохранения настроек');
-    } finally {
       setSaving(false);
+      showAlert && showAlert('Ошибка сохранения настроек');
     }
   };
 
