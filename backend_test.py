@@ -716,7 +716,14 @@ class RUDNScheduleAPITester:
             self.test_schedule_endpoint,
             self.test_save_user_settings,
             self.test_get_user_settings,
-            self.test_get_nonexistent_user
+            self.test_get_nonexistent_user,
+            # Notification endpoint tests
+            self.test_create_user_with_default_notifications,
+            self.test_get_default_notification_settings,
+            self.test_update_notification_settings,
+            self.test_verify_notification_settings_persisted,
+            self.test_invalid_notification_time_values,
+            self.test_notification_settings_nonexistent_user
         ]
         
         passed = 0
