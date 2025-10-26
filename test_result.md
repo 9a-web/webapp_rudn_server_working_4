@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the RUDN Schedule Telegram Web App for core functionality, calendar modal, visual elements, and responsive design"
+user_problem_statement: "Add language switching functionality (Russian/English) to the RUDN Schedule Telegram Web App without changing the existing UX/UI design"
 
 backend:
   - task: "GET /api/faculties - Faculty List Endpoint"
@@ -271,7 +271,7 @@ frontend:
     file: "/app/frontend/src/App.js, /app/frontend/src/components/LiveScheduleSection.jsx, /app/frontend/src/utils/dateUtils.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: true
           agent: "main"
@@ -280,17 +280,30 @@ frontend:
           agent: "main"
           comment: "✅ Added haptic feedback to all interactive buttons: week buttons (medium impact), day selector buttons (light impact), schedule card expand/collapse (selection), and change group button (medium impact). Integrated with Telegram WebApp HapticFeedback API through TelegramContext. All components compiled successfully."
 
+  - task: "Language Switching - i18n Integration"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/i18n/config.js, /app/frontend/src/components/Header.jsx, /app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "✅ Implemented full i18n support using react-i18next. Created translation files for Russian (ru.json) and English (en.json) with all UI texts. Added language switcher button in Header with Languages icon showing current language (RU/EN). Language preference saved to localStorage for persistence. Updated all components to use t() function for translations: App.js, Header.jsx, LiveScheduleCard.jsx, LiveScheduleSection.jsx, WeekDaySelector.jsx, CalendarModal.jsx, GroupSelector.jsx. Translations cover: header, live schedule card, schedule section, class statuses, week days, months, group selector steps, common messages and errors. Build completed successfully without errors. Frontend restarted and running."
+
 metadata:
-  created_by: "testing_agent"
-  version: "1.1"
-  test_sequence: 2
+  created_by: "main_agent"
+  version: "1.2"
+  test_sequence: 3
+  run_ui: true
 
 test_plan:
   current_focus:
-    - "All backend and frontend functionality tested and working"
+    - "Language Switching - i18n Integration"
   stuck_tasks: []
-  test_all: true
-  test_priority: "completed"
+  test_all: false
+  test_priority: "high_first"
 
 agent_communication:
     - agent: "testing"
@@ -299,3 +312,5 @@ agent_communication:
       message: "Backend API testing completed successfully. All 7 RUDN Schedule API endpoints are working correctly: ✅ GET /api/faculties (16 faculties), ✅ POST /api/filter-data (levels, courses, forms, groups), ✅ POST /api/schedule (real schedule events), ✅ POST /api/user-settings (MongoDB integration), ✅ GET /api/user-settings/{id} (user retrieval), ✅ Error handling (404 for non-existent users). Fixed one critical issue: Pydantic validation error for integer course values - resolved by adding field_validator. All endpoints tested with real RUDN data and 30-second timeout handling. MongoDB integration working properly."
     - agent: "main"
       message: "✅ Feature Addition: Calendar-Week Synchronization Implemented. Created dateUtils.js utility module with week calculation functions. Updated App.js to automatically detect week number when selecting date in calendar (1=current week, 2=next week, null=out of range). Updated LiveScheduleSection.jsx to synchronize week buttons with selected date - buttons become active/inactive based on selected date's week. When date is outside current/next week range, both buttons are disabled with visual feedback (gray, cursor-not-allowed). Bidirectional sync: selecting date activates correct week button, clicking week button updates date to that week's Monday. All components compiled successfully without errors."
+    - agent: "main"
+      message: "✅ Feature Addition: Multi-language Support (Russian/English) Implemented. Installed react-i18next, i18next, and i18next-browser-languagedetector. Created comprehensive translation files (ru.json, en.json) with all UI texts including: headers, buttons, labels, error messages, month names, weekday names, class statuses, and group selector flow. Added language switcher button in Header component next to calendar - displays current language (RU/EN) with Languages icon. Language switching updates all text instantly across the entire app. Language preference persists in localStorage. All 8 components updated to use translations: App.js (errors, loading messages), Header.jsx (title, language switcher), LiveScheduleCard.jsx (current class, time left), LiveScheduleSection.jsx (title, group info, week buttons, class statuses, class details), WeekDaySelector.jsx (day names), CalendarModal.jsx (month names, week days), GroupSelector.jsx (step titles, buttons, messages). Build successful, frontend restarted. Ready for testing."
