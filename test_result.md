@@ -331,6 +331,18 @@ frontend:
           agent: "main"
           comment: "🔧 Fixed issue where notification settings modal was not closing after saving. Problem: onClose callback was inside setTimeout but setSaving(false) was in finally block, causing state conflict. Solution: Moved setSaving(false) inside try/catch blocks before setTimeout, removed finally block. Now modal closes properly 300ms after successful save. Backend API endpoints tested and working correctly (GET and PUT /api/user-settings/{telegram_id}/notifications). Ready for frontend testing."
 
+  - task: "Status Colors - Text Color Update"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/LiveScheduleSection.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "🎨 Updated status text color to match status type. Changed from static #3B3B3B (dark gray) to dynamic color variable. Now status text displays in correct colors: Закончилась (#76EF83 green), В процессе (#FFC83F yellow), Предстоит (#FF6B6B red). Frontend compiled successfully and restarted. Ready for visual testing."
+
 metadata:
   created_by: "main_agent"
   version: "1.3"
