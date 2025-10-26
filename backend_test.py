@@ -11,7 +11,7 @@ import sys
 from typing import Dict, List, Optional
 
 # Configuration
-BACKEND_URL = "https://rudn-schedule.preview.emergentagent.com/api"
+BACKEND_URL = "https://rudn-schedule.ru/api"
 TIMEOUT = 30  # 30 seconds timeout for RUDN API calls
 
 class RUDNScheduleAPITester:
