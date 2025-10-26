@@ -88,9 +88,26 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
             height: '167px',
             zIndex: 3
           }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ 
+            delay: 0.2,
+            duration: 0.4,
+            ease: [0.25, 0.1, 0.25, 1]
+          }}
         >
-          {/* Subtle background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent opacity-50"></div>
+          {/* Subtle background gradient с пульсацией */}
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent"
+            animate={{ 
+              opacity: [0.3, 0.5, 0.3]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          ></motion.div>
           
           <div className="relative flex items-center justify-between">
             {/* Left side - Text content */}
