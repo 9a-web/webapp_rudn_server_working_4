@@ -240,10 +240,10 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                     opacity: 0.15
                   }}
                   transition={{
-                    duration: 4,
+                    duration: 5,
                     repeat: Infinity,
-                    ease: [0.4, 0.0, 0.6, 1],
-                    times: [0, 0.25, 0.5, 0.75, 1]
+                    ease: "easeInOut",
+                    repeatType: "loop"
                   }}
                 />
                 
