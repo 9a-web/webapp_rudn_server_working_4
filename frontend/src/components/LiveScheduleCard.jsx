@@ -42,7 +42,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
         animate="animate"
         variants={liveCardVariants}
       >
-        {/* 3rd layer - самая маленькая и дальняя */}
+        {/* 3rd layer - самая маленькая и дальняя с параллакс эффектом */}
         <motion.div 
           className="absolute rounded-3xl mx-auto left-0 right-0"
           style={{ 
@@ -52,11 +52,15 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
             top: '49px',
             zIndex: 1
           }}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          initial={{ opacity: 0, y: 15, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ 
+            delay: 0.1,
+            duration: 0.6,
+            ease: [0.25, 0.1, 0.25, 1]
+          }}
         ></motion.div>
-        {/* 2nd layer - средняя */}
+        {/* 2nd layer - средняя с параллакс эффектом */}
         <motion.div 
           className="absolute rounded-3xl mx-auto left-0 right-0"
           style={{ 
@@ -66,9 +70,13 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
             top: '22px',
             zIndex: 2
           }}
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
+          initial={{ opacity: 0, y: 10, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ 
+            delay: 0.15,
+            duration: 0.5,
+            ease: [0.25, 0.1, 0.25, 1]
+          }}
         ></motion.div>
         
         {/* Main card - 1-я карточка (самая большая) */}
