@@ -170,8 +170,9 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
                 </span>
               </motion.button>
             );
-        })}
-      </div>
+          })}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 };
