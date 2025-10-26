@@ -231,7 +231,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   cy="60"
                   r={circleRadius}
                   stroke="url(#progressGradient)"
-                  strokeWidth="10"
+                  strokeWidth="14"
                   fill="none"
                   initial={{ opacity: 0.15 }}
                   animate={currentClass ? {
@@ -253,7 +253,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   cy="60"
                   r={circleRadius}
                   stroke="url(#progressGradient)"
-                  strokeWidth="11"
+                  strokeWidth="15"
                   fill="none"
                   strokeLinecap="round"
                   initial={{ 
