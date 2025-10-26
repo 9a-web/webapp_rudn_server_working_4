@@ -9,6 +9,7 @@ import { TopGlow } from './components/TopGlow';
 import { LiveScheduleSection } from './components/LiveScheduleSection';
 import GroupSelector from './components/GroupSelector';
 import NotificationSettings from './components/NotificationSettings';
+import StatusTester from './StatusTester';
 import { TelegramProvider, useTelegram } from './contexts/TelegramContext';
 import { scheduleAPI, userAPI } from './services/api';
 import { getWeekNumberForDate } from './utils/dateUtils';
