@@ -155,6 +155,11 @@ const Home = () => {
     setIsCalendarOpen(true);
   };
 
+  const handleNotificationsClick = () => {
+    hapticFeedback('impact', 'light');
+    setIsNotificationSettingsOpen(true);
+  };
+
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     
