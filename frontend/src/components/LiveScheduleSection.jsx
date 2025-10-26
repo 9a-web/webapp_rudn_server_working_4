@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, ChevronRight, ChevronDown, RefreshCw, Users } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getWeekNumberForDate } from '../utils/dateUtils';
 import { useTranslation } from 'react-i18next';
+import { fadeInUp, listItemVariants, buttonVariants, staggerContainer } from '../utils/animations';
 
 export const LiveScheduleSection = ({ 
   selectedDate, 
