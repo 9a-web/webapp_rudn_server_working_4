@@ -86,17 +86,7 @@ export const LiveScheduleSection = ({
   // Фильтруем расписание по выбранному дню
   const currentDayName = selectedDate.toLocaleDateString('ru-RU', { weekday: 'long' });
   const formattedDayName = currentDayName.charAt(0).toUpperCase() + currentDayName.slice(1);
-  
-  // Debug logging
-  console.log('=== Schedule Debug ===');
-  console.log('Selected Date:', selectedDate);
-  console.log('Current Day Name (formatted):', formattedDayName);
-  console.log('All schedule data:', mockSchedule);
-  console.log('Unique days in schedule:', [...new Set(mockSchedule.map(item => item.day))]);
-  
   const todaySchedule = mockSchedule.filter(item => item.day === formattedDayName);
-  console.log('Filtered schedule for today:', todaySchedule);
-  console.log('=====================');
 
   return (
     <div className="bg-white rounded-t-[40px] mt-6 min-h-screen">
