@@ -81,11 +81,10 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
         
         {/* Main card - 1-я карточка (самая большая) */}
         <motion.div 
-          className="relative rounded-3xl p-6 md:p-8 shadow-card overflow-hidden"
+          className="relative rounded-3xl p-6 md:p-8 lg:p-10 shadow-card overflow-hidden"
           style={{ 
             backgroundColor: '#343434',
             width: '100%',
-            height: '167px',
             zIndex: 3
           }}
           initial={{ opacity: 0, scale: 0.95 }}
