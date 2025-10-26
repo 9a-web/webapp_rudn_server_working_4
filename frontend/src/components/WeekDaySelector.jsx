@@ -107,38 +107,37 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        <AnimatePresence mode="wait">
-          {weekDays.map((day, index) => {
-            const isSelected = index === selectedIndex;
-            
-            return (
-              <motion.button
-                key={`${day.fullDate.toISOString()}-${index}`}
-                onClick={() => handleDayClick(index, day)}
-                className={`
-                  flex-shrink-0 rounded-[40px] flex flex-col items-center justify-center
-                  transition-all duration-300
-                  ${
-                    isSelected
-                      ? 'bg-gradient-live'
-                      : 'bg-[#2C2C2C] hover:bg-[#353535]'
-                  }
-                `}
-                style={{ 
-                  width: isSelected ? '61px' : '61px',
-                  height: isSelected ? '127px' : '99px'
-                }}
-                custom={index}
-                initial="initial"
-                animate="animate"
-                variants={listItemVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap="tap"
-                layout
-                transition={{
-                  layout: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }
-                }}
-              >
+        {weekDays.map((day, index) => {
+          const isSelected = index === selectedIndex;
+          
+          return (
+            <motion.button
+              key={`${day.fullDate.toISOString()}-${index}`}
+              onClick={() => handleDayClick(index, day)}
+              className={`
+                flex-shrink-0 rounded-[40px] flex flex-col items-center justify-center
+                transition-all duration-300
+                ${
+                  isSelected
+                    ? 'bg-gradient-live'
+                    : 'bg-[#2C2C2C] hover:bg-[#353535]'
+                }
+              `}
+              style={{ 
+                width: isSelected ? '61px' : '61px',
+                height: isSelected ? '127px' : '99px'
+              }}
+              custom={index}
+              initial="initial"
+              animate="animate"
+              variants={listItemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap="tap"
+              layout
+              transition={{
+                layout: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }
+              }}
+            >
                 {/* Date */}
                 <motion.span
                   className="font-zaglav font-normal leading-none"
