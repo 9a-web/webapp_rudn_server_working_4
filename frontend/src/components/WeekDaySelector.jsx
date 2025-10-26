@@ -101,8 +101,8 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
   return (
     <div className="px-6 md:px-8 lg:px-10 overflow-x-auto scrollbar-hide">
       <motion.div 
-        className="flex gap-3 md:gap-4 justify-start md:justify-center min-w-max md:min-w-0 pl-1 items-center" 
-        style={{ height: '127px' }}
+        className="flex gap-3 md:gap-4 justify-start md:justify-center min-w-max md:min-w-0 items-center" 
+        style={{ height: '127px', padding: '0 4px' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
