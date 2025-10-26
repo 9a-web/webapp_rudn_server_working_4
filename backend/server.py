@@ -30,8 +30,12 @@ from models import (
     UserSettingsCreate,
     UserSettingsResponse,
     ErrorResponse,
-    SuccessResponse
+    SuccessResponse,
+    NotificationSettingsUpdate,
+    NotificationSettingsResponse
 )
+from notifications import get_notification_service
+from scheduler import get_scheduler
 
 
 ROOT_DIR = Path(__file__).parent
