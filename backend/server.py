@@ -255,6 +255,70 @@ async def get_cached_schedule(group_id: str, week_number: int):
         logger.error(f"Ошибка при получении кэша: {e}")
         return None
 
+
+# ============ Эндпоинты для управления уведомлениями ============
+
+@api_router.put("/user-settings/{telegram_id}/notifications", response_model=NotificationSettingsResponse)
+async def update_notification_settings(telegram_id: int, settings: NotificationSettingsUpdate):
+    """Обновить настройки уведомлений пользователя"""
+    try:
+        # Проверяем существование пользователя
+        user = await db.user_settings.find_one({"telegram_id": telegram_id})
+        
+        if not user:
+            raise HTTPException(status_code=404, detail="Пользователь не найден")
+        
+        # Обновляем настройки уведомлений
+        await db.user_settings.update_one(
+            {"telegram_id": telegram_id},
+            {"$set": {
+                "notifications_enabled": settings.notifications_enabled,
+                "notification_time": settings.notification_time,
+                "updated_at": datetime.utcnow()
+            }}
+        )
+        
+        # Если уведомления включены, отправляем тестовое уведомление
+        if settings.notifications_enabled:
+            try:
+                notification_service = get_notification_service()
+                await notification_service.send_test_notification(telegram_id)
+            except Exception as e:
+                logger.warning(f"Failed to send test notification: {e}")
+        
+        return NotificationSettingsResponse(
+            notifications_enabled=settings.notifications_enabled,
+            notification_time=settings.notification_time,
+            telegram_id=telegram_id
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Ошибка при обновлении настроек уведомлений: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/user-settings/{telegram_id}/notifications", response_model=NotificationSettingsResponse)
+async def get_notification_settings(telegram_id: int):
+    """Получить настройки уведомлений пользователя"""
+    try:
+        user = await db.user_settings.find_one({"telegram_id": telegram_id})
+        
+        if not user:
+            raise HTTPException(status_code=404, detail="Пользователь не найден")
+        
+        return NotificationSettingsResponse(
+            notifications_enabled=user.get("notifications_enabled", False),
+            notification_time=user.get("notification_time", 10),
+            telegram_id=telegram_id
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Ошибка при получении настроек уведомлений: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
