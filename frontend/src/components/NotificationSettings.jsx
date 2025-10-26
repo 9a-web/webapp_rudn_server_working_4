@@ -92,19 +92,47 @@ export const NotificationSettings = ({
 
   if (loading) {
     return (
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-3xl p-6 w-full max-w-md">
+      <motion.div 
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={backdropVariants}
+      >
+        <motion.div 
+          className="bg-white rounded-3xl p-6 w-full max-w-md"
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={modalVariants}
+        >
           <div className="flex items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
+            <motion.div 
+              className="rounded-full h-12 w-12 border-b-2 border-black"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            />
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl">
+    <motion.div 
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={backdropVariants}
+    >
+      <motion.div 
+        className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl"
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={modalVariants}
+      >
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
