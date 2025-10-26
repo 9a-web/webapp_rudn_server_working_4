@@ -226,7 +226,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   </filter>
                 </defs>
                 
-                {/* Background circle - всегда видимое яркое */}
+                {/* Background circle - темное статичное фоновое кольцо */}
                 <circle
                   cx="60"
                   cy="60"
@@ -234,11 +234,10 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   stroke="url(#progressGradient)"
                   strokeWidth="8"
                   fill="none"
-                  opacity="0.8"
-                  filter="url(#glowFilter)"
+                  opacity="0.15"
                 />
                 
-                {/* Progress circle - заполняется во время пары */}
+                {/* Progress circle - яркое кольцо, заполняется во время пары */}
                 <motion.circle
                   cx="60"
                   cy="60"
@@ -265,6 +264,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                       ? 'drop-shadow(0 0 12px rgba(163, 247, 191, 0.8)) drop-shadow(0 0 20px rgba(163, 247, 191, 0.5))' 
                       : 'url(#glowFilter)'
                   }}
+                  opacity={currentClass ? 1 : 0.8}
                 />
               </svg>
               
