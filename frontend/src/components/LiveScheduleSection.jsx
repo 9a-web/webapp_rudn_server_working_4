@@ -39,12 +39,17 @@ export const LiveScheduleSection = ({
 
   // Function to determine class status
   const getClassStatus = (classItem) => {
-    const now = currentTime;
+    const now = new Date(); // Всегда используем актуальное время
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
     // Проверяем, что выбранный день - сегодня
     const today = new Date();
-    const isToday = selectedDate.toDateString() === today.toDateString();
+    today.setHours(0, 0, 0, 0); // Сбрасываем время для корректного сравнения дат
+    
+    const selectedDay = new Date(selectedDate);
+    selectedDay.setHours(0, 0, 0, 0);
+    
+    const isToday = selectedDay.getTime() === today.getTime();
 
     const timeRange = classItem.time.split('-');
     if (timeRange.length !== 2) return { status: t('classStatus.upcoming'), color: '#FF6B6B' };
@@ -55,12 +60,12 @@ export const LiveScheduleSection = ({
     const endTime = endHour * 60 + endMin;
 
     // Если выбран прошлый день - все пары закончились
-    if (selectedDate < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+    if (selectedDay < today) {
       return { status: t('classStatus.finished'), color: '#76EF83' };
     }
 
     // Если выбран будущий день - все пары предстоят
-    if (selectedDate > new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+    if (selectedDay > today) {
       return { status: t('classStatus.upcoming'), color: '#FF6B6B' };
     }
 
