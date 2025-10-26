@@ -226,15 +226,24 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   </filter>
                 </defs>
                 
-                {/* Background circle - темное статичное фоновое кольцо */}
-                <circle
+                {/* Background circle - темное фоновое кольцо с плавной анимацией */}
+                <motion.circle
                   cx="60"
                   cy="60"
                   r={circleRadius}
                   stroke="url(#progressGradient)"
                   strokeWidth="8"
                   fill="none"
-                  opacity="0.15"
+                  animate={currentClass ? {
+                    opacity: [0.15, 0.35, 0.15]
+                  } : {
+                    opacity: 0.15
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
                 />
                 
                 {/* Progress circle - яркое кольцо, заполняется во время пары */}
