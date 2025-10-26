@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
+import { liveCardVariants, fadeInScale } from '../utils/animations';
 
 export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
   const [time, setTime] = useState(new Date());
@@ -21,9 +23,15 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
 
   return (
     <div className="mt-4 flex justify-center px-6 md:px-0">
-      <div className="relative w-full max-w-[373px] md:max-w-[420px] lg:max-w-[480px]" style={{ paddingBottom: '49px' }}>
+      <motion.div 
+        className="relative w-full max-w-[373px] md:max-w-[420px] lg:max-w-[480px]" 
+        style={{ paddingBottom: '49px' }}
+        initial="initial"
+        animate="animate"
+        variants={liveCardVariants}
+      >
         {/* 3rd layer - самая маленькая и дальняя */}
-        <div 
+        <motion.div 
           className="absolute rounded-3xl mx-auto left-0 right-0"
           style={{ 
             backgroundColor: '#212121',
@@ -32,9 +40,12 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
             top: '49px',
             zIndex: 1
           }}
-        ></div>
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        ></motion.div>
         {/* 2nd layer - средняя */}
-        <div 
+        <motion.div 
           className="absolute rounded-3xl mx-auto left-0 right-0"
           style={{ 
             backgroundColor: '#2C2C2C',
@@ -43,10 +54,13 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
             top: '22px',
             zIndex: 2
           }}
-        ></div>
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+        ></motion.div>
         
         {/* Main card - 1-я карточка (самая большая) */}
-        <div 
+        <motion.div 
           className="relative rounded-3xl p-6 md:p-8 shadow-card overflow-hidden"
           style={{ 
             backgroundColor: '#343434',
