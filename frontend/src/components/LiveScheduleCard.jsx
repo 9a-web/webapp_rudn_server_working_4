@@ -152,38 +152,157 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
               </AnimatePresence>
             </div>
 
-            {/* Right side - Gradient circle with time */}
+            {/* Right side - Gradient circle with time and progress bar */}
             <motion.div 
               className="relative flex items-center justify-center w-24 h-24 md:w-28 md:h-28"
-              animate={{ rotate: currentClass ? 0 : 360 }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ 
+                scale: [1, 1.02, 1],
+                opacity: 1
+              }}
               transition={{ 
-                duration: 20, 
-                repeat: Infinity, 
-                ease: "linear",
-                repeatType: "loop"
+                scale: {
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                },
+                opacity: {
+                  duration: 0.4,
+                  delay: 0.3
+                }
               }}
             >
-              {/* Gradient circle border as image */}
-              <img 
-                src="/circle-gradient.png" 
-                alt="Gradient circle" 
-                className="absolute w-24 h-24 md:w-28 md:h-28 animate-pulse-glow"
-                style={{ filter: 'blur(4px)', opacity: 0.8 }}
+              {/* Glowing background effect */}
+              <motion.div
+                className="absolute w-24 h-24 md:w-28 md:h-28 rounded-full"
+                style={{
+                  background: 'radial-gradient(circle, rgba(163, 247, 191, 0.3) 0%, rgba(255, 230, 109, 0.2) 25%, rgba(255, 180, 209, 0.2) 50%, rgba(196, 163, 255, 0.2) 75%, rgba(128, 232, 255, 0.3) 100%)',
+                  filter: 'blur(20px)'
+                }}
+                animate={{ 
+                  scale: [1, 1.15, 1],
+                  opacity: [0.4, 0.7, 0.4]
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
               />
               
-              {/* Main circle with image border - thicker border */}
-              <div className="relative w-24 h-24 md:w-28 md:h-28">
-                <img 
-                  src="/circle-gradient.png" 
-                  alt="Gradient circle" 
-                  className="absolute w-full h-full"
-                />
-                <div className="absolute inset-[5px] rounded-full flex items-center justify-center" style={{ backgroundColor: '#343434' }}>
-                  <span className="text-xl md:text-2xl font-bold" style={{ color: '#FFFFFF' }}>
+              {/* SVG Progress Bar (только когда идет пара) */}
+              {currentClass && (
+                <svg 
+                  className="absolute w-24 h-24 md:w-28 md:h-28"
+                  style={{ transform: 'rotate(-90deg)' }}
+                >
+                  {/* Background circle */}
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r={circleRadius}
+                    stroke="rgba(255, 255, 255, 0.1)"
+                    strokeWidth="4"
+                    fill="none"
+                  />
+                  {/* Progress circle with gradient */}
+                  <defs>
+                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#A3F7BF" />
+                      <stop offset="25%" stopColor="#FFE66D" />
+                      <stop offset="50%" stopColor="#FFB4D1" />
+                      <stop offset="75%" stopColor="#C4A3FF" />
+                      <stop offset="100%" stopColor="#80E8FF" />
+                    </linearGradient>
+                  </defs>
+                  <motion.circle
+                    cx="48"
+                    cy="48"
+                    r={circleRadius}
+                    stroke="url(#progressGradient)"
+                    strokeWidth="5"
+                    fill="none"
+                    strokeLinecap="round"
+                    initial={{ 
+                      strokeDasharray: circleCircumference,
+                      strokeDashoffset: circleCircumference
+                    }}
+                    animate={{ 
+                      strokeDashoffset: circleCircumference - (circleCircumference * progressPercentage) / 100
+                    }}
+                    transition={{ 
+                      duration: 1,
+                      ease: [0.25, 0.1, 0.25, 1]
+                    }}
+                    style={{
+                      filter: 'drop-shadow(0 0 8px rgba(163, 247, 191, 0.6))'
+                    }}
+                  />
+                </svg>
+              )}
+              
+              {/* Static gradient ring (когда нет пары) */}
+              {!currentClass && (
+                <>
+                  <motion.img 
+                    src="/circle-gradient.png" 
+                    alt="Gradient circle" 
+                    className="absolute w-24 h-24 md:w-28 md:h-28"
+                    style={{ filter: 'blur(4px)' }}
+                    animate={{ 
+                      opacity: [0.6, 0.9, 0.6]
+                    }}
+                    transition={{ 
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <img 
+                    src="/circle-gradient.png" 
+                    alt="Gradient circle" 
+                    className="absolute w-24 h-24 md:w-28 md:h-28"
+                  />
+                </>
+              )}
+              
+              {/* Center content with time */}
+              <motion.div 
+                className="relative w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center z-10" 
+                style={{ backgroundColor: '#343434' }}
+                animate={{ 
+                  boxShadow: currentClass 
+                    ? [
+                        '0 0 0 rgba(163, 247, 191, 0)',
+                        '0 0 20px rgba(163, 247, 191, 0.3)',
+                        '0 0 0 rgba(163, 247, 191, 0)'
+                      ]
+                    : [
+                        '0 0 0 rgba(128, 232, 255, 0)',
+                        '0 0 15px rgba(128, 232, 255, 0.2)',
+                        '0 0 0 rgba(128, 232, 255, 0)'
+                      ]
+                }}
+                transition={{ 
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.span 
+                    key={formatTime(time)}
+                    className="text-xl md:text-2xl font-bold" 
+                    style={{ color: '#FFFFFF' }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     {formatTime(time)}
-                  </span>
-                </div>
-              </div>
+                  </motion.span>
+                </AnimatePresence>
+              </motion.div>
             </motion.div>
           </div>
         </motion.div>
