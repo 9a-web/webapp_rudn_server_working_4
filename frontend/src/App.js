@@ -307,6 +307,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/status-tester" element={<StatusTester />} />
           </Routes>
         </BrowserRouter>
       </TelegramProvider>
