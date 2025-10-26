@@ -7,7 +7,8 @@ export const NotificationSettings = ({
   telegramId, 
   onClose, 
   hapticFeedback,
-  showAlert 
+  showAlert,
+  isOpen 
 }) => {
   const { t } = useTranslation();
   const [enabled, setEnabled] = useState(false);
@@ -26,8 +27,10 @@ export const NotificationSettings = ({
 
   // Загрузка текущих настроек
   useEffect(() => {
-    loadSettings();
-  }, [telegramId]);
+    if (isOpen && telegramId) {
+      loadSettings();
+    }
+  }, [isOpen, telegramId]);
 
   const loadSettings = async () => {
     try {
