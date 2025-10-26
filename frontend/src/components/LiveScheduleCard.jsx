@@ -270,7 +270,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
               
               {/* Center content with time */}
               <motion.div 
-                className="relative w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center z-10" 
+                className="relative w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full flex items-center justify-center z-10" 
                 style={{ backgroundColor: '#343434' }}
                 animate={{ 
                   boxShadow: currentClass 
@@ -294,7 +294,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                 <AnimatePresence mode="wait">
                   <motion.span 
                     key={formatTime(time)}
-                    className="text-xl md:text-2xl font-bold" 
+                    className="text-xl md:text-2xl lg:text-3xl font-bold" 
                     style={{ color: '#FFFFFF' }}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
