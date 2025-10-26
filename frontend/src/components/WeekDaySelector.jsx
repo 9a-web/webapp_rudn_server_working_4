@@ -131,8 +131,14 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
               initial="initial"
               animate="animate"
               variants={listItemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap="tap"
+              whileHover={{ 
+                scale: 1.03,
+                transition: { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }
+              }}
+              whileTap={{ 
+                scale: 0.97,
+                transition: { duration: 0.1 }
+              }}
               layout
               transition={{
                 layout: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }
