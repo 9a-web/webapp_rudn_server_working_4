@@ -165,7 +165,8 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
 
             {/* Right side - Gradient circle with time and progress bar */}
             <motion.div 
-              className="relative flex items-center justify-center w-24 h-24 md:w-28 md:h-28"
+              className="relative flex items-center justify-center w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40"
+              style={{ overflow: 'visible' }}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ 
                 scale: [1, 1.02, 1],
@@ -185,7 +186,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
             >
               {/* Glowing background effect */}
               <motion.div
-                className="absolute w-24 h-24 md:w-28 md:h-28 rounded-full"
+                className="absolute w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full"
                 style={{
                   background: 'radial-gradient(circle, rgba(163, 247, 191, 0.3) 0%, rgba(255, 230, 109, 0.2) 25%, rgba(255, 180, 209, 0.2) 50%, rgba(196, 163, 255, 0.2) 75%, rgba(128, 232, 255, 0.3) 100%)',
                   filter: 'blur(20px)'
@@ -203,8 +204,9 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
               
               {/* SVG Progress Bar (всегда отображается) */}
               <svg 
-                className="absolute w-24 h-24 md:w-28 md:h-28"
-                style={{ transform: 'rotate(-90deg)' }}
+                className="absolute w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40"
+                style={{ transform: 'rotate(-90deg)', overflow: 'visible' }}
+                viewBox="0 0 120 120"
               >
                 {/* Gradient definitions */}
                 <defs>
@@ -215,7 +217,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                     <stop offset="75%" stopColor="#C4A3FF" />
                     <stop offset="100%" stopColor="#80E8FF" />
                   </linearGradient>
-                  <filter id="glowFilter">
+                  <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
                     <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                     <feMerge>
                       <feMergeNode in="coloredBlur"/>
@@ -226,8 +228,8 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                 
                 {/* Background circle - всегда видимое яркое */}
                 <circle
-                  cx="48"
-                  cy="48"
+                  cx="60"
+                  cy="60"
                   r={circleRadius}
                   stroke="url(#progressGradient)"
                   strokeWidth="8"
@@ -238,8 +240,8 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                 
                 {/* Progress circle - заполняется во время пары */}
                 <motion.circle
-                  cx="48"
-                  cy="48"
+                  cx="60"
+                  cy="60"
                   r={circleRadius}
                   stroke="url(#progressGradient)"
                   strokeWidth="9"
