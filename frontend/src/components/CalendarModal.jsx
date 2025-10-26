@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
+import { modalVariants, backdropVariants } from '../utils/animations';
 
 export const CalendarModal = ({ isOpen, onClose, onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
