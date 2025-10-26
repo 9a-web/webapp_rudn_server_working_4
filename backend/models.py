@@ -172,3 +172,18 @@ class SuccessResponse(BaseModel):
     """Модель успешного ответа"""
     success: bool
     message: str
+
+
+# ============ Модели для уведомлений ============
+
+class NotificationSettingsUpdate(BaseModel):
+    """Обновление настроек уведомлений"""
+    notifications_enabled: bool
+    notification_time: int = Field(ge=5, le=30)
+
+
+class NotificationSettingsResponse(BaseModel):
+    """Ответ с настройками уведомлений"""
+    notifications_enabled: bool
+    notification_time: int
+    telegram_id: int
