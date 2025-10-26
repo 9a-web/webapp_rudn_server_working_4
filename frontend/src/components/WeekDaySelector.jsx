@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
+import { daySelectorVariants, listItemVariants } from '../utils/animations';
 
 export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, hapticFeedback }) => {
   const [weekDays, setWeekDays] = useState([]);
