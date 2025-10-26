@@ -100,54 +100,76 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
 
   return (
     <div className="px-6 md:px-8 lg:px-10 overflow-x-auto scrollbar-hide">
-      <div className="flex gap-3 md:gap-4 justify-start md:justify-center min-w-max md:min-w-0 pl-1 items-center" style={{ height: '127px' }}>
-        {weekDays.map((day, index) => {
-          const isSelected = index === selectedIndex;
-          
-          return (
-            <button
-              key={index}
-              onClick={() => handleDayClick(index, day)}
-              className={`
-                flex-shrink-0 rounded-[40px] flex flex-col items-center justify-center
-                transition-all duration-300
-                ${
-                  isSelected
-                    ? 'bg-gradient-live'
-                    : 'bg-[#2C2C2C] hover:bg-[#353535]'
-                }
-              `}
-              style={{ 
-                width: isSelected ? '61px' : '61px',
-                height: isSelected ? '127px' : '99px'
-              }}
-            >
-              {/* Date */}
-              <span
-                className="font-zaglav font-normal leading-none"
-                style={{
-                  fontSize: '52px',
-                  color: isSelected ? '#F9F9F9' : '#BEBEBE',
-                  fontWeight: 400,
-                  marginBottom: '1px'
+      <motion.div 
+        className="flex gap-3 md:gap-4 justify-start md:justify-center min-w-max md:min-w-0 pl-1 items-center" 
+        style={{ height: '127px' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      >
+        <AnimatePresence mode="wait">
+          {weekDays.map((day, index) => {
+            const isSelected = index === selectedIndex;
+            
+            return (
+              <motion.button
+                key={`${day.fullDate.toISOString()}-${index}`}
+                onClick={() => handleDayClick(index, day)}
+                className={`
+                  flex-shrink-0 rounded-[40px] flex flex-col items-center justify-center
+                  transition-all duration-300
+                  ${
+                    isSelected
+                      ? 'bg-gradient-live'
+                      : 'bg-[#2C2C2C] hover:bg-[#353535]'
+                  }
+                `}
+                style={{ 
+                  width: isSelected ? '61px' : '61px',
+                  height: isSelected ? '127px' : '99px'
+                }}
+                custom={index}
+                initial="initial"
+                animate="animate"
+                variants={listItemVariants}
+                whileHover={{ scale: 1.05 }}
+                whileTap="tap"
+                layout
+                transition={{
+                  layout: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }
                 }}
               >
-                {String(day.date).padStart(2, '0')}
-              </span>
-              
-              {/* Day of week */}
-              <span
-                className="font-zaglav font-normal leading-none"
-                style={{
-                  fontSize: '36px',
-                  color: '#999999',
-                  fontWeight: 400
-                }}
-              >
-                {day.dayName}
-              </span>
-            </button>
-          );
+                {/* Date */}
+                <motion.span
+                  className="font-zaglav font-normal leading-none"
+                  style={{
+                    fontSize: '52px',
+                    color: isSelected ? '#F9F9F9' : '#BEBEBE',
+                    fontWeight: 400,
+                    marginBottom: '1px'
+                  }}
+                  animate={{ 
+                    scale: isSelected ? 1.05 : 1,
+                    color: isSelected ? '#F9F9F9' : '#BEBEBE'
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {String(day.date).padStart(2, '0')}
+                </motion.span>
+                
+                {/* Day of week */}
+                <span
+                  className="font-zaglav font-normal leading-none"
+                  style={{
+                    fontSize: '36px',
+                    color: '#999999',
+                    fontWeight: 400
+                  }}
+                >
+                  {day.dayName}
+                </span>
+              </motion.button>
+            );
         })}
       </div>
     </div>
