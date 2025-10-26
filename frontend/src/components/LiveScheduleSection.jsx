@@ -67,14 +67,18 @@ export const LiveScheduleSection = ({
     // Если сегодня - проверяем по времени
     if (isToday) {
       if (currentMinutes >= endTime) {
+        // Пара закончилась
         return { status: t('classStatus.finished'), color: '#76EF83' };
       } else if (currentMinutes >= startTime && currentMinutes < endTime) {
+        // Пара идёт сейчас
         return { status: t('classStatus.inProgress'), color: '#FFC83F' };
       } else {
+        // Пара ещё не началась
         return { status: t('classStatus.upcoming'), color: '#FF6B6B' };
       }
     }
 
+    // Fallback - не должен достигаться при корректной логике
     return { status: t('classStatus.upcoming'), color: '#FF6B6B' };
   };
 
