@@ -75,23 +75,57 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
           <div className="relative flex items-center justify-between">
             {/* Left side - Text content */}
             <div className="flex-1">
-              <div className="mb-2">
-                <p className="font-bold text-base md:text-lg lg:text-xl" style={{ color: '#FFFFFF' }}>
-                  {currentClass ? t('liveScheduleCard.currentClass') : t('liveScheduleCard.noClass')}
-                </p>
-                {currentClass && (
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={currentClass || 'no-class'}
+                  className="mb-2"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <p className="font-bold text-base md:text-lg lg:text-xl" style={{ color: '#FFFFFF' }}>
-                    {currentClass}
+                    {currentClass ? t('liveScheduleCard.currentClass') : t('liveScheduleCard.noClass')}
                   </p>
-                )}
-              </div>
-              <p className="font-medium text-sm md:text-base" style={{ color: '#999999' }}>
-                {currentClass ? t('liveScheduleCard.timeLeft', { minutes: minutesLeft }) : t('liveScheduleCard.relax')}
-              </p>
+                  {currentClass && (
+                    <motion.p 
+                      className="font-bold text-base md:text-lg lg:text-xl" 
+                      style={{ color: '#FFFFFF' }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.1 }}
+                    >
+                      {currentClass}
+                    </motion.p>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+              <AnimatePresence mode="wait">
+                <motion.p 
+                  key={minutesLeft}
+                  className="font-medium text-sm md:text-base" 
+                  style={{ color: '#999999' }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {currentClass ? t('liveScheduleCard.timeLeft', { minutes: minutesLeft }) : t('liveScheduleCard.relax')}
+                </motion.p>
+              </AnimatePresence>
             </div>
 
             {/* Right side - Gradient circle with time */}
-            <div className="relative flex items-center justify-center w-24 h-24 md:w-28 md:h-28">
+            <motion.div 
+              className="relative flex items-center justify-center w-24 h-24 md:w-28 md:h-28"
+              animate={{ rotate: currentClass ? 0 : 360 }}
+              transition={{ 
+                duration: 20, 
+                repeat: Infinity, 
+                ease: "linear",
+                repeatType: "loop"
+              }}
+            >
               {/* Gradient circle border as image */}
               <img 
                 src="/circle-gradient.png" 
@@ -113,10 +147,10 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
