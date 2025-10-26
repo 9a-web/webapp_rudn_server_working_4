@@ -168,9 +168,8 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
                   {day.dayName}
                 </span>
               </motion.button>
-            );
-          })}
-        </AnimatePresence>
+          );
+        })}
       </motion.div>
     </div>
   );
