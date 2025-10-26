@@ -108,20 +108,20 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
             }}
           ></motion.div>
           
-          <div className="relative flex items-center justify-between">
+          <div className="relative flex items-center justify-between gap-4 md:gap-6 lg:gap-8">
             {/* Left side - Text content с улучшенными анимациями */}
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <AnimatePresence mode="wait">
                 <motion.div 
                   key={currentClass || 'no-class'}
-                  className="mb-2"
+                  className="mb-2 md:mb-3"
                   initial={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
                   animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   exit={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
                   transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 >
                   <motion.p 
-                    className="font-bold text-base md:text-lg lg:text-xl" 
+                    className="font-bold text-base md:text-lg lg:text-xl break-words" 
                     style={{ color: '#FFFFFF' }}
                     animate={currentClass ? {
                       textShadow: [
@@ -136,7 +136,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   </motion.p>
                   {currentClass && (
                     <motion.p 
-                      className="font-bold text-base md:text-lg lg:text-xl" 
+                      className="font-bold text-base md:text-lg lg:text-xl break-words" 
                       style={{ color: '#FFFFFF' }}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -150,7 +150,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
               <AnimatePresence mode="wait">
                 <motion.p 
                   key={minutesLeft}
-                  className="font-medium text-sm md:text-base" 
+                  className="font-medium text-sm md:text-base lg:text-lg break-words" 
                   style={{ color: '#999999' }}
                   initial={{ opacity: 0, x: -5 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -164,7 +164,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
 
             {/* Right side - Gradient circle with time and progress bar */}
             <motion.div 
-              className="relative flex items-center justify-center w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40"
+              className="relative flex items-center justify-center flex-shrink-0 w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36"
               style={{ overflow: 'visible' }}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ 
