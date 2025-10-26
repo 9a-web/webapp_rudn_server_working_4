@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Bell, BellOff, Clock, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { userAPI } from '../services/api';
 import { useTranslation } from 'react-i18next';
+import { modalVariants, backdropVariants } from '../utils/animations';
 
 export const NotificationSettings = ({ 
   telegramId, 
