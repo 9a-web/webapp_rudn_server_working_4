@@ -229,8 +229,8 @@ export const NotificationSettings = ({
             {saving ? 'Сохранение...' : 'Сохранить'}
           </button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
