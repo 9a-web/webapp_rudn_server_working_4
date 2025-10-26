@@ -246,7 +246,10 @@ const Home = () => {
       
       {/* Adaptive container with max-width for desktop */}
       <div className="relative mx-auto max-w-[430px] md:max-w-2xl lg:max-w-4xl" style={{ zIndex: 10 }}>
-        <Header onCalendarClick={handleCalendarClick} />
+        <Header 
+          onCalendarClick={handleCalendarClick}
+          onNotificationsClick={user ? handleNotificationsClick : null}
+        />
         
         <LiveScheduleCard 
           currentClass={currentClass} 
@@ -278,6 +281,19 @@ const Home = () => {
         
         <CalendarModal
           isOpen={isCalendarOpen}
+          onClose={() => setIsCalendarOpen(false)}
+          onDateSelect={handleDateSelect}
+        />
+
+        {user && (
+          <NotificationSettings
+            telegramId={user.id}
+            onClose={() => setIsNotificationSettingsOpen(false)}
+            hapticFeedback={hapticFeedback}
+            showAlert={showAlert}
+            isOpen={isNotificationSettingsOpen}
+          />
+        )}
           onClose={() => setIsCalendarOpen(false)}
           onDateSelect={handleDateSelect}
         />
