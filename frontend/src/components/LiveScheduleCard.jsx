@@ -248,12 +248,12 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   strokeLinecap="round"
                   initial={{ 
                     strokeDasharray: circleCircumference,
-                    strokeDashoffset: circleCircumference
+                    strokeDashoffset: 0
                   }}
                   animate={{ 
                     strokeDashoffset: currentClass 
                       ? circleCircumference - (circleCircumference * progressPercentage) / 100
-                      : circleCircumference
+                      : 0
                   }}
                   transition={{ 
                     duration: 1,
@@ -264,7 +264,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                       ? 'drop-shadow(0 0 12px rgba(163, 247, 191, 0.8)) drop-shadow(0 0 20px rgba(163, 247, 191, 0.5))' 
                       : 'url(#glowFilter)'
                   }}
-                  opacity={currentClass ? 1 : 0.8}
+                  opacity={1}
                 />
               </svg>
               
