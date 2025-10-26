@@ -304,7 +304,8 @@ metadata:
 test_plan:
   current_focus:
     - "Language Switching - i18n Integration"
-  stuck_tasks: []
+  stuck_tasks:
+    - "Language Switching - i18n Integration"
   test_all: false
   test_priority: "high_first"
 
