@@ -319,6 +319,18 @@ frontend:
           agent: "testing"
           comment: "❌ CRITICAL ISSUE: Language switcher button is completely missing from the rendered HTML. Extensive testing revealed: 1) Header only renders calendar button, not the language switcher 2) Actual HTML structure doesn't match Header.jsx file - missing the 'Right side' div container with language switcher 3) i18n libraries not loaded in browser (reactI18nextExists: false, i18nextExists: false) 4) Header title shows 'Rudn Schedule' instead of using t('header.title') 5) Multiple rebuild attempts and cache clearing didn't resolve the issue. The Header component appears to be rendering an older version without i18n integration. Root cause: The updated Header.jsx with language switcher is not being compiled/served correctly. All translation files and dependencies are present, but the component is not rendering the expected structure."
 
+  - task: "Notification Settings Modal - Save and Close"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/NotificationSettings.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "🔧 Fixed issue where notification settings modal was not closing after saving. Problem: onClose callback was inside setTimeout but setSaving(false) was in finally block, causing state conflict. Solution: Moved setSaving(false) inside try/catch blocks before setTimeout, removed finally block. Now modal closes properly 300ms after successful save. Backend API endpoints tested and working correctly (GET and PUT /api/user-settings/{telegram_id}/notifications). Ready for frontend testing."
+
 metadata:
   created_by: "main_agent"
   version: "1.2"
