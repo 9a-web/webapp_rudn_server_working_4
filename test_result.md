@@ -180,6 +180,30 @@ backend:
           agent: "testing"
           comment: "✅ Correctly returns HTTP 404 for non-existent users. Proper error handling implemented."
 
+  - task: "GET /api/user-settings/{telegram_id}/notifications - Get Notification Settings"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Successfully retrieves notification settings by Telegram ID. Returns proper JSON with notifications_enabled, notification_time, and telegram_id fields. Correctly handles non-existent users with HTTP 404. Default settings: notifications_enabled=false, notification_time=10."
+
+  - task: "PUT /api/user-settings/{telegram_id}/notifications - Update Notification Settings"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Successfully updates notification settings for existing users. Validates notification_time range (5-30 minutes) and rejects invalid values with HTTP 422. Returns updated settings with proper JSON structure. Correctly handles non-existent users with HTTP 404. Settings persist correctly across requests."
+
 frontend:
   - task: "Header Component Display"
     implemented: true
