@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { liveCardVariants, fadeInScale } from '../utils/animations';
@@ -20,6 +20,18 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;
   };
+
+  // Расчет прогресса для progress bar (предполагаем, что пара длится 90 минут)
+  const progressPercentage = useMemo(() => {
+    if (!currentClass || !minutesLeft) return 0;
+    const totalClassDuration = 90; // минут
+    const elapsed = totalClassDuration - minutesLeft;
+    return Math.max(0, Math.min(100, (elapsed / totalClassDuration) * 100));
+  }, [currentClass, minutesLeft]);
+
+  // SVG circle параметры
+  const circleRadius = 42;
+  const circleCircumference = 2 * Math.PI * circleRadius;
 
   return (
     <div className="mt-4 flex justify-center px-6 md:px-0">
