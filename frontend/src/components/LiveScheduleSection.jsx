@@ -18,11 +18,11 @@ export const LiveScheduleSection = ({
   const [currentTime, setCurrentTime] = useState(new Date());
   const { t } = useTranslation();
 
-  // Update current time every 30 seconds for more responsive status updates
+  // Update current time every 10 seconds for real-time status updates
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
-    }, 30000); // Update every 30 seconds
+    }, 10000); // Update every 10 seconds
     return () => clearInterval(interval);
   }, []);
 
