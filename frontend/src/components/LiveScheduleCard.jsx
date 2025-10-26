@@ -110,27 +110,38 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
           ></motion.div>
           
           <div className="relative flex items-center justify-between">
-            {/* Left side - Text content */}
+            {/* Left side - Text content с улучшенными анимациями */}
             <div className="flex-1">
               <AnimatePresence mode="wait">
                 <motion.div 
                   key={currentClass || 'no-class'}
                   className="mb-2"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 >
-                  <p className="font-bold text-base md:text-lg lg:text-xl" style={{ color: '#FFFFFF' }}>
+                  <motion.p 
+                    className="font-bold text-base md:text-lg lg:text-xl" 
+                    style={{ color: '#FFFFFF' }}
+                    animate={currentClass ? {
+                      textShadow: [
+                        '0 0 0px rgba(163, 247, 191, 0)',
+                        '0 0 10px rgba(163, 247, 191, 0.5)',
+                        '0 0 0px rgba(163, 247, 191, 0)'
+                      ]
+                    } : {}}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
                     {currentClass ? t('liveScheduleCard.currentClass') : t('liveScheduleCard.noClass')}
-                  </p>
+                  </motion.p>
                   {currentClass && (
                     <motion.p 
                       className="font-bold text-base md:text-lg lg:text-xl" 
                       style={{ color: '#FFFFFF' }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.1 }}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.15, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                     >
                       {currentClass}
                     </motion.p>
@@ -142,10 +153,10 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   key={minutesLeft}
                   className="font-medium text-sm md:text-base" 
                   style={{ color: '#999999' }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ opacity: 0, x: -5 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 >
                   {currentClass ? t('liveScheduleCard.timeLeft', { minutes: minutesLeft }) : t('liveScheduleCard.relax')}
                 </motion.p>
