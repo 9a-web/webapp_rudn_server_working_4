@@ -429,6 +429,277 @@ class RUDNScheduleAPITester:
         except Exception as e:
             self.log_test("Error Handling - Non-existent User", False, f"Exception: {str(e)}")
             return False
+
+    def test_create_user_with_default_notifications(self) -> bool:
+        """Test POST /api/user-settings creates user with default notification settings"""
+        try:
+            print("🔍 Testing POST /api/user-settings with default notifications...")
+            
+            # Create test user with telegram_id = 999999
+            test_telegram_id = 999999
+            payload = {
+                "telegram_id": test_telegram_id,
+                "username": "notification_test_user",
+                "first_name": "Тест",
+                "last_name": "Уведомления",
+                "group_id": "test-group-notifications",
+                "group_name": "Тестовая группа для уведомлений",
+                "facultet_id": "test-facultet-notifications",
+                "level_id": "test-level-notifications",
+                "kurs": "1",
+                "form_code": "д"
+            }
+            
+            response = self.session.post(
+                f"{self.base_url}/user-settings",
+                json=payload,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if response.status_code != 200:
+                self.log_test("POST /api/user-settings (default notifications)", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            user_data = response.json()
+            
+            # Validate response structure
+            required_fields = ['id', 'telegram_id', 'group_id', 'group_name', 'created_at']
+            for field in required_fields:
+                if field not in user_data:
+                    self.log_test("POST /api/user-settings (default notifications)", False, 
+                                f"Missing required field: {field}")
+                    return False
+            
+            # Store test user for notification tests
+            self.test_data['notification_test_user'] = user_data
+            
+            self.log_test("POST /api/user-settings (default notifications)", True, 
+                        "Successfully created user for notification testing",
+                        {
+                            "user_id": user_data['id'],
+                            "telegram_id": user_data['telegram_id']
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("POST /api/user-settings (default notifications)", False, f"Exception: {str(e)}")
+            return False
+
+    def test_get_default_notification_settings(self) -> bool:
+        """Test GET /api/user-settings/{telegram_id}/notifications returns default settings"""
+        try:
+            print("🔍 Testing GET /api/user-settings/{telegram_id}/notifications (default settings)...")
+            
+            test_telegram_id = 999999
+            response = self.session.get(f"{self.base_url}/user-settings/{test_telegram_id}/notifications")
+            
+            if response.status_code != 200:
+                self.log_test("GET /api/user-settings/{telegram_id}/notifications (default)", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            notification_data = response.json()
+            
+            # Validate response structure
+            required_fields = ['notifications_enabled', 'notification_time', 'telegram_id']
+            for field in required_fields:
+                if field not in notification_data:
+                    self.log_test("GET /api/user-settings/{telegram_id}/notifications (default)", False, 
+                                f"Missing required field: {field}")
+                    return False
+            
+            # Check default values
+            if notification_data['notifications_enabled'] != False:
+                self.log_test("GET /api/user-settings/{telegram_id}/notifications (default)", False, 
+                            f"Expected notifications_enabled=false, got {notification_data['notifications_enabled']}")
+                return False
+            
+            if notification_data['notification_time'] != 10:
+                self.log_test("GET /api/user-settings/{telegram_id}/notifications (default)", False, 
+                            f"Expected notification_time=10, got {notification_data['notification_time']}")
+                return False
+            
+            if notification_data['telegram_id'] != test_telegram_id:
+                self.log_test("GET /api/user-settings/{telegram_id}/notifications (default)", False, 
+                            "Telegram ID mismatch in response")
+                return False
+            
+            self.log_test("GET /api/user-settings/{telegram_id}/notifications (default)", True, 
+                        "Successfully retrieved default notification settings",
+                        {
+                            "notifications_enabled": notification_data['notifications_enabled'],
+                            "notification_time": notification_data['notification_time'],
+                            "telegram_id": notification_data['telegram_id']
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("GET /api/user-settings/{telegram_id}/notifications (default)", False, f"Exception: {str(e)}")
+            return False
+
+    def test_update_notification_settings(self) -> bool:
+        """Test PUT /api/user-settings/{telegram_id}/notifications updates settings"""
+        try:
+            print("🔍 Testing PUT /api/user-settings/{telegram_id}/notifications...")
+            
+            test_telegram_id = 999999
+            payload = {
+                "notifications_enabled": True,
+                "notification_time": 15
+            }
+            
+            response = self.session.put(
+                f"{self.base_url}/user-settings/{test_telegram_id}/notifications",
+                json=payload,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if response.status_code != 200:
+                self.log_test("PUT /api/user-settings/{telegram_id}/notifications", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            notification_data = response.json()
+            
+            # Validate response structure
+            required_fields = ['notifications_enabled', 'notification_time', 'telegram_id']
+            for field in required_fields:
+                if field not in notification_data:
+                    self.log_test("PUT /api/user-settings/{telegram_id}/notifications", False, 
+                                f"Missing required field: {field}")
+                    return False
+            
+            # Check updated values
+            if notification_data['notifications_enabled'] != True:
+                self.log_test("PUT /api/user-settings/{telegram_id}/notifications", False, 
+                            f"Expected notifications_enabled=true, got {notification_data['notifications_enabled']}")
+                return False
+            
+            if notification_data['notification_time'] != 15:
+                self.log_test("PUT /api/user-settings/{telegram_id}/notifications", False, 
+                            f"Expected notification_time=15, got {notification_data['notification_time']}")
+                return False
+            
+            self.log_test("PUT /api/user-settings/{telegram_id}/notifications", True, 
+                        "Successfully updated notification settings",
+                        {
+                            "notifications_enabled": notification_data['notifications_enabled'],
+                            "notification_time": notification_data['notification_time'],
+                            "telegram_id": notification_data['telegram_id']
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("PUT /api/user-settings/{telegram_id}/notifications", False, f"Exception: {str(e)}")
+            return False
+
+    def test_verify_notification_settings_persisted(self) -> bool:
+        """Test GET /api/user-settings/{telegram_id}/notifications returns updated settings"""
+        try:
+            print("🔍 Testing notification settings persistence...")
+            
+            test_telegram_id = 999999
+            response = self.session.get(f"{self.base_url}/user-settings/{test_telegram_id}/notifications")
+            
+            if response.status_code != 200:
+                self.log_test("GET /api/user-settings/{telegram_id}/notifications (updated)", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            notification_data = response.json()
+            
+            # Check that settings were persisted correctly
+            if notification_data['notifications_enabled'] != True:
+                self.log_test("GET /api/user-settings/{telegram_id}/notifications (updated)", False, 
+                            f"Settings not persisted: notifications_enabled={notification_data['notifications_enabled']}")
+                return False
+            
+            if notification_data['notification_time'] != 15:
+                self.log_test("GET /api/user-settings/{telegram_id}/notifications (updated)", False, 
+                            f"Settings not persisted: notification_time={notification_data['notification_time']}")
+                return False
+            
+            self.log_test("GET /api/user-settings/{telegram_id}/notifications (updated)", True, 
+                        "Successfully verified notification settings persistence",
+                        {
+                            "notifications_enabled": notification_data['notifications_enabled'],
+                            "notification_time": notification_data['notification_time']
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("GET /api/user-settings/{telegram_id}/notifications (updated)", False, f"Exception: {str(e)}")
+            return False
+
+    def test_invalid_notification_time_values(self) -> bool:
+        """Test PUT /api/user-settings/{telegram_id}/notifications with invalid time values"""
+        try:
+            print("🔍 Testing invalid notification time values...")
+            
+            test_telegram_id = 999999
+            invalid_values = [4, 31]  # time < 5, time > 30
+            
+            for invalid_time in invalid_values:
+                payload = {
+                    "notifications_enabled": True,
+                    "notification_time": invalid_time
+                }
+                
+                response = self.session.put(
+                    f"{self.base_url}/user-settings/{test_telegram_id}/notifications",
+                    json=payload,
+                    headers={"Content-Type": "application/json"}
+                )
+                
+                # Should return 422 for validation error or 400 for bad request
+                if response.status_code not in [400, 422]:
+                    self.log_test("PUT /api/user-settings/{telegram_id}/notifications (invalid values)", False, 
+                                f"Expected HTTP 400/422 for time={invalid_time}, got {response.status_code}")
+                    return False
+            
+            self.log_test("PUT /api/user-settings/{telegram_id}/notifications (invalid values)", True, 
+                        "Successfully rejected invalid notification time values",
+                        {"tested_values": invalid_values})
+            return True
+            
+        except Exception as e:
+            self.log_test("PUT /api/user-settings/{telegram_id}/notifications (invalid values)", False, f"Exception: {str(e)}")
+            return False
+
+    def test_notification_settings_nonexistent_user(self) -> bool:
+        """Test notification endpoints with non-existent user"""
+        try:
+            print("🔍 Testing notification endpoints with non-existent user...")
+            
+            nonexistent_id = 888888
+            
+            # Test GET notifications for non-existent user
+            response = self.session.get(f"{self.base_url}/user-settings/{nonexistent_id}/notifications")
+            if response.status_code != 404:
+                self.log_test("Notification endpoints - Non-existent User", False, 
+                            f"GET: Expected HTTP 404, got {response.status_code}")
+                return False
+            
+            # Test PUT notifications for non-existent user
+            payload = {"notifications_enabled": True, "notification_time": 10}
+            response = self.session.put(
+                f"{self.base_url}/user-settings/{nonexistent_id}/notifications",
+                json=payload,
+                headers={"Content-Type": "application/json"}
+            )
+            if response.status_code != 404:
+                self.log_test("Notification endpoints - Non-existent User", False, 
+                            f"PUT: Expected HTTP 404, got {response.status_code}")
+                return False
+            
+            self.log_test("Notification endpoints - Non-existent User", True, 
+                        "Correctly returned 404 for non-existent user on both GET and PUT")
+            return True
+            
+        except Exception as e:
+            self.log_test("Notification endpoints - Non-existent User", False, f"Exception: {str(e)}")
+            return False
     
     def run_all_tests(self):
         """Run all API tests in sequence"""
