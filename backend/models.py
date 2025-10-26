@@ -117,6 +117,10 @@ class UserSettingsCreate(BaseModel):
     level_id: str
     kurs: str
     form_code: str
+    
+    # Настройки уведомлений (опциональные при создании)
+    notifications_enabled: Optional[bool] = False
+    notification_time: Optional[int] = 10
 
 
 class UserSettingsResponse(BaseModel):
