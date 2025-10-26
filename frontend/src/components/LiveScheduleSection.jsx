@@ -235,7 +235,7 @@ export const LiveScheduleSection = ({
                           className="font-medium"
                           style={{ 
                             fontSize: '13px',
-                            color: '#3B3B3B',
+                            color: color,
                             fontFamily: 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif'
                           }}
                         >
