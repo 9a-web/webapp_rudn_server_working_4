@@ -282,15 +282,18 @@ frontend:
 
   - task: "Language Switching - i18n Integration"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/i18n/config.js, /app/frontend/src/components/Header.jsx, /app/frontend/src/App.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "✅ Implemented full i18n support using react-i18next. Created translation files for Russian (ru.json) and English (en.json) with all UI texts. Added language switcher button in Header with Languages icon showing current language (RU/EN). Language preference saved to localStorage for persistence. Updated all components to use t() function for translations: App.js, Header.jsx, LiveScheduleCard.jsx, LiveScheduleSection.jsx, WeekDaySelector.jsx, CalendarModal.jsx, GroupSelector.jsx. Translations cover: header, live schedule card, schedule section, class statuses, week days, months, group selector steps, common messages and errors. Build completed successfully without errors. Frontend restarted and running."
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUE: Language switcher button is completely missing from the rendered HTML. Extensive testing revealed: 1) Header only renders calendar button, not the language switcher 2) Actual HTML structure doesn't match Header.jsx file - missing the 'Right side' div container with language switcher 3) i18n libraries not loaded in browser (reactI18nextExists: false, i18nextExists: false) 4) Header title shows 'Rudn Schedule' instead of using t('header.title') 5) Multiple rebuild attempts and cache clearing didn't resolve the issue. The Header component appears to be rendering an older version without i18n integration. Root cause: The updated Header.jsx with language switcher is not being compiled/served correctly. All translation files and dependencies are present, but the component is not rendering the expected structure."
 
 metadata:
   created_by: "main_agent"
