@@ -152,7 +152,8 @@ export const CalendarModal = ({ isOpen, onClose, onDateSelect }) => {
             );
           })}
         </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
