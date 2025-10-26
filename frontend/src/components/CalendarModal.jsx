@@ -69,8 +69,21 @@ export const CalendarModal = ({ isOpen, onClose, onDateSelect }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-card rounded-3xl p-6 md:p-8 w-full max-w-md md:max-w-lg shadow-2xl animate-in zoom-in-95 duration-300">
+    <AnimatePresence>
+      <motion.div 
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-sm"
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={backdropVariants}
+      >
+        <motion.div 
+          className="bg-card rounded-3xl p-6 md:p-8 w-full max-w-md md:max-w-lg shadow-2xl"
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={modalVariants}
+        >
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg md:text-xl font-bold text-foreground">
