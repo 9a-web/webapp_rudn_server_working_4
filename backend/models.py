@@ -139,6 +139,10 @@ class UserSettingsResponse(BaseModel):
     kurs: str
     form_code: str
     
+    # Настройки уведомлений
+    notifications_enabled: bool = False
+    notification_time: int = 10
+    
     created_at: datetime
     updated_at: datetime
     last_activity: Optional[datetime] = None
