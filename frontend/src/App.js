@@ -8,6 +8,7 @@ import { WeekDaySelector } from './components/WeekDaySelector';
 import { TopGlow } from './components/TopGlow';
 import { LiveScheduleSection } from './components/LiveScheduleSection';
 import GroupSelector from './components/GroupSelector';
+import NotificationSettings from './components/NotificationSettings';
 import { TelegramProvider, useTelegram } from './contexts/TelegramContext';
 import { scheduleAPI, userAPI } from './services/api';
 import { getWeekNumberForDate } from './utils/dateUtils';
@@ -19,6 +20,7 @@ const Home = () => {
   const { t } = useTranslation();
   
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isNotificationSettingsOpen, setIsNotificationSettingsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentClass, setCurrentClass] = useState(null);
   const [minutesLeft, setMinutesLeft] = useState(0);
