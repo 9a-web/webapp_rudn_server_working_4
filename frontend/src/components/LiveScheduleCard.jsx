@@ -215,9 +215,16 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                     <stop offset="75%" stopColor="#C4A3FF" />
                     <stop offset="100%" stopColor="#80E8FF" />
                   </linearGradient>
+                  <filter id="glowFilter">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
                 </defs>
                 
-                {/* Background circle - всегда видимое */}
+                {/* Background circle - всегда видимое яркое */}
                 <circle
                   cx="48"
                   cy="48"
@@ -225,7 +232,8 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   stroke="url(#progressGradient)"
                   strokeWidth="4"
                   fill="none"
-                  opacity="0.2"
+                  opacity="0.8"
+                  filter="url(#glowFilter)"
                 />
                 
                 {/* Progress circle - заполняется во время пары */}
@@ -252,8 +260,8 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   }}
                   style={{
                     filter: currentClass 
-                      ? 'drop-shadow(0 0 8px rgba(163, 247, 191, 0.6))' 
-                      : 'none'
+                      ? 'drop-shadow(0 0 12px rgba(163, 247, 191, 0.8)) drop-shadow(0 0 20px rgba(163, 247, 191, 0.5))' 
+                      : 'url(#glowFilter)'
                   }}
                 />
               </svg>
