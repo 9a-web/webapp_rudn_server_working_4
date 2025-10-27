@@ -2,6 +2,15 @@
   "header": {
     "title": "Rudn Schedule"
   },
+  "menu": {
+    "title": "Меню",
+    "achievements": "Достижения",
+    "analytics": "Аналитика",
+    "notifications": "Уведомления",
+    "calendar": "Календарь",
+    "language": "Язык",
+    "footer": "RUDN Schedule"
+  },
   "liveScheduleCard": {
     "currentClass": "Сейчас идёт:",
     "noClass": "Сейчас ничего не идёт!",
