@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Menu, Calendar, Bell } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { headerItemVariants, buttonVariants } from '../utils/animations';
+import { headerItemVariants, softBounceVariants } from '../utils/animations';
 import { MenuModal } from './MenuModal';
+import { useRipple } from '../hooks/useRipple';
+import { RippleEffect } from './RippleEffect';
 
 export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAnalyticsClick, onAchievementsClick, hapticFeedback }) => {
   const { t } = useTranslation();
