@@ -366,11 +366,11 @@ frontend:
 
   - task: "Language Switching - i18n Integration"
     implemented: true
-    working: false
-    file: "/app/frontend/src/i18n/config.js, /app/frontend/src/components/Header.jsx, /app/frontend/src/App.js"
+    working: "NA"
+    file: "/app/frontend/src/i18n/config.js, /app/frontend/src/components/MenuModal.jsx, /app/frontend/src/index.js"
     stuck_count: 2
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
