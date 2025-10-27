@@ -1182,7 +1182,9 @@ class RUDNScheduleAPITester:
             self.test_get_weather,
             self.test_track_action,
             self.test_get_user_stats,
-            self.test_get_user_achievements
+            self.test_get_user_achievements,
+            # Analytics counting fix test
+            self.test_analytics_counting_fix
         ]
         
         passed = 0
