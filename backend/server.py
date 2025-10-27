@@ -57,6 +57,13 @@ from weather import get_moscow_weather
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
+# Configure logging early
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
@@ -91,13 +98,6 @@ else:
         allow_headers=["*"],
     )
     logger.info(f"CORS configured for specific origins: {cors_origins_list}")
-
-# Configure logging early
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
