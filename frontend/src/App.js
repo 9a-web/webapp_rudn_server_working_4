@@ -263,6 +263,11 @@ const Home = () => {
     setIsAnalyticsOpen(true);
   };
 
+  const handleAchievementsClick = () => {
+    hapticFeedback('impact', 'light');
+    setIsAchievementsOpen(true);
+  };
+
   const handleNotificationsClick = () => {
     hapticFeedback('impact', 'light');
     setIsNotificationSettingsOpen(true);
