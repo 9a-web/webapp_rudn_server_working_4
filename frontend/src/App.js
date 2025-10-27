@@ -116,6 +116,78 @@ const Home = () => {
     }
   };
 
+  // Загрузка данных достижений
+  const loadAchievementsData = async () => {
+    if (!user) return;
+    
+    try {
+      const [achievements, userAchs, stats] = await Promise.all([
+        achievementsAPI.getAllAchievements(),
+        achievementsAPI.getUserAchievements(user.id),
+        achievementsAPI.getUserStats(user.id),
+      ]);
+      
+      setAllAchievements(achievements);
+      setUserAchievements(userAchs);
+      setUserStats(stats);
+    } catch (err) {
+      console.error('Error loading achievements:', err);
+    }
+  };
+
+  // Отслеживание достижений по времени
+  const trackTimeBasedAchievements = async () => {
+    if (!user) return;
+    
+    const hour = new Date().getHours();
+    let actionType = null;
+    
+    // Ночной совенок (после 00:00)
+    if (hour >= 0 && hour < 6) {
+      actionType = 'night_usage';
+    }
+    // Утренняя пташка (до 08:00)
+    else if (hour >= 5 && hour < 8) {
+      actionType = 'early_usage';
+    }
+    
+    if (actionType) {
+      try {
+        const result = await achievementsAPI.trackAction(user.id, actionType);
+        if (result.new_achievements && result.new_achievements.length > 0) {
+          // Показываем первое новое достижение
+          setNewAchievement(result.new_achievements[0]);
+          // Обновляем данные достижений
+          loadAchievementsData();
+        }
+      } catch (err) {
+        console.error('Error tracking time-based achievement:', err);
+      }
+    }
+  };
+
+  // Отслеживание просмотра расписания
+  const trackScheduleView = async () => {
+    if (!user || !userSettings) return;
+    
+    try {
+      const result = await achievementsAPI.trackAction(user.id, 'view_schedule');
+      if (result.new_achievements && result.new_achievements.length > 0) {
+        setNewAchievement(result.new_achievements[0]);
+        loadAchievementsData();
+      }
+    } catch (err) {
+      console.error('Error tracking schedule view:', err);
+    }
+  };
+
+  // Отслеживание просмотра расписания при загрузке
+  useEffect(() => {
+    if (schedule.length > 0 && user) {
+      trackScheduleView();
+    }
+  }, [schedule]);
+
   const updateCurrentClass = () => {
     const now = new Date();
     const currentDay = now.toLocaleDateString('ru-RU', { weekday: 'long' });
