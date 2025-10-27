@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { headerItemVariants, buttonVariants } from '../utils/animations';
 import { MenuModal } from './MenuModal';
 
-export const Header = ({ onCalendarClick, onNotificationsClick, onAnalyticsClick, onAchievementsClick, hapticFeedback }) => {
+export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAnalyticsClick, onAchievementsClick, hapticFeedback }) => {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
