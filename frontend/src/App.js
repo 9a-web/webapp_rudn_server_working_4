@@ -7,6 +7,7 @@ import { LiveScheduleCarousel } from './components/LiveScheduleCarousel';
 import { WeekDaySelector } from './components/WeekDaySelector';
 import { TopGlow } from './components/TopGlow';
 import { LiveScheduleSection } from './components/LiveScheduleSection';
+import { LoadingScreen } from './components/LoadingScreen';
 import GroupSelector from './components/GroupSelector';
 import StatusTester from './StatusTester';
 import { TelegramProvider, useTelegram } from './contexts/TelegramContext';
