@@ -121,10 +121,10 @@ export const MenuModal = ({
             animate="visible"
             exit="exit"
           >
-            <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden">
+            <div className="bg-[#2A2A2A]/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/10">
               {/* Header */}
-              <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                <h3 className="text-lg font-bold text-gray-800">
+              <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+                <h3 className="text-lg font-bold text-white">
                   {t('menu.title', 'Меню')}
                 </h3>
                 <button
@@ -132,10 +132,10 @@ export const MenuModal = ({
                     if (hapticFeedback) hapticFeedback('impact', 'light');
                     onClose();
                   }}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
                   aria-label="Close menu"
                 >
-                  <X className="w-5 h-5 text-gray-600" />
+                  <X className="w-5 h-5 text-gray-300" />
                 </button>
               </div>
 
@@ -151,7 +151,7 @@ export const MenuModal = ({
                       initial="hidden"
                       animate="visible"
                       onClick={() => handleMenuItemClick(item.action)}
-                      className="w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-100 transition-all duration-300 group"
+                      className="w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/10 transition-all duration-300 group"
                     >
                       <div 
                         className="w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
@@ -162,7 +162,7 @@ export const MenuModal = ({
                           style={{ color: item.color }}
                         />
                       </div>
-                      <span className="text-base font-medium text-gray-800 flex-1 text-left">
+                      <span className="text-base font-medium text-white flex-1 text-left">
                         {item.label}
                       </span>
                     </motion.button>
@@ -171,8 +171,8 @@ export const MenuModal = ({
               </div>
 
               {/* Footer */}
-              <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-                <p className="text-xs text-gray-500 text-center">
+              <div className="px-6 py-3 bg-black/20 border-t border-white/10">
+                <p className="text-xs text-gray-400 text-center">
                   {t('menu.footer', 'RUDN Schedule')}
                 </p>
               </div>
