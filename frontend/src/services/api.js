@@ -10,8 +10,8 @@ const getBackendURL = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     return 'http://localhost:8001';
   }
-  // В production используем переменную окружения
-  return process.env.REACT_APP_BACKEND_URL;
+  // В production используем текущий домен (чтобы избежать CORS)
+  return window.location.origin;
 };
 
 const BACKEND_URL = getBackendURL();
