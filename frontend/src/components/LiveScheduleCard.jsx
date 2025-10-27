@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { liveCardVariants, fadeInScale } from '../utils/animations';
 import { pluralizeMinutes } from '../utils/pluralize';
 
-export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
+export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
   const [time, setTime] = useState(new Date());
   const { t } = useTranslation();
 
