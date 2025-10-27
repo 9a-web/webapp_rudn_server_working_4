@@ -103,6 +103,24 @@ else:
     )
     logger.info(f"CORS configured for specific origins: {cors_origins_list}")
 
+# Additional middleware to ensure CORS headers are always present
+@app.middleware("http")
+async def add_cors_headers(request, call_next):
+    response = await call_next(request)
+    origin = request.headers.get("origin")
+    
+    # Always add CORS headers
+    if not response.headers.get("access-control-allow-origin"):
+        response.headers["access-control-allow-origin"] = "*"
+    if not response.headers.get("access-control-allow-methods"):
+        response.headers["access-control-allow-methods"] = "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT"
+    if not response.headers.get("access-control-allow-headers"):
+        response.headers["access-control-allow-headers"] = "*"
+    if not response.headers.get("access-control-max-age"):
+        response.headers["access-control-max-age"] = "3600"
+        
+    return response
+
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
