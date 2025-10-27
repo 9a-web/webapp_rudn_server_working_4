@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { liveCardVariants, fadeInScale } from '../utils/animations';
 import { pluralizeMinutes } from '../utils/pluralize';
+import { translateDiscipline } from '../i18n/subjects';
 
 export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
   const [time, setTime] = useState(new Date());
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const timer = setInterval(() => {
