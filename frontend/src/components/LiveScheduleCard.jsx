@@ -233,6 +233,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   stroke="url(#progressGradient)"
                   strokeWidth="14"
                   fill="none"
+                  strokeLinecap="round"
                   initial={{ opacity: 0.15 }}
                   animate={currentClass ? {
                     opacity: [0.15, 0.25, 0.35, 0.25, 0.15]
