@@ -425,6 +425,25 @@ const Home = () => {
             isOpen={isNotificationSettingsOpen}
           />
         )}
+
+        {user && (
+          <AchievementsModal
+            isOpen={isAchievementsOpen}
+            onClose={() => setIsAchievementsOpen(false)}
+            allAchievements={allAchievements}
+            userAchievements={userAchievements}
+            userStats={userStats}
+            hapticFeedback={hapticFeedback}
+          />
+        )}
+
+        {newAchievement && (
+          <AchievementNotification
+            achievement={newAchievement}
+            onClose={handleAchievementNotificationClose}
+            hapticFeedback={hapticFeedback}
+          />
+        )}
       </div>
     </div>
   );
