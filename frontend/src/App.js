@@ -52,6 +52,8 @@ const Home = () => {
   useEffect(() => {
     if (isReady && user) {
       loadUserData();
+      loadAchievementsData();
+      trackTimeBasedAchievements();
     }
   }, [isReady, user]);
 
