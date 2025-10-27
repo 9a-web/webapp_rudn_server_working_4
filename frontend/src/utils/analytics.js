@@ -17,22 +17,47 @@ export const calculateScheduleStats = (schedule) => {
     };
   }
 
-  // Подсчет общего количества пар
-  const totalClasses = schedule.length;
+  // Подсчет уникальных временных слотов (группируем по времени начала и окончания)
+  const uniqueTimeSlots = new Set();
+  schedule.forEach(classItem => {
+    if (classItem.time) {
+      uniqueTimeSlots.add(classItem.time);
+    }
+  });
+  
+  const totalClasses = uniqueTimeSlots.size;
 
   // Подсчет общего количества часов (каждая пара = 1.5 часа)
   const totalHours = totalClasses * 1.5;
 
-  // Группировка по дням
+  // Группировка по дням с подсчетом уникальных временных слотов
   const classesByDay = schedule.reduce((acc, classItem) => {
     const day = classItem.day || 'unknown';
-    if (!acc[day]) acc[day] = [];
-    acc[day].push(classItem);
+    if (!acc[day]) {
+      acc[day] = {
+        items: [],
+        uniqueTimes: new Set()
+      };
+    }
+    acc[day].items.push(classItem);
+    if (classItem.time) {
+      acc[day].uniqueTimes.add(classItem.time);
+    }
     return acc;
   }, {});
 
+  // Преобразуем в массивы для обратной совместимости
+  const classesByDayArray = {};
+  Object.keys(classesByDay).forEach(day => {
+    // Создаем массив с количеством элементов = количество уникальных временных слотов
+    classesByDayArray[day] = Array.from(classesByDay[day].uniqueTimes).map(time => {
+      // Берем первый предмет с этим временем для отображения
+      return classesByDay[day].items.find(item => item.time === time);
+    });
+  });
+
   // Количество дней с занятиями
-  const busyDays = Object.keys(classesByDay).length;
+  const busyDays = Object.keys(classesByDayArray).length;
 
   // Среднее количество пар в день
   const averageClassesPerDay = busyDays > 0 ? (totalClasses / busyDays).toFixed(1) : 0;
@@ -42,7 +67,7 @@ export const calculateScheduleStats = (schedule) => {
     totalHours,
     averageClassesPerDay: parseFloat(averageClassesPerDay),
     busyDays,
-    classesByDay,
+    classesByDay: classesByDayArray,
   };
 };
 
