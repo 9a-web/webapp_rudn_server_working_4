@@ -204,6 +204,66 @@ backend:
           agent: "testing"
           comment: "✅ Successfully updates notification settings for existing users. Validates notification_time range (5-30 minutes) and rejects invalid values with HTTP 422. Returns updated settings with proper JSON structure. Correctly handles non-existent users with HTTP 404. Settings persist correctly across requests."
 
+  - task: "GET /api/achievements - Get All Achievements"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Successfully retrieves all 6 achievements. Returns proper JSON array with required fields: id, name, description, emoji, points, type, requirement. Sample achievement: 'Первопроходец' - 'Выбор первой группы' with 10 points. All achievements have proper structure and data types."
+
+  - task: "GET /api/weather - Get Moscow Weather"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Successfully retrieves current weather data for Moscow. Returns proper JSON with required fields: temperature, feels_like, humidity, wind_speed, description, icon. All numeric fields are properly typed (int/float), string fields are strings. Current test returned: 5°C (feels like 2°C), 93% humidity, 'Ясно' description."
+
+  - task: "POST /api/track-action - Track User Action"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Successfully tracks user actions and checks for new achievements. Accepts payload with telegram_id, action_type, and metadata. Returns new_achievements array (empty if no new achievements earned). Tested with 'select_group' action for telegram_id 123456789. Properly integrates with achievement system."
+
+  - task: "GET /api/user-stats/{telegram_id} - Get User Statistics"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Successfully retrieves user statistics with all required fields: telegram_id, groups_viewed, friends_invited, schedule_views, night_usage_count, early_usage_count, total_points, achievements_count. All fields are properly typed as integers. Creates user stats if not exists. Tested with telegram_id 123456789 showing 10 total points and 1 achievement."
+
+  - task: "GET /api/user-achievements/{telegram_id} - Get User Achievements"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Successfully retrieves user achievements array. Each achievement contains: achievement object (with id, name, description, emoji, points, type, requirement), earned_at timestamp, and seen boolean. Properly handles users with no achievements (returns empty array). Tested with telegram_id 123456789 showing 1 achievement: 'Первопроходец' earned at 2025-10-27T07:58:26.338000."
+
 frontend:
   - task: "Header Component Display"
     implemented: true
