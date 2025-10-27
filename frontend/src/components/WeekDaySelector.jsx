@@ -10,6 +10,7 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
   const [weekDays, setWeekDays] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { t } = useTranslation();
+  const { ripples, addRipple } = useRipple();
 
   // Обработчики свайпов
   const handleSwipeLeft = () => {
