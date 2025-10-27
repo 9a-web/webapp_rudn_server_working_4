@@ -218,8 +218,8 @@ export const LiveScheduleCarousel = ({
         </div>
       </div>
 
-      {/* Навигационные кнопки и индикаторы по центру - только для mobile и tablet */}
-      <div className="flex items-center justify-center gap-4 lg:hidden">
+      {/* Навигационные кнопки и индикаторы по центру - только для mobile */}
+      <div className="flex items-center justify-center gap-4 md:hidden">
         {/* Кнопка назад */}
         <motion.button
           onClick={handlePrevious}
