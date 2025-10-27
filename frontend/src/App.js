@@ -231,6 +231,22 @@ const Home = () => {
       setUserSettings(settings);
       setShowGroupSelector(false);
       showAlert(t('common.groupSelected', { groupName: groupData.group_name }));
+
+      // Отслеживаем выбор группы для достижений
+      if (user) {
+        try {
+          const result = await achievementsAPI.trackAction(user.id, 'select_group');
+          // Также отслеживаем просмотр группы
+          await achievementsAPI.trackAction(user.id, 'view_group', { group_id: groupData.group_id });
+          
+          if (result.new_achievements && result.new_achievements.length > 0) {
+            setNewAchievement(result.new_achievements[0]);
+            loadAchievementsData();
+          }
+        } catch (err) {
+          console.error('Error tracking group selection:', err);
+        }
+      }
     } catch (err) {
       console.error('Error saving user settings:', err);
       showAlert(t('common.settingsError', { message: err.message }));
