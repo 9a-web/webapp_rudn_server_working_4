@@ -113,7 +113,7 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
     return daysMap[dayIndex];
   };
 
-  const handleDayClick = (index, day) => {
+  const handleDayClick = (day, index) => {
     if (hapticFeedback) hapticFeedback('impact', 'light');
     setSelectedIndex(index);
     if (onDateSelect) {
