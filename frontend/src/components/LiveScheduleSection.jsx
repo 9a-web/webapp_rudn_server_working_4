@@ -265,7 +265,7 @@ export const LiveScheduleSection = ({
                               fontFamily: 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif'
                             }}
                           >
-                            {classItem.lessonType}
+                            {translateLessonType(classItem.lessonType, i18n.language)}
                           </span>
                         )}
                       </div>
