@@ -52,7 +52,7 @@ export const MenuModal = React.memo(({
       color: '#C4A3FF',
       action: toggleLanguage,
       show: true,
-      disabled: true
+      disabled: false
     }
   ];
 
