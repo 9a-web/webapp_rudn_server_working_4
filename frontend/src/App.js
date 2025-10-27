@@ -370,14 +370,14 @@ const Home = () => {
           onNotificationsClick={user ? handleNotificationsClick : null}
         />
         
-        {/* Виджет погоды */}
-        <div className="px-6 md:px-8 lg:px-10 mb-6">
-          <WeatherWidget hapticFeedback={hapticFeedback} />
-        </div>
-        
-        <LiveScheduleCard 
+        <LiveScheduleCarousel
           currentClass={currentClass} 
-          minutesLeft={minutesLeft} 
+          minutesLeft={minutesLeft}
+          hapticFeedback={hapticFeedback}
+          allAchievements={allAchievements}
+          userAchievements={userAchievements}
+          userStats={userStats}
+          user={user}
         />
       
         <WeekDaySelector 
