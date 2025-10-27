@@ -370,10 +370,14 @@ const Home = () => {
           hapticFeedback={hapticFeedback}
         />
         
-        {/* Two-column layout for tablet and desktop */}
-        <div className="md:grid md:grid-cols-2 md:gap-6 lg:grid-cols-1 lg:gap-0 lg:px-6 xl:grid xl:grid-cols-[1fr_380px] xl:gap-6">
+        {/* Responsive layout: 
+            - Mobile (< 768px): single column
+            - Tablet (768px - 1279px): two columns equal width
+            - Desktop (>= 1280px): main content + sidebar (380px fixed)
+        */}
+        <div className="md:grid md:grid-cols-2 md:gap-6 md:px-6 lg:grid-cols-2 xl:grid-cols-[1fr_380px]">
           {/* Main content column */}
-          <div className="lg:min-w-0">
+          <div className="md:min-w-0">
             <LiveScheduleCarousel
               currentClass={currentClass} 
               minutesLeft={minutesLeft}
