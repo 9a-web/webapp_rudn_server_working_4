@@ -385,8 +385,8 @@ const Home = () => {
         />
         
         {loading ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+          <div className="bg-white rounded-t-[40px] mt-6 pt-8">
+            <ScheduleListSkeleton count={4} />
           </div>
         ) : (
           <LiveScheduleSection 
