@@ -3,8 +3,10 @@ import { Calendar, ChevronRight, ChevronDown, RefreshCw, Users } from 'lucide-re
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWeekNumberForDate } from '../utils/dateUtils';
 import { useTranslation } from 'react-i18next';
-import { fadeInUp, listItemVariants, buttonVariants, staggerContainer } from '../utils/animations';
+import { fadeInUp, listItemVariants, buttonVariants, staggerContainer, softBounceVariants, springVariants } from '../utils/animations';
 import { translateDiscipline, translateLessonType } from '../i18n/subjects';
+import { useRipple } from '../hooks/useRipple';
+import { RippleEffect } from './RippleEffect';
 
 export const LiveScheduleSection = ({ 
   selectedDate, 
