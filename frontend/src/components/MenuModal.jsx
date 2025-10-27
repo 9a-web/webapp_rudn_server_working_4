@@ -44,16 +44,17 @@ export const MenuModal = React.memo(({
       color: '#80E8FF',
       action: onAnalyticsClick,
       show: !!onAnalyticsClick
-    },
-    {
-      id: 'language',
-      icon: Languages,
-      label: `${t('menu.language', 'Язык')}: ${i18n.language.toUpperCase()}`,
-      color: '#C4A3FF',
-      action: toggleLanguage,
-      show: true,
-      disabled: false
     }
+    // Language switcher hidden by user request
+    // {
+    //   id: 'language',
+    //   icon: Languages,
+    //   label: `${t('menu.language', 'Язык')}: ${i18n.language.toUpperCase()}`,
+    //   color: '#C4A3FF',
+    //   action: toggleLanguage,
+    //   show: true,
+    //   disabled: false
+    // }
   ];
 
   const backdropVariants = {
