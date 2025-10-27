@@ -30,7 +30,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-md"
+          className="fixed top-2 sm:top-4 left-1/2 -translate-x-1/2 z-[100] w-[95%] sm:w-[90%] max-w-md px-2 sm:px-0"
           initial={{ opacity: 0, y: -100, scale: 0.8 }}
           animate={{ 
             opacity: 1, 
@@ -64,7 +64,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
               ease: "easeInOut"
             }}
           >
-            <div className="bg-[#2A2A2A] rounded-2xl p-4 relative overflow-hidden">
+            <div className="bg-[#2A2A2A] rounded-2xl p-3 sm:p-4 relative overflow-hidden">
               {/* Анимированный фон */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-[#A3F7BF]/10 via-[#FFE66D]/10 to-transparent"
@@ -80,7 +80,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
 
               {/* Контент */}
               <div className="relative z-10">
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-2 sm:gap-3">
                   {/* Иконка трофея */}
                   <motion.div
                     className="flex-shrink-0"
@@ -94,14 +94,14 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                     }}
                   >
                     <div className="bg-gradient-to-br from-[#FFE66D]/20 to-[#A3F7BF]/20 rounded-xl p-2">
-                      <Trophy className="w-6 h-6 text-[#FFE66D]" />
+                      <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-[#FFE66D]" />
                     </div>
                   </motion.div>
 
                   {/* Текст */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-sm font-bold text-[#A3F7BF]">
+                      <h3 className="text-xs sm:text-sm font-bold text-[#A3F7BF]">
                         Новое достижение!
                       </h3>
                       <motion.div
@@ -114,20 +114,20 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                           ease: "linear"
                         }}
                       >
-                        <Star className="w-4 h-4 text-[#FFE66D]" />
+                        <Star className="w-3 h-3 sm:w-4 sm:h-4 text-[#FFE66D]" />
                       </motion.div>
                     </div>
 
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-3xl">{achievement.emoji}</span>
-                      <div>
-                        <h4 className="font-bold text-white">{achievement.name}</h4>
-                        <p className="text-sm text-gray-300">{achievement.description}</p>
+                      <span className="text-2xl sm:text-3xl flex-shrink-0">{achievement.emoji}</span>
+                      <div className="min-w-0">
+                        <h4 className="font-bold text-sm sm:text-base text-white truncate">{achievement.name}</h4>
+                        <p className="text-xs sm:text-sm text-gray-300 line-clamp-2">{achievement.description}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1 text-sm font-semibold text-[#FFE66D]">
-                      <Star className="w-4 h-4" />
+                    <div className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#FFE66D]">
+                      <Star className="w-3 h-3 sm:w-4 sm:h-4" />
                       <span>+{achievement.points} очков</span>
                     </div>
                   </div>
@@ -135,9 +135,9 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                   {/* Кнопка закрытия */}
                   <button
                     onClick={handleClose}
-                    className="flex-shrink-0 p-1 hover:bg-white/10 rounded-full transition-colors"
+                    className="flex-shrink-0 p-1 hover:bg-white/10 rounded-full transition-colors touch-manipulation"
                   >
-                    <X className="w-4 h-4 text-gray-400" />
+                    <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   </button>
                 </div>
               </div>
@@ -146,7 +146,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
               {[...Array(8)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-2 h-2 rounded-full"
+                  className="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full"
                   style={{
                     background: i % 2 === 0 ? '#A3F7BF' : '#FFE66D',
                     left: `${20 + i * 10}%`,
