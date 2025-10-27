@@ -366,8 +366,14 @@ const Home = () => {
         <Header 
           onCalendarClick={handleCalendarClick}
           onAnalyticsClick={schedule.length > 0 ? handleAnalyticsClick : null}
+          onAchievementsClick={user ? handleAchievementsClick : null}
           onNotificationsClick={user ? handleNotificationsClick : null}
         />
+        
+        {/* Виджет погоды */}
+        <div className="px-6 md:px-8 lg:px-10 mb-6">
+          <WeatherWidget hapticFeedback={hapticFeedback} />
+        </div>
         
         <LiveScheduleCard 
           currentClass={currentClass} 
