@@ -26,6 +26,7 @@ const Home = () => {
   
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isAnalyticsOpen, setIsAnalyticsOpen] = useState(false);
+  const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
   const [isNotificationSettingsOpen, setIsNotificationSettingsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentClass, setCurrentClass] = useState(null);
@@ -40,6 +41,12 @@ const Home = () => {
   // Состояния для пользователя
   const [userSettings, setUserSettings] = useState(null);
   const [showGroupSelector, setShowGroupSelector] = useState(false);
+
+  // Состояния для достижений
+  const [allAchievements, setAllAchievements] = useState([]);
+  const [userAchievements, setUserAchievements] = useState([]);
+  const [userStats, setUserStats] = useState(null);
+  const [newAchievement, setNewAchievement] = useState(null); // Для показа уведомления
 
   // Загрузка данных пользователя при монтировании
   useEffect(() => {
