@@ -44,9 +44,9 @@ export const LiveScheduleCarousel = ({
 
   return (
     <div className="relative">
-      {/* Карусель карточек */}
-      <div className="mt-4 px-6 md:px-0" onClick={handleCardClick}>
-        <div className="relative w-full max-w-[373px] md:max-w-[420px] lg:max-w-[480px] mx-auto">
+      {/* Карусель карточек - Показываем только на mobile и tablet, скрываем на desktop >= 1280px */}
+      <div className="mt-4 px-6 md:px-0 lg:hidden" onClick={handleCardClick}>
+        <div className="relative w-full max-w-[373px] md:max-w-[420px] mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentCard.id}
