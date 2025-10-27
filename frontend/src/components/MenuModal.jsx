@@ -145,6 +145,8 @@ export const MenuModal = React.memo(({
               <div className="p-3">
                 {menuItems.filter(item => item.show).map((item, index) => {
                   const Icon = item.icon;
+                  const isDisabled = item.disabled;
+                  
                   return (
                     <motion.button
                       key={item.id}
@@ -152,11 +154,18 @@ export const MenuModal = React.memo(({
                       variants={itemVariants}
                       initial="hidden"
                       animate="visible"
-                      onClick={() => handleMenuItemClick(item.action)}
-                      className="w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/10 transition-all duration-300 group"
+                      onClick={isDisabled ? undefined : () => handleMenuItemClick(item.action)}
+                      disabled={isDisabled}
+                      className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group ${
+                        isDisabled 
+                          ? 'opacity-40 cursor-not-allowed' 
+                          : 'hover:bg-white/10 cursor-pointer'
+                      }`}
                     >
                       <div 
-                        className="w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
+                        className={`w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-300 ${
+                          !isDisabled && 'group-hover:scale-110'
+                        }`}
                         style={{ backgroundColor: `${item.color}20` }}
                       >
                         <Icon 
