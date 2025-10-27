@@ -110,7 +110,6 @@ class NotificationScheduler:
         user: Dict,
         day: str,
         week_number: int,
-        current_time,
         now: datetime
     ):
         """
@@ -120,22 +119,23 @@ class NotificationScheduler:
             user: Данные пользователя
             day: День недели (на русском)
             week_number: Номер недели (1 или 2)
-            current_time: Текущее время
-            now: Текущая дата и время
+            now: Текущая дата и время (с timezone)
         """
         try:
             telegram_id = user['telegram_id']
-            notification_time = user.get('notification_time', 10)
+            notification_time = user.get('notification_time', 10)  # За сколько минут уведомлять
+            
+            logger.debug(f"Checking classes for user {telegram_id}, notification_time={notification_time} min")
             
             # Получаем расписание пользователя из кэша
             cached_schedule = await self.db.schedule_cache.find_one({
-                "group_id": user['group_id'],
+                "group_id": user.get('group_id'),
                 "week_number": week_number,
-                "expires_at": {"$gt": now}
+                "expires_at": {"$gt": now.replace(tzinfo=None)}
             })
             
             if not cached_schedule:
-                logger.debug(f"No cached schedule for user {telegram_id}")
+                logger.debug(f"No cached schedule for user {telegram_id}, group_id={user.get('group_id')}")
                 return
             
             events = cached_schedule.get('events', [])
@@ -143,18 +143,19 @@ class NotificationScheduler:
             # Фильтруем пары на сегодня
             today_classes = [e for e in events if e.get('day') == day]
             
+            logger.debug(f"Found {len(today_classes)} classes for user {telegram_id} on {day}")
+            
             # Проверяем каждую пару
             for class_event in today_classes:
                 await self._check_and_notify(
                     telegram_id,
                     class_event,
                     notification_time,
-                    current_time,
                     now
                 )
         
         except Exception as e:
-            logger.error(f"Error checking classes for user {user.get('telegram_id')}: {e}")
+            logger.error(f"Error checking classes for user {user.get('telegram_id')}: {e}", exc_info=True)
     
     async def _check_and_notify(
         self,
