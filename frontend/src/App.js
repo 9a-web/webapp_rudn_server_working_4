@@ -176,7 +176,19 @@ const Home = () => {
     if (!user || !userSettings) return;
     
     try {
-      const result = await achievementsAPI.trackAction(user.id, 'view_schedule');
+      // Подсчитываем уникальные временные слоты (группируем по времени начала и окончания)
+      const uniqueTimeSlots = new Set();
+      schedule.forEach(event => {
+        if (event.time) {
+          uniqueTimeSlots.add(event.time); // Например: "10:30 - 11:50"
+        }
+      });
+      
+      const classesCount = uniqueTimeSlots.size;
+      
+      const result = await achievementsAPI.trackAction(user.id, 'view_schedule', {
+        classes_count: classesCount
+      });
       if (result.new_achievements && result.new_achievements.length > 0) {
         setNewAchievement(result.new_achievements[0]);
         loadAchievementsData();
