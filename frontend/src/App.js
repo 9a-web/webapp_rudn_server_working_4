@@ -371,7 +371,7 @@ const Home = () => {
         />
         
         {/* Two-column layout for tablet and desktop */}
-        <div className="lg:grid lg:grid-cols-[1fr_380px] lg:gap-6 lg:px-6">
+        <div className="md:grid md:grid-cols-2 md:gap-6 lg:grid-cols-1 lg:gap-0 lg:px-6 xl:grid xl:grid-cols-[1fr_380px] xl:gap-6">
           {/* Main content column */}
           <div className="lg:min-w-0">
             <LiveScheduleCarousel
