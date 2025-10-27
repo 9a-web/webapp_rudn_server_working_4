@@ -314,6 +314,10 @@ const Home = () => {
     setShowGroupSelector(true);
   };
 
+  const handleAchievementNotificationClose = () => {
+    setNewAchievement(null);
+  };
+
   // Показываем GroupSelector
   if (showGroupSelector) {
     return (
