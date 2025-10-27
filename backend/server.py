@@ -44,6 +44,7 @@ from models import (
 )
 from notifications import get_notification_service
 from scheduler import get_scheduler
+from cache import cache
 from achievements import (
     get_all_achievements,
     get_user_achievements,
