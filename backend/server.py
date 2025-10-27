@@ -157,11 +157,20 @@ async def get_status_checks():
 
 @api_router.get("/faculties", response_model=List[Faculty])
 async def get_faculties():
-    """Получить список всех факультетов"""
+    """Получить список всех факультетов (с кешированием на 60 минут)"""
     try:
+        # Проверяем кеш
+        cached_faculties = cache.get("faculties")
+        if cached_faculties:
+            return cached_faculties
+            
+        # Если нет в кеше, получаем из API
         faculties = await get_facultets()
         if not faculties:
             raise HTTPException(status_code=404, detail="Факультеты не найдены")
+        
+        # Сохраняем в кеш на 60 минут
+        cache.set("faculties", faculties, ttl_minutes=60)
         return faculties
     except Exception as e:
         logger.error(f"Ошибка при получении факультетов: {e}")
