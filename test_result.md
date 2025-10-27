@@ -406,6 +406,18 @@ frontend:
           agent: "main"
           comment: "🎨 Updated status text color to match status type. Changed from static #3B3B3B (dark gray) to dynamic color variable. Now status text displays in correct colors: Закончилась (#76EF83 green), В процессе (#FFC83F yellow), Предстоит (#FF6B6B red). Frontend compiled successfully and restarted. Ready for visual testing."
 
+  - task: "Header Buttons - Calendar and Notifications Moved from Menu"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Header.jsx, /app/frontend/src/components/MenuModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "✅ Moved Calendar and Notifications buttons from hamburger menu to header. Updated Header.jsx: Added Calendar and Bell icons import from lucide-react. Created three-button layout in header right side: Calendar button (green gradient hover effect), Notifications button (pink gradient hover effect), Menu button (purple gradient hover effect). All buttons have proper animations, haptic feedback, and responsive sizing (12px/14px). Updated MenuModal.jsx: Removed Calendar and Notifications items from menu. Menu now contains only 3 items: Achievements (Trophy icon, yellow), Analytics (BarChart3 icon, cyan), Language switcher (Languages icon, purple). Removed unused Calendar and Bell icon imports from MenuModal. Frontend compiled successfully. Screenshot verified: All three buttons visible in header, menu shows correct 3 items only."
+
 metadata:
   created_by: "main_agent"
   version: "1.4"
