@@ -151,53 +151,83 @@ export const LiveScheduleSection = ({
         {/* Week selector */}
         {onWeekChange && (
           <div className="flex gap-2 mb-4">
-            <button
-              onClick={() => {
+            <motion.button
+              onClick={(e) => {
+                addRipple(e);
                 if (hapticFeedback) hapticFeedback('impact', 'medium');
                 onWeekChange(1);
               }}
               disabled={selectedWeekNumber === null}
-              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-all ${
+              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-all relative overflow-hidden ${
                 selectedWeekNumber === 1
                   ? 'bg-black text-white' 
                   : selectedWeekNumber === null
                   ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
+              whileHover={selectedWeekNumber !== null ? { 
+                scale: 1.02,
+                transition: { type: 'spring', stiffness: 400, damping: 17 }
+              } : {}}
+              whileTap={selectedWeekNumber !== null ? { 
+                scale: 0.98,
+                transition: { type: 'spring', stiffness: 600, damping: 20 }
+              } : {}}
             >
-              {t('liveScheduleSection.currentWeek')}
-            </button>
-            <button
-              onClick={() => {
+              <RippleEffect ripples={ripples} />
+              <span className="relative z-10">{t('liveScheduleSection.currentWeek')}</span>
+            </motion.button>
+            <motion.button
+              onClick={(e) => {
+                addRipple(e);
                 if (hapticFeedback) hapticFeedback('impact', 'medium');
                 onWeekChange(2);
               }}
               disabled={selectedWeekNumber === null}
-              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-all ${
+              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-all relative overflow-hidden ${
                 selectedWeekNumber === 2
                   ? 'bg-black text-white' 
                   : selectedWeekNumber === null
                   ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
+              whileHover={selectedWeekNumber !== null ? { 
+                scale: 1.02,
+                transition: { type: 'spring', stiffness: 400, damping: 17 }
+              } : {}}
+              whileTap={selectedWeekNumber !== null ? { 
+                scale: 0.98,
+                transition: { type: 'spring', stiffness: 600, damping: 20 }
+              } : {}}
             >
-              {t('liveScheduleSection.nextWeek')}
-            </button>
+              <RippleEffect ripples={ripples} />
+              <span className="relative z-10">{t('liveScheduleSection.nextWeek')}</span>
+            </motion.button>
           </div>
         )}
 
         {/* Change group button */}
         {onChangeGroup && (
-          <button
-            onClick={() => {
+          <motion.button
+            onClick={(e) => {
+              addRipple(e);
               if (hapticFeedback) hapticFeedback('impact', 'medium');
               onChangeGroup();
             }}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all mb-4"
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all mb-4 relative overflow-hidden"
+            whileHover={{ 
+              scale: 1.01,
+              transition: { type: 'spring', stiffness: 400, damping: 17 }
+            }}
+            whileTap={{ 
+              scale: 0.99,
+              transition: { type: 'spring', stiffness: 600, damping: 20 }
+            }}
           >
-            <Users className="w-4 h-4" />
-            {t('liveScheduleSection.changeGroup')}
-          </button>
+            <RippleEffect ripples={ripples} />
+            <Users className="w-4 h-4 relative z-10" />
+            <span className="relative z-10">{t('liveScheduleSection.changeGroup')}</span>
+          </motion.button>
         )}
 
         {/* Schedule list */}
