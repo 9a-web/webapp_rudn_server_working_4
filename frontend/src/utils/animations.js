@@ -186,6 +186,67 @@ export const buttonVariants = {
   }
 };
 
+// Мягкий bounce эффект для кнопок (деликатный)
+export const softBounceVariants = {
+  hover: { 
+    scale: 1.02,
+    transition: {
+      type: 'spring',
+      stiffness: 400,
+      damping: 17
+    }
+  },
+  tap: { 
+    scale: 0.98,
+    transition: {
+      type: 'spring',
+      stiffness: 600,
+      damping: 20
+    }
+  }
+};
+
+// Spring анимация для интерактивных элементов
+export const springVariants = {
+  hover: {
+    scale: 1.03,
+    transition: {
+      type: 'spring',
+      stiffness: 300,
+      damping: 15
+    }
+  },
+  tap: {
+    scale: 0.97,
+    transition: {
+      type: 'spring',
+      stiffness: 500,
+      damping: 25
+    }
+  }
+};
+
+// Деликатная анимация для карточек
+export const cardSpringVariants = {
+  hover: {
+    y: -2,
+    scale: 1.01,
+    transition: {
+      type: 'spring',
+      stiffness: 350,
+      damping: 20
+    }
+  },
+  tap: {
+    scale: 0.99,
+    transition: {
+      type: 'spring',
+      stiffness: 600,
+      damping: 25
+    }
+  }
+};
+
 // Анимация пульсации (для загрузки)
 export const pulseVariants = {
   animate: {
