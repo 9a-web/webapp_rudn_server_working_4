@@ -700,6 +700,280 @@ class RUDNScheduleAPITester:
         except Exception as e:
             self.log_test("Notification endpoints - Non-existent User", False, f"Exception: {str(e)}")
             return False
+
+    def test_get_achievements(self) -> bool:
+        """Test GET /api/achievements endpoint"""
+        try:
+            print("🔍 Testing GET /api/achievements...")
+            
+            response = self.session.get(f"{self.base_url}/achievements")
+            
+            if response.status_code != 200:
+                self.log_test("GET /api/achievements", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            achievements = response.json()
+            
+            # Validate response structure
+            if not isinstance(achievements, list):
+                self.log_test("GET /api/achievements", False, 
+                            "Response is not a list")
+                return False
+            
+            # Should return 6 achievements as per request
+            if len(achievements) != 6:
+                self.log_test("GET /api/achievements", False, 
+                            f"Expected 6 achievements, got {len(achievements)}")
+                return False
+            
+            # Validate achievement structure
+            required_fields = ['id', 'name', 'description', 'emoji', 'points', 'type', 'requirement']
+            for achievement in achievements:
+                if not isinstance(achievement, dict):
+                    self.log_test("GET /api/achievements", False, 
+                                "Achievement is not a dictionary")
+                    return False
+                
+                for field in required_fields:
+                    if field not in achievement:
+                        self.log_test("GET /api/achievements", False, 
+                                    f"Achievement missing required field: {field}")
+                        return False
+            
+            # Store for later tests
+            self.test_data['achievements'] = achievements
+            
+            self.log_test("GET /api/achievements", True, 
+                        f"Successfully retrieved {len(achievements)} achievements",
+                        {"sample_achievement": achievements[0], "total_count": len(achievements)})
+            return True
+            
+        except Exception as e:
+            self.log_test("GET /api/achievements", False, f"Exception: {str(e)}")
+            return False
+
+    def test_get_weather(self) -> bool:
+        """Test GET /api/weather endpoint"""
+        try:
+            print("🔍 Testing GET /api/weather...")
+            
+            response = self.session.get(f"{self.base_url}/weather")
+            
+            if response.status_code != 200:
+                self.log_test("GET /api/weather", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            weather = response.json()
+            
+            # Validate response structure
+            if not isinstance(weather, dict):
+                self.log_test("GET /api/weather", False, 
+                            "Response is not a dictionary")
+                return False
+            
+            # Check required fields as per request
+            required_fields = ['temperature', 'feels_like', 'humidity', 'wind_speed', 'description', 'icon']
+            for field in required_fields:
+                if field not in weather:
+                    self.log_test("GET /api/weather", False, 
+                                f"Weather data missing required field: {field}")
+                    return False
+            
+            # Validate data types
+            numeric_fields = ['temperature', 'feels_like', 'humidity', 'wind_speed']
+            for field in numeric_fields:
+                if not isinstance(weather[field], (int, float)):
+                    self.log_test("GET /api/weather", False, 
+                                f"Field {field} should be numeric, got {type(weather[field])}")
+                    return False
+            
+            string_fields = ['description', 'icon']
+            for field in string_fields:
+                if not isinstance(weather[field], str):
+                    self.log_test("GET /api/weather", False, 
+                                f"Field {field} should be string, got {type(weather[field])}")
+                    return False
+            
+            self.log_test("GET /api/weather", True, 
+                        "Successfully retrieved weather data for Moscow",
+                        {
+                            "temperature": weather['temperature'],
+                            "feels_like": weather['feels_like'],
+                            "description": weather['description'],
+                            "humidity": weather['humidity']
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("GET /api/weather", False, f"Exception: {str(e)}")
+            return False
+
+    def test_track_action(self) -> bool:
+        """Test POST /api/track-action endpoint"""
+        try:
+            print("🔍 Testing POST /api/track-action...")
+            
+            # Test payload as specified in request
+            payload = {
+                "telegram_id": 123456789,
+                "action_type": "select_group",
+                "metadata": {}
+            }
+            
+            response = self.session.post(
+                f"{self.base_url}/track-action",
+                json=payload,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if response.status_code != 200:
+                self.log_test("POST /api/track-action", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            result = response.json()
+            
+            # Validate response structure
+            if not isinstance(result, dict):
+                self.log_test("POST /api/track-action", False, 
+                            "Response is not a dictionary")
+                return False
+            
+            # Should return new achievements if any
+            # The response structure should have new_achievements field
+            if 'new_achievements' not in result:
+                self.log_test("POST /api/track-action", False, 
+                            "Response missing 'new_achievements' field")
+                return False
+            
+            if not isinstance(result['new_achievements'], list):
+                self.log_test("POST /api/track-action", False, 
+                            "'new_achievements' should be a list")
+                return False
+            
+            self.log_test("POST /api/track-action", True, 
+                        "Successfully tracked user action",
+                        {
+                            "action_type": payload['action_type'],
+                            "telegram_id": payload['telegram_id'],
+                            "new_achievements_count": len(result['new_achievements'])
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("POST /api/track-action", False, f"Exception: {str(e)}")
+            return False
+
+    def test_get_user_stats(self) -> bool:
+        """Test GET /api/user-stats/{telegram_id} endpoint"""
+        try:
+            print("🔍 Testing GET /api/user-stats/{telegram_id}...")
+            
+            telegram_id = 123456789
+            response = self.session.get(f"{self.base_url}/user-stats/{telegram_id}")
+            
+            if response.status_code != 200:
+                self.log_test("GET /api/user-stats/{telegram_id}", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            stats = response.json()
+            
+            # Validate response structure
+            if not isinstance(stats, dict):
+                self.log_test("GET /api/user-stats/{telegram_id}", False, 
+                            "Response is not a dictionary")
+                return False
+            
+            # Check required fields for user statistics
+            required_fields = ['telegram_id', 'groups_viewed', 'friends_invited', 'schedule_views', 
+                             'night_usage_count', 'early_usage_count', 'total_points', 'achievements_count']
+            for field in required_fields:
+                if field not in stats:
+                    self.log_test("GET /api/user-stats/{telegram_id}", False, 
+                                f"Stats missing required field: {field}")
+                    return False
+            
+            # Validate telegram_id matches
+            if stats['telegram_id'] != telegram_id:
+                self.log_test("GET /api/user-stats/{telegram_id}", False, 
+                            "Telegram ID mismatch in response")
+                return False
+            
+            # Validate numeric fields
+            numeric_fields = ['groups_viewed', 'friends_invited', 'schedule_views', 
+                            'night_usage_count', 'early_usage_count', 'total_points', 'achievements_count']
+            for field in numeric_fields:
+                if not isinstance(stats[field], int):
+                    self.log_test("GET /api/user-stats/{telegram_id}", False, 
+                                f"Field {field} should be integer, got {type(stats[field])}")
+                    return False
+            
+            self.log_test("GET /api/user-stats/{telegram_id}", True, 
+                        "Successfully retrieved user statistics",
+                        {
+                            "telegram_id": stats['telegram_id'],
+                            "total_points": stats['total_points'],
+                            "achievements_count": stats['achievements_count'],
+                            "schedule_views": stats['schedule_views']
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("GET /api/user-stats/{telegram_id}", False, f"Exception: {str(e)}")
+            return False
+
+    def test_get_user_achievements(self) -> bool:
+        """Test GET /api/user-achievements/{telegram_id} endpoint"""
+        try:
+            print("🔍 Testing GET /api/user-achievements/{telegram_id}...")
+            
+            telegram_id = 123456789
+            response = self.session.get(f"{self.base_url}/user-achievements/{telegram_id}")
+            
+            if response.status_code != 200:
+                self.log_test("GET /api/user-achievements/{telegram_id}", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            user_achievements = response.json()
+            
+            # Validate response structure
+            if not isinstance(user_achievements, list):
+                self.log_test("GET /api/user-achievements/{telegram_id}", False, 
+                            "Response is not a list")
+                return False
+            
+            # If user has achievements, validate structure
+            if user_achievements:
+                for achievement in user_achievements:
+                    if not isinstance(achievement, dict):
+                        self.log_test("GET /api/user-achievements/{telegram_id}", False, 
+                                    "User achievement is not a dictionary")
+                        return False
+                    
+                    # Check for required fields in user achievement
+                    required_fields = ['achievement_id', 'earned_at', 'is_new']
+                    for field in required_fields:
+                        if field not in achievement:
+                            self.log_test("GET /api/user-achievements/{telegram_id}", False, 
+                                        f"User achievement missing required field: {field}")
+                            return False
+            
+            self.log_test("GET /api/user-achievements/{telegram_id}", True, 
+                        "Successfully retrieved user achievements",
+                        {
+                            "telegram_id": telegram_id,
+                            "achievements_count": len(user_achievements),
+                            "sample_achievement": user_achievements[0] if user_achievements else None
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("GET /api/user-achievements/{telegram_id}", False, f"Exception: {str(e)}")
+            return False
     
     def run_all_tests(self):
         """Run all API tests in sequence"""
