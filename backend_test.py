@@ -997,7 +997,13 @@ class RUDNScheduleAPITester:
             self.test_update_notification_settings,
             self.test_verify_notification_settings_persisted,
             self.test_invalid_notification_time_values,
-            self.test_notification_settings_nonexistent_user
+            self.test_notification_settings_nonexistent_user,
+            # New Achievement and Weather endpoint tests
+            self.test_get_achievements,
+            self.test_get_weather,
+            self.test_track_action,
+            self.test_get_user_stats,
+            self.test_get_user_achievements
         ]
         
         passed = 0
