@@ -80,6 +80,17 @@
     "noOptions": "Нет доступных вариантов",
     "unavailable": "Недоступно"
   },
+  "achievements": {
+    "title": "Достижения",
+    "totalPoints": "Всего очков",
+    "progress": "Прогресс",
+    "viewAll": "Посмотреть все",
+    "recent": "Последние достижения",
+    "points": "очков"
+  },
+  "sidebar": {
+    "quickActions": "Быстрые действия"
+  },
   "common": {
     "loading": "Загрузка...",
     "retry": "Повторить",
