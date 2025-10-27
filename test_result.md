@@ -451,6 +451,30 @@ frontend:
           agent: "main"
           comment: "🔧 Fixed weekday abbreviations in analytics modal. Previously used simple .slice(0, 2) which resulted in incorrect abbreviations (По, Вт, Ср, Че, Пя, Су, Во). Now uses proper mapping: Понедельник→Пн, Вторник→Вт, Среда→Ср, Четверг→Чт, Пятница→Пт, Суббота→Сб, Воскресенье→Вс. Updated getWeekLoadChart() function in analytics.js to use shortDays dictionary for correct abbreviations. Frontend hot-reloaded changes. Ready for visual testing."
 
+  - task: "Analytics - Count Unique Time Slots"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/utils/analytics.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "🔧 URGENT FIX: Analytics modal counting incorrect number of classes. Fixed calculateScheduleStats() function to group classes by unique time slots instead of counting all disciplines separately. Now uses Set to track uniqueTimeSlots and counts schedule.length becomes uniqueTimeSlots.size. Updated classesByDay grouping to track unique times per day using Set structure. Creates arrays with one element per unique time slot for display. Example: 3 subjects at 10:30-11:50 now counts as 1 class instead of 3 in all analytics (total classes, hours, average per day, week chart). Frontend hot-reloaded. Ready for testing."
+
+  - task: "Achievement Notification - Mobile Adaptation"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/AchievementNotification.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "🔧 URGENT FIX: Achievement notification not adapted for mobile. Fixed responsive design issues: 1) Reduced top margin (top-2 on mobile, top-4 on desktop) 2) Increased width to 95% on mobile (was 90%) 3) Added px-2 padding on mobile 4) Reduced all paddings (p-3 on mobile, p-4 on desktop) 5) Made all text responsive with sm: breakpoints (text-xs→sm:text-sm, text-2xl→sm:text-3xl) 6) Reduced icon sizes (w-5 h-5 on mobile, w-6 h-6 on desktop) 7) Added truncate for achievement name, line-clamp-2 for description 8) Added touch-manipulation to close button 9) Reduced confetti size (w-1.5 h-1.5 on mobile). Now fully adapted for Telegram mobile viewport (430px width). Frontend hot-reloaded."
+
 metadata:
   created_by: "main_agent"
   version: "1.6"
