@@ -4,6 +4,7 @@ import './App.css';
 import { Header } from './components/Header';
 import { LiveScheduleCard } from './components/LiveScheduleCard';
 import { CalendarModal } from './components/CalendarModal';
+import { AnalyticsModal } from './components/AnalyticsModal';
 import { WeekDaySelector } from './components/WeekDaySelector';
 import { TopGlow } from './components/TopGlow';
 import { LiveScheduleSection } from './components/LiveScheduleSection';
@@ -21,6 +22,7 @@ const Home = () => {
   const { t } = useTranslation();
   
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isAnalyticsOpen, setIsAnalyticsOpen] = useState(false);
   const [isNotificationSettingsOpen, setIsNotificationSettingsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentClass, setCurrentClass] = useState(null);
