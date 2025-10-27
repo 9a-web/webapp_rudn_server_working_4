@@ -32,7 +32,15 @@ from models import (
     ErrorResponse,
     SuccessResponse,
     NotificationSettingsUpdate,
-    NotificationSettingsResponse
+    NotificationSettingsResponse,
+    Achievement,
+    UserAchievement,
+    UserAchievementResponse,
+    UserStats,
+    UserStatsResponse,
+    TrackActionRequest,
+    NewAchievementsResponse,
+    WeatherResponse
 )
 from notifications import get_notification_service
 from scheduler import get_scheduler
