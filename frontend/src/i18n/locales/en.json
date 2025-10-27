@@ -2,6 +2,15 @@
   "header": {
     "title": "RUDN Schedule"
   },
+  "menu": {
+    "title": "Menu",
+    "achievements": "Achievements",
+    "analytics": "Analytics",
+    "notifications": "Notifications",
+    "calendar": "Calendar",
+    "language": "Language",
+    "footer": "RUDN Schedule"
+  },
   "liveScheduleCard": {
     "currentClass": "Current class:",
     "noClass": "No classes now!",
