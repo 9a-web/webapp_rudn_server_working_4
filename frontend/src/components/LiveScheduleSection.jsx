@@ -100,7 +100,7 @@ export const LiveScheduleSection = ({
 
   return (
     <div className="bg-white rounded-t-[40px] mt-6 min-h-screen">
-      <div className="px-6 md:px-8 lg:px-10 pt-8 md:pt-10 pb-6">
+      <div className="px-6 md:px-8 lg:px-10 xl:px-12 pt-8 md:pt-10 lg:pt-12 pb-6">
         {/* Header section */}
         <div className="flex items-start justify-between mb-4 md:mb-6">
           <div>
