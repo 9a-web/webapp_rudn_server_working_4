@@ -203,4 +203,96 @@ export const userAPI = {
   },
 };
 
+/**
+ * API методы для достижений
+ */
+export const achievementsAPI = {
+  /**
+   * Получить все достижения
+   */
+  getAllAchievements: async () => {
+    try {
+      const response = await api.get('/achievements');
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  /**
+   * Получить достижения пользователя
+   * @param {number} telegramId - Telegram ID пользователя
+   */
+  getUserAchievements: async (telegramId) => {
+    try {
+      const response = await api.get(`/user-achievements/${telegramId}`);
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  /**
+   * Получить статистику пользователя
+   * @param {number} telegramId - Telegram ID пользователя
+   */
+  getUserStats: async (telegramId) => {
+    try {
+      const response = await api.get(`/user-stats/${telegramId}`);
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  /**
+   * Отследить действие пользователя
+   * @param {number} telegramId - Telegram ID пользователя
+   * @param {string} actionType - Тип действия (select_group, view_schedule, etc.)
+   * @param {Object} metadata - Дополнительные данные
+   */
+  trackAction: async (telegramId, actionType, metadata = {}) => {
+    try {
+      const response = await api.post('/track-action', {
+        telegram_id: telegramId,
+        action_type: actionType,
+        metadata,
+      });
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  /**
+   * Отметить достижения как просмотренные
+   * @param {number} telegramId - Telegram ID пользователя
+   */
+  markAchievementsSeen: async (telegramId) => {
+    try {
+      const response = await api.post(`/user-achievements/${telegramId}/mark-seen`);
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+};
+
+/**
+ * API методы для погоды
+ */
+export const weatherAPI = {
+  /**
+   * Получить текущую погоду в Москве
+   */
+  getWeather: async () => {
+    try {
+      const response = await api.get('/weather');
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+};
+
 export default api;
