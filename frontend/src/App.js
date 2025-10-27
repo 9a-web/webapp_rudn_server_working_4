@@ -7,7 +7,7 @@ import { CalendarModal } from './components/CalendarModal';
 import { AnalyticsModal } from './components/AnalyticsModal';
 import { AchievementsModal } from './components/AchievementsModal';
 import { AchievementNotification } from './components/AchievementNotification';
-import { WeatherWidget } from './components/WeatherWidget';
+import { LiveScheduleCarousel } from './components/LiveScheduleCarousel';
 import { WeekDaySelector } from './components/WeekDaySelector';
 import { TopGlow } from './components/TopGlow';
 import { LiveScheduleSection } from './components/LiveScheduleSection';
