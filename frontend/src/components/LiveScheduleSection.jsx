@@ -308,9 +308,9 @@ export const LiveScheduleSection = ({
                     
                     {/* Chevron icon */}
                     {isExpanded ? (
-                      <ChevronDown className="w-6 h-6 flex-shrink-0 mt-1 relative z-10" style={{ color: '#1C1C1C' }} />
+                      <ChevronDown className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: '#1C1C1C' }} />
                     ) : (
-                      <ChevronRight className="w-6 h-6 flex-shrink-0 mt-1 relative z-10" style={{ color: '#1C1C1C' }} />
+                      <ChevronRight className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: '#1C1C1C' }} />
                     )}
                   </div>
                 </motion.div>
