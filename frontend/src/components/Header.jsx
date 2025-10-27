@@ -44,7 +44,8 @@ export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAna
         <div className="flex items-center gap-2">
           {/* Calendar button */}
           <motion.button
-            onClick={() => {
+            onClick={(e) => {
+              addRipple(e);
               if (hapticFeedback) hapticFeedback('impact', 'medium');
               onCalendarClick();
             }}
@@ -54,10 +55,16 @@ export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAna
             initial="initial"
             animate="animate"
             variants={headerItemVariants}
-            whileHover="hover"
-            whileTap="tap"
-            {...buttonVariants}
+            whileHover={{ 
+              scale: 1.02,
+              transition: { type: 'spring', stiffness: 400, damping: 17 }
+            }}
+            whileTap={{ 
+              scale: 0.98,
+              transition: { type: 'spring', stiffness: 600, damping: 20 }
+            }}
           >
+            <RippleEffect ripples={ripples} />
             {/* Gradient glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 via-teal-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
@@ -66,7 +73,8 @@ export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAna
 
           {/* Notifications button */}
           <motion.button
-            onClick={() => {
+            onClick={(e) => {
+              addRipple(e);
               if (hapticFeedback) hapticFeedback('impact', 'medium');
               onNotificationsClick();
             }}
@@ -76,10 +84,16 @@ export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAna
             initial="initial"
             animate="animate"
             variants={headerItemVariants}
-            whileHover="hover"
-            whileTap="tap"
-            {...buttonVariants}
+            whileHover={{ 
+              scale: 1.02,
+              transition: { type: 'spring', stiffness: 400, damping: 17 }
+            }}
+            whileTap={{ 
+              scale: 0.98,
+              transition: { type: 'spring', stiffness: 600, damping: 20 }
+            }}
           >
+            <RippleEffect ripples={ripples} />
             {/* Gradient glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-pink-400/20 via-rose-400/20 to-red-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
@@ -88,17 +102,26 @@ export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAna
 
           {/* Menu button */}
           <motion.button
-            onClick={handleMenuClick}
+            onClick={(e) => {
+              addRipple(e);
+              handleMenuClick();
+            }}
             className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
             aria-label="Open menu"
             custom={3}
             initial="initial"
             animate="animate"
             variants={headerItemVariants}
-            whileHover="hover"
-            whileTap="tap"
-            {...buttonVariants}
+            whileHover={{ 
+              scale: 1.02,
+              transition: { type: 'spring', stiffness: 400, damping: 17 }
+            }}
+            whileTap={{ 
+              scale: 0.98,
+              transition: { type: 'spring', stiffness: 600, damping: 20 }
+            }}
           >
+            <RippleEffect ripples={ripples} />
             {/* Gradient glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 via-pink-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
