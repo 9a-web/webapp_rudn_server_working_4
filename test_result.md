@@ -477,14 +477,15 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "1.6"
-  test_sequence: 7
+  version: "1.7"
+  test_sequence: 8
   run_ui: true
 
 test_plan:
   current_focus:
+    - "Analytics - Count Unique Time Slots"
+    - "Achievement Notification - Mobile Adaptation"
     - "Analytics - Fix Weekday Abbreviations"
-    - "Language Switching - i18n Integration"
   stuck_tasks:
     - "Language Switching - i18n Integration"
   test_all: false
