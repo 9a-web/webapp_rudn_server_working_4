@@ -256,6 +256,7 @@ const Home = () => {
       <div className="relative mx-auto max-w-[430px] md:max-w-2xl lg:max-w-4xl" style={{ zIndex: 10 }}>
         <Header 
           onCalendarClick={handleCalendarClick}
+          onAnalyticsClick={schedule.length > 0 ? handleAnalyticsClick : null}
           onNotificationsClick={user ? handleNotificationsClick : null}
         />
         
