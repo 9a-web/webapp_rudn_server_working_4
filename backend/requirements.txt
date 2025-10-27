@@ -37,3 +37,4 @@ soupsieve>=2.0.0
 python-telegram-bot>=20.7
 apscheduler>=3.10.4
 httpx>=0.24.0
+tzlocal>=5.0.0
