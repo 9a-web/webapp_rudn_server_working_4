@@ -10,6 +10,7 @@ import { RippleEffect } from './RippleEffect';
 export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAnalyticsClick, onAchievementsClick, hapticFeedback }) => {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { ripples, addRipple } = useRipple();
 
   const handleMenuClick = () => {
     if (hapticFeedback) hapticFeedback('impact', 'medium');
