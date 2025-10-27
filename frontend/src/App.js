@@ -360,7 +360,7 @@ const Home = () => {
       <TopGlow />
       
       {/* Adaptive container with responsive max-width */}
-      <div className="relative mx-auto max-w-[430px] md:max-w-3xl lg:max-w-7xl 2xl:max-w-[1920px]" style={{ zIndex: 10 }}>
+      <div className="relative mx-auto max-w-[430px] md:max-w-3xl lg:max-w-7xl 2xl:max-w-8xl px-0" style={{ zIndex: 10 }}>
         {/* Header - full width */}
         <Header 
           onCalendarClick={handleCalendarClick}
