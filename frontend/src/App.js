@@ -294,6 +294,13 @@ const Home = () => {
           onDateSelect={handleDateSelect}
         />
 
+        <AnalyticsModal
+          isOpen={isAnalyticsOpen}
+          onClose={() => setIsAnalyticsOpen(false)}
+          schedule={schedule}
+          hapticFeedback={hapticFeedback}
+        />
+
         {user && (
           <NotificationSettings
             telegramId={user.id}
