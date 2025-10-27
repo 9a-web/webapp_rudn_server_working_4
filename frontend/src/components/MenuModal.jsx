@@ -45,22 +45,6 @@ export const MenuModal = ({
       show: !!onAnalyticsClick
     },
     {
-      id: 'notifications',
-      icon: Bell,
-      label: t('menu.notifications', 'Уведомления'),
-      color: '#FFB4D1',
-      action: onNotificationsClick,
-      show: !!onNotificationsClick
-    },
-    {
-      id: 'calendar',
-      icon: Calendar,
-      label: t('menu.calendar', 'Календарь'),
-      color: '#A3F7BF',
-      action: onCalendarClick,
-      show: !!onCalendarClick
-    },
-    {
       id: 'language',
       icon: Languages,
       label: `${t('menu.language', 'Язык')}: ${i18n.language.toUpperCase()}`,
