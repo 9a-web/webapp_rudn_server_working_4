@@ -230,7 +230,7 @@ export const LiveScheduleSection = ({
                           fontFamily: 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif'
                         }}
                       >
-                        {classItem.discipline}
+                        {translateDiscipline(classItem.discipline, i18n.language)}
                       </p>
                       <div className="flex items-center gap-2 flex-wrap">
                         <div 
