@@ -335,6 +335,98 @@ async def get_notification_settings(telegram_id: int):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ============ Эндпоинты для достижений ============
+
+@api_router.get("/achievements", response_model=List[Achievement])
+async def get_achievements():
+    """Получить список всех достижений"""
+    try:
+        achievements = get_all_achievements()
+        return achievements
+    except Exception as e:
+        logger.error(f"Ошибка при получении достижений: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/user-achievements/{telegram_id}", response_model=List[UserAchievementResponse])
+async def get_user_achievements_endpoint(telegram_id: int):
+    """Получить достижения пользователя"""
+    try:
+        achievements = await get_user_achievements(db, telegram_id)
+        return achievements
+    except Exception as e:
+        logger.error(f"Ошибка при получении достижений пользователя: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/user-stats/{telegram_id}", response_model=UserStatsResponse)
+async def get_user_stats_endpoint(telegram_id: int):
+    """Получить статистику пользователя"""
+    try:
+        stats = await get_or_create_user_stats(db, telegram_id)
+        return UserStatsResponse(
+            telegram_id=stats.telegram_id,
+            groups_viewed=stats.groups_viewed,
+            friends_invited=stats.friends_invited,
+            schedule_views=stats.schedule_views,
+            night_usage_count=stats.night_usage_count,
+            early_usage_count=stats.early_usage_count,
+            total_points=stats.total_points,
+            achievements_count=stats.achievements_count
+        )
+    except Exception as e:
+        logger.error(f"Ошибка при получении статистики пользователя: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.post("/track-action", response_model=NewAchievementsResponse)
+async def track_action_endpoint(request: TrackActionRequest):
+    """Отследить действие пользователя и проверить достижения"""
+    try:
+        # Отслеживаем действие и проверяем достижения
+        new_achievements = await track_user_action(
+            db,
+            request.telegram_id,
+            request.action_type,
+            request.metadata
+        )
+        
+        return new_achievements
+    except Exception as e:
+        logger.error(f"Ошибка при отслеживании действия: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.post("/user-achievements/{telegram_id}/mark-seen", response_model=SuccessResponse)
+async def mark_achievements_seen_endpoint(telegram_id: int):
+    """Отметить все достижения как просмотренные"""
+    try:
+        await mark_achievements_as_seen(db, telegram_id)
+        return SuccessResponse(success=True, message="Достижения отмечены как просмотренные")
+    except Exception as e:
+        logger.error(f"Ошибка при отметке достижений: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============ Эндпоинты для погоды ============
+
+@api_router.get("/weather", response_model=WeatherResponse)
+async def get_weather_endpoint():
+    """Получить текущую погоду в Москве"""
+    try:
+        weather = await get_moscow_weather()
+        
+        if not weather:
+            raise HTTPException(status_code=503, detail="Не удалось получить данные о погоде")
+        
+        return weather
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Ошибка при получении погоды: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
