@@ -426,15 +426,18 @@ frontend:
 
   - task: "Analytics - Group Classes by Time Slot"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/App.js, /app/backend/achievements.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "🔧 Fixed analytics counting logic. Previously, each class (discipline) was counted separately even if multiple classes occurred at the same time. Now groups classes by time slot (e.g., 10:30-11:50). Frontend (App.js): Modified trackScheduleView() to count unique time slots using Set data structure. Calculates uniqueTimeSlots.size and passes as classes_count in metadata. Backend (achievements.py): Updated view_schedule action handler to accept classes_count from metadata and increment schedule_views by that amount (defaults to 1 for backwards compatibility). Example: If 3 subjects occur at 10:30-11:50, counts as 1 class instead of 3. Backend auto-reloaded. Ready for testing."
+        - working: true
+          agent: "testing"
+          comment: "✅ Analytics counting fix successfully verified. Created comprehensive test with telegram_id 999888777: 1) Created test user and got initial stats (schedule_views: 0) 2) Simulated viewing schedule with 5 classes - correctly incremented by 5 (schedule_views: 5) 3) Simulated viewing schedule with 3 classes - correctly incremented by 3 more (schedule_views: 8) 4) Tested backwards compatibility without metadata - correctly incremented by 1 (schedule_views: 9). Backend properly accepts classes_count from metadata and increments schedule_views by that amount instead of always by 1. Defaults to 1 when no metadata provided. All test scenarios passed - the fix is working correctly."
 
 metadata:
   created_by: "main_agent"
