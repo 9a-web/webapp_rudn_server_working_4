@@ -1,0 +1,166 @@
+/**
+ * Утилиты для расчета учебной аналитики
+ */
+
+/**
+ * Рассчитывает статистику по расписанию
+ * @param {Array} schedule - Массив занятий
+ * @returns {Object} Статистика
+ */
+export const calculateScheduleStats = (schedule) => {
+  if (!schedule || schedule.length === 0) {
+    return {
+      totalClasses: 0,
+      totalHours: 0,
+      averageClassesPerDay: 0,
+      busyDays: 0,
+    };
+  }
+
+  // Подсчет общего количества пар
+  const totalClasses = schedule.length;
+
+  // Подсчет общего количества часов (каждая пара = 1.5 часа)
+  const totalHours = totalClasses * 1.5;
+
+  // Группировка по дням
+  const classesByDay = schedule.reduce((acc, classItem) => {
+    const day = classItem.day || 'unknown';
+    if (!acc[day]) acc[day] = [];
+    acc[day].push(classItem);
+    return acc;
+  }, {});
+
+  // Количество дней с занятиями
+  const busyDays = Object.keys(classesByDay).length;
+
+  // Среднее количество пар в день
+  const averageClassesPerDay = busyDays > 0 ? (totalClasses / busyDays).toFixed(1) : 0;
+
+  return {
+    totalClasses,
+    totalHours,
+    averageClassesPerDay: parseFloat(averageClassesPerDay),
+    busyDays,
+    classesByDay,
+  };
+};
+
+/**
+ * Находит самый загруженный день
+ * @param {Object} classesByDay - Занятия сгруппированные по дням
+ * @returns {Object} Информация о самом загруженном дне
+ */
+export const findBusiestDay = (classesByDay) => {
+  if (!classesByDay || Object.keys(classesByDay).length === 0) {
+    return null;
+  }
+
+  let maxClasses = 0;
+  let busiestDay = null;
+
+  Object.entries(classesByDay).forEach(([day, classes]) => {
+    if (classes.length > maxClasses) {
+      maxClasses = classes.length;
+      busiestDay = day;
+    }
+  });
+
+  return {
+    day: busiestDay,
+    classCount: maxClasses,
+  };
+};
+
+/**
+ * Находит самый свободный день (с занятиями)
+ * @param {Object} classesByDay - Занятия сгруппированные по дням
+ * @returns {Object} Информация о самом свободном дне
+ */
+export const findLightestDay = (classesByDay) => {
+  if (!classesByDay || Object.keys(classesByDay).length === 0) {
+    return null;
+  }
+
+  let minClasses = Infinity;
+  let lightestDay = null;
+
+  Object.entries(classesByDay).forEach(([day, classes]) => {
+    if (classes.length < minClasses) {
+      minClasses = classes.length;
+      lightestDay = day;
+    }
+  });
+
+  return {
+    day: lightestDay,
+    classCount: minClasses,
+  };
+};
+
+/**
+ * Рассчитывает загруженность по дням недели (для графика)
+ * @param {Object} classesByDay - Занятия сгруппированные по дням
+ * @returns {Array} Данные для графика
+ */
+export const getWeekLoadChart = (classesByDay) => {
+  const daysOrder = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+  
+  return daysOrder.map(day => ({
+    day: day,
+    shortDay: day.slice(0, 2),
+    classes: classesByDay[day]?.length || 0,
+    hours: (classesByDay[day]?.length || 0) * 1.5,
+  }));
+};
+
+/**
+ * Рассчитывает статистику по типам занятий
+ * @param {Array} schedule - Массив занятий
+ * @returns {Object} Статистика по типам
+ */
+export const getClassTypeStats = (schedule) => {
+  if (!schedule || schedule.length === 0) {
+    return {};
+  }
+
+  const typeStats = schedule.reduce((acc, classItem) => {
+    const type = classItem.type || 'Не указано';
+    if (!acc[type]) {
+      acc[type] = 0;
+    }
+    acc[type]++;
+    return acc;
+  }, {});
+
+  return typeStats;
+};
+
+/**
+ * Рассчитывает процент занятости дня
+ * @param {number} classCount - Количество пар в день
+ * @returns {number} Процент (0-100)
+ */
+export const calculateDayBusyPercentage = (classCount) => {
+  // Максимум 8 пар в день (условно)
+  const maxClassesPerDay = 8;
+  return Math.min(100, Math.round((classCount / maxClassesPerDay) * 100));
+};
+
+/**
+ * Форматирует время в читаемый формат
+ * @param {number} hours - Количество часов
+ * @returns {string} Форматированное время
+ */
+export const formatHours = (hours) => {
+  if (hours < 1) {
+    return `${Math.round(hours * 60)} мин`;
+  }
+  const wholeHours = Math.floor(hours);
+  const minutes = Math.round((hours - wholeHours) * 60);
+  
+  if (minutes === 0) {
+    return `${wholeHours} ч`;
+  }
+  return `${wholeHours} ч ${minutes} мин`;
+};
