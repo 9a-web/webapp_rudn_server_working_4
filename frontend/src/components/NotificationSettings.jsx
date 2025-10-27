@@ -61,7 +61,7 @@ export const NotificationSettings = ({
 
       showAlert && showAlert(
         enabled 
-          ? `✅ Уведомления включены! Напоминание за ${notificationTime} минут` 
+          ? `✅ Уведомления включены! Напоминание за ${notificationTime} ${pluralizeMinutes(notificationTime)}` 
           : '🔕 Уведомления выключены'
       );
       
