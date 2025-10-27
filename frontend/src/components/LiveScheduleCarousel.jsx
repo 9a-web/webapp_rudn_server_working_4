@@ -218,8 +218,8 @@ export const LiveScheduleCarousel = ({
         </div>
       </div>
 
-      {/* Навигационные кнопки и индикаторы по центру */}
-      <div className="flex items-center justify-center gap-4">
+      {/* Навигационные кнопки и индикаторы по центру - только для mobile и tablet */}
+      <div className="flex items-center justify-center gap-4 lg:hidden">
         {/* Кнопка назад */}
         <motion.button
           onClick={handlePrevious}
@@ -258,6 +258,14 @@ export const LiveScheduleCarousel = ({
         >
           <ChevronRight className="w-5 h-5 text-white" />
         </motion.button>
+      </div>
+
+      {/* Desktop - статичная LiveScheduleCard (показываем только на >= 1280px) */}
+      <div className="hidden lg:block mt-4">
+        <LiveScheduleCard 
+          currentClass={currentClass} 
+          minutesLeft={minutesLeft}
+        />
       </div>
 
       {/* Модалка достижений */}
