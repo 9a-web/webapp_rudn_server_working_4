@@ -352,6 +352,48 @@ export const liveCardVariants = {
   }
 };
 
+// Улучшенные page transitions (мягкие)
+export const pageTransitionVariants = {
+  initial: {
+    opacity: 0,
+    scale: 0.98,
+    y: 10
+  },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 0.1, 0.25, 1]
+    }
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.98,
+    y: -10,
+    transition: {
+      duration: 0.3,
+      ease: [0.25, 0.1, 0.25, 1]
+    }
+  }
+};
+
+// Мягкий swipe indicator
+export const swipeIndicatorVariants = {
+  initial: { opacity: 0, x: 0 },
+  left: { 
+    opacity: [0, 0.3, 0],
+    x: [-10, 0, 10],
+    transition: { duration: 0.4 }
+  },
+  right: { 
+    opacity: [0, 0.3, 0],
+    x: [10, 0, -10],
+    transition: { duration: 0.4 }
+  }
+};
+
 export default {
   fadeInUp,
   fadeInScale,
@@ -362,10 +404,15 @@ export default {
   cardExpandVariants,
   slideInRight,
   buttonVariants,
+  softBounceVariants,
+  springVariants,
+  cardSpringVariants,
   pulseVariants,
   spinVariants,
   headerItemVariants,
   daySelectorVariants,
   contentSwitchVariants,
-  liveCardVariants
+  liveCardVariants,
+  pageTransitionVariants,
+  swipeIndicatorVariants
 };
