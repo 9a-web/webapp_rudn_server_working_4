@@ -366,11 +366,11 @@ frontend:
 
   - task: "Language Switching - i18n Integration"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/i18n/config.js, /app/frontend/src/components/MenuModal.jsx, /app/frontend/src/index.js"
-    stuck_count: 2
+    stuck_count: 3
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
@@ -384,6 +384,9 @@ frontend:
         - working: "NA"
           agent: "main"
           comment: "🔧 FIX ATTEMPT: Identified root causes of language switching issue: 1) i18n configuration was not imported in index.js entry point, preventing initialization 2) Language switcher button in MenuModal had disabled: true flag. Applied fixes: Added import './i18n/config' to /app/frontend/src/index.js before App import to ensure i18n initializes on app start. Changed disabled flag from true to false in MenuModal.jsx line 55 for language switcher button. Translation files (ru.json, en.json) verified and contain all required translations. Frontend restarted successfully. Ready for testing to verify language switching now works correctly."
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL INFRASTRUCTURE ISSUE BLOCKING LANGUAGE SWITCHING TEST: Cannot test language switching functionality due to browser automation tool consistently navigating to wrong URL (http://localhost:8001 backend instead of http://localhost:3000 frontend). This prevents React app from loading entirely. ANALYSIS OF CODE IMPLEMENTATION: ✅ i18n configuration appears correct in /app/frontend/src/i18n/config.js with proper Russian/English translations ✅ MenuModal.jsx implements language switching with toggleLanguage() function that changes i18n.language between 'ru' and 'en' ✅ Language button shows current language (RU/EN) and is enabled (disabled: false) ✅ Translation files contain all required UI text mappings ✅ index.js imports i18n config before App ✅ Backend URL correctly set to http://localhost:8001 in .env file. CRITICAL ISSUE: Browser automation tool URL routing malfunction prevents verification of actual functionality. React app shows only 404 error from backend instead of loading frontend. RECOMMENDATION: Main agent must investigate and fix browser automation URL routing issue before language switching can be properly tested."
 
   - task: "Notification Settings Modal - Save and Close"
     implemented: true
