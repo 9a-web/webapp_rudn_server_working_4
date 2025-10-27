@@ -158,6 +158,11 @@ const Home = () => {
     setIsCalendarOpen(true);
   };
 
+  const handleAnalyticsClick = () => {
+    hapticFeedback('impact', 'light');
+    setIsAnalyticsOpen(true);
+  };
+
   const handleNotificationsClick = () => {
     hapticFeedback('impact', 'light');
     setIsNotificationSettingsOpen(true);
