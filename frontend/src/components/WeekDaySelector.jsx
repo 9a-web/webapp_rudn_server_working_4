@@ -136,7 +136,7 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
           return (
             <motion.button
               key={`${day.fullDate.toISOString()}-${index}`}
-              onClick={() => handleDayClick(index, day)}
+              onClick={() => handleDayClick(day, index)}
               className={`
                 flex-shrink-0 rounded-[40px] flex flex-col items-center justify-center
                 transition-all duration-300
