@@ -1,10 +1,10 @@
 import React from 'react';
-import { Calendar, Languages, Bell, BarChart3 } from 'lucide-react';
+import { Calendar, Languages, Bell, BarChart3, Trophy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { headerItemVariants, buttonVariants } from '../utils/animations';
 
-export const Header = ({ onCalendarClick, onNotificationsClick, onAnalyticsClick }) => {
+export const Header = ({ onCalendarClick, onNotificationsClick, onAnalyticsClick, onAchievementsClick }) => {
   const { t, i18n } = useTranslation();
 
   const toggleLanguage = () => {
