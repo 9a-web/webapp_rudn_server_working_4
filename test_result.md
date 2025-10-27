@@ -447,7 +447,6 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Analytics - Group Classes by Time Slot"
     - "Language Switching - i18n Integration"
   stuck_tasks:
     - "Language Switching - i18n Integration"
@@ -459,6 +458,7 @@ test_plan:
     - "POST /api/track-action - Track User Action"
     - "GET /api/user-stats/{telegram_id} - Get User Statistics"
     - "GET /api/user-achievements/{telegram_id} - Get User Achievements"
+    - "Analytics - Group Classes by Time Slot"
 
 agent_communication:
     - agent: "testing"
