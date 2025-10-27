@@ -406,46 +406,56 @@ const Home = () => {
           />
         )}
         
-        <CalendarModal
-          isOpen={isCalendarOpen}
-          onClose={() => setIsCalendarOpen(false)}
-          onDateSelect={handleDateSelect}
-        />
+        <Suspense fallback={null}>
+          <CalendarModal
+            isOpen={isCalendarOpen}
+            onClose={() => setIsCalendarOpen(false)}
+            onDateSelect={handleDateSelect}
+          />
+        </Suspense>
 
-        <AnalyticsModal
-          isOpen={isAnalyticsOpen}
-          onClose={() => setIsAnalyticsOpen(false)}
-          schedule={schedule}
-          hapticFeedback={hapticFeedback}
-        />
+        <Suspense fallback={null}>
+          <AnalyticsModal
+            isOpen={isAnalyticsOpen}
+            onClose={() => setIsAnalyticsOpen(false)}
+            schedule={schedule}
+            hapticFeedback={hapticFeedback}
+          />
+        </Suspense>
 
         {user && (
-          <NotificationSettings
-            telegramId={user.id}
-            onClose={() => setIsNotificationSettingsOpen(false)}
-            hapticFeedback={hapticFeedback}
-            showAlert={showAlert}
-            isOpen={isNotificationSettingsOpen}
-          />
+          <Suspense fallback={null}>
+            <NotificationSettings
+              telegramId={user.id}
+              onClose={() => setIsNotificationSettingsOpen(false)}
+              hapticFeedback={hapticFeedback}
+              showAlert={showAlert}
+              isOpen={isNotificationSettingsOpen}
+            />
+          </Suspense>
         )}
 
         {user && (
-          <AchievementsModal
-            isOpen={isAchievementsOpen}
-            onClose={() => setIsAchievementsOpen(false)}
-            allAchievements={allAchievements}
-            userAchievements={userAchievements}
-            userStats={userStats}
-            hapticFeedback={hapticFeedback}
-          />
+          <Suspense fallback={null}>
+            <AchievementsModal
+              isOpen={isAchievementsOpen}
+              onClose={() => setIsAchievementsOpen(false)}
+              allAchievements={allAchievements}
+              userAchievements={userAchievements}
+              userStats={userStats}
+              hapticFeedback={hapticFeedback}
+            />
+          </Suspense>
         )}
 
         {newAchievement && (
-          <AchievementNotification
-            achievement={newAchievement}
-            onClose={handleAchievementNotificationClose}
-            hapticFeedback={hapticFeedback}
-          />
+          <Suspense fallback={null}>
+            <AchievementNotification
+              achievement={newAchievement}
+              onClose={handleAchievementNotificationClose}
+              hapticFeedback={hapticFeedback}
+            />
+          </Suspense>
         )}
       </div>
     </div>
