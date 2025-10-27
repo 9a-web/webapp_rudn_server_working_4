@@ -417,6 +417,12 @@ test_plan:
     - "Language Switching - i18n Integration"
   test_all: false
   test_priority: "high_first"
+  completed_tests:
+    - "GET /api/achievements - Get All Achievements"
+    - "GET /api/weather - Get Moscow Weather"
+    - "POST /api/track-action - Track User Action"
+    - "GET /api/user-stats/{telegram_id} - Get User Statistics"
+    - "GET /api/user-achievements/{telegram_id} - Get User Achievements"
 
 agent_communication:
     - agent: "testing"
