@@ -323,4 +323,4 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
       </motion.div>
     </div>
   );
-};
+});
