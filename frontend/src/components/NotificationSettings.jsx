@@ -203,7 +203,7 @@ export const NotificationSettings = ({
               ))}
             </div>
             <p className="text-xs text-gray-500 mt-3 text-center">
-              Вы получите уведомление за {notificationTime} минут до начала каждой пары
+              Вы получите уведомление за {notificationTime} {pluralizeMinutes(notificationTime)} до начала каждой пары
             </p>
           </div>
         )}
