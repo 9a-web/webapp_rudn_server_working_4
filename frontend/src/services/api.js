@@ -8,14 +8,18 @@ import axios from 'axios';
 const getBackendURL = () => {
   // Если запущено локально (localhost:3000), используем локальный backend
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    console.log('🔧 Development mode: using local backend');
     return 'http://localhost:8001';
   }
   // В production используем текущий домен (чтобы избежать CORS)
+  console.log('🚀 Production mode: using current domain for API');
   return window.location.origin;
 };
 
 const BACKEND_URL = getBackendURL();
 const API_BASE = `${BACKEND_URL}/api`;
+
+console.log('📡 API Base URL:', API_BASE);
 
 // Создаем экземпляр axios с базовыми настройками
 const api = axios.create({
