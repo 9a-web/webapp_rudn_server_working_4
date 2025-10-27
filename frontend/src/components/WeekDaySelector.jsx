@@ -133,10 +133,7 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
           return (
             <motion.button
               key={`${day.fullDate.toISOString()}-${index}`}
-              onClick={(e) => {
-                addRipple(e);
-                handleDayClick(day, index);
-              }}
+              onClick={() => handleDayClick(day, index)}
               className={`
                 flex-shrink-0 rounded-[40px] flex flex-col items-center justify-center
                 transition-all duration-300 relative overflow-hidden
@@ -154,30 +151,11 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
               initial="initial"
               animate="animate"
               variants={listItemVariants}
-              whileHover={{ 
-                scale: 1.02,
-                transition: { 
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 17
-                }
-              }}
-              whileTap={{ 
-                scale: 0.97,
-                transition: { 
-                  type: 'spring',
-                  stiffness: 600,
-                  damping: 20
-                }
-              }}
               layout
               transition={{
                 layout: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }
               }}
             >
-                {/* Ripple effects */}
-                <RippleEffect ripples={ripples} />
-                
                 {/* Date */}
                 <motion.span
                   className="font-zaglav font-normal leading-none relative z-10"
