@@ -67,8 +67,11 @@ app = FastAPI(title="RUDN Schedule API", version="1.0.0")
 
 # Configure CORS middleware BEFORE adding routes
 # When allow_credentials=True, we cannot use "*" for origins
-cors_origins = os.environ.get('CORS_ORIGINS', '*')
-if cors_origins == '*':
+cors_origins_str = os.environ.get('CORS_ORIGINS', '*')
+cors_origins_list = [origin.strip() for origin in cors_origins_str.split(',')]
+
+# Check if "*" is in the list
+if '*' in cors_origins_list:
     # If "*" is specified, use it without credentials
     app.add_middleware(
         CORSMiddleware,
@@ -77,15 +80,17 @@ if cors_origins == '*':
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    logger.info("CORS configured with wildcard (*) - all origins allowed without credentials")
 else:
     # If specific origins are provided, enable credentials
     app.add_middleware(
         CORSMiddleware,
         allow_credentials=True,
-        allow_origins=cors_origins.split(','),
+        allow_origins=cors_origins_list,
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    logger.info(f"CORS configured for specific origins: {cors_origins_list}")
 
 # Configure logging early
 logging.basicConfig(
