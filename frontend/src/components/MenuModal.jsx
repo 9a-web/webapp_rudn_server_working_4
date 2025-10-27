@@ -34,7 +34,8 @@ export const MenuModal = React.memo(({
       label: t('menu.achievements', 'Достижения'),
       color: '#FFE66D',
       action: onAchievementsClick,
-      show: !!onAchievementsClick
+      show: true,
+      disabled: true
     },
     {
       id: 'analytics',
@@ -50,7 +51,8 @@ export const MenuModal = React.memo(({
       label: `${t('menu.language', 'Язык')}: ${i18n.language.toUpperCase()}`,
       color: '#C4A3FF',
       action: toggleLanguage,
-      show: true
+      show: true,
+      disabled: true
     }
   ];
 
