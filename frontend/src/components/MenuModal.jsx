@@ -182,4 +182,4 @@ export const MenuModal = React.memo(({
       )}
     </AnimatePresence>
   );
-};
+});
