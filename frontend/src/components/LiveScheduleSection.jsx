@@ -240,20 +240,40 @@ export const LiveScheduleSection = ({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
+          <motion.div 
+            className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4"
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+          >
             {todaySchedule.map((classItem, index) => {
               const { status, color } = getClassStatus(classItem);
               const isExpanded = expandedIndex === index;
 
               return (
-                <div 
-                  key={index} 
-                  className="rounded-2xl md:rounded-3xl p-4 md:p-5 transition-all duration-300 cursor-pointer hover:shadow-md"
+                <motion.div 
+                  key={index}
+                  variants={listItemVariants}
+                  custom={index}
+                  className="rounded-2xl md:rounded-3xl p-4 md:p-5 transition-all duration-300 cursor-pointer hover:shadow-md relative overflow-hidden"
                   style={{ 
                     backgroundColor: '#F5F5F5',
                   }}
-                  onClick={() => toggleExpand(index)}
+                  onClick={(e) => {
+                    addRipple(e);
+                    toggleExpand(index);
+                  }}
+                  whileHover={{ 
+                    y: -2,
+                    scale: 1.01,
+                    transition: { type: 'spring', stiffness: 350, damping: 20 }
+                  }}
+                  whileTap={{ 
+                    scale: 0.99,
+                    transition: { type: 'spring', stiffness: 600, damping: 25 }
+                  }}
                 >
+                  <RippleEffect ripples={ripples} />
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <p 
