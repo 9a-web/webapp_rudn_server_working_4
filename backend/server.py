@@ -86,6 +86,8 @@ if '*' in cors_origins_list:
         allow_origins=["*"],
         allow_methods=["*"],
         allow_headers=["*"],
+        expose_headers=["*"],
+        max_age=3600,
     )
     logger.info("CORS configured with wildcard (*) - all origins allowed without credentials")
 else:
@@ -96,6 +98,8 @@ else:
         allow_origins=cors_origins_list,
         allow_methods=["*"],
         allow_headers=["*"],
+        expose_headers=["*"],
+        max_age=3600,
     )
     logger.info(f"CORS configured for specific origins: {cors_origins_list}")
 
