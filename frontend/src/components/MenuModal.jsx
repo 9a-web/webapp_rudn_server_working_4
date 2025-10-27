@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Languages, Bell, BarChart3, Trophy, X } from 'lucide-react';
+import { Languages, BarChart3, Trophy, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 
