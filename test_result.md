@@ -426,11 +426,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "New Menu System Implementation"
+    - "Header Buttons - Calendar and Notifications Moved from Menu"
     - "Language Switching - i18n Integration"
   stuck_tasks:
     - "Language Switching - i18n Integration"
-    - "New Menu System Implementation"
   test_all: false
   test_priority: "high_first"
   completed_tests:
