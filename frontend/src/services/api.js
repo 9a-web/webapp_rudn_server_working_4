@@ -6,6 +6,14 @@ import axios from 'axios';
 
 // Определяем URL backend в зависимости от окружения
 const getBackendURL = () => {
+  // Используем переменную окружения если она есть
+  const envBackendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL;
+  
+  if (envBackendUrl) {
+    console.log('🌐 Using environment backend URL:', envBackendUrl);
+    return envBackendUrl;
+  }
+  
   // Если запущено локально (localhost:3000), используем локальный backend
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     console.log('🔧 Development mode: using local backend');
