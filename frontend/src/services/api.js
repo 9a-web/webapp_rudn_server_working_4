@@ -4,7 +4,17 @@
 
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// Определяем URL backend в зависимости от окружения
+const getBackendURL = () => {
+  // Если запущено локально (localhost:3000), используем локальный backend
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:8001';
+  }
+  // В production используем переменную окружения
+  return process.env.REACT_APP_BACKEND_URL;
+};
+
+const BACKEND_URL = getBackendURL();
 const API_BASE = `${BACKEND_URL}/api`;
 
 // Создаем экземпляр axios с базовыми настройками
