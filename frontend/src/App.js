@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Header } from './components/Header';
 import { LiveScheduleCard } from './components/LiveScheduleCard';
-import { CalendarModal } from './components/CalendarModal';
-import { AnalyticsModal } from './components/AnalyticsModal';
-import { AchievementsModal } from './components/AchievementsModal';
-import { AchievementNotification } from './components/AchievementNotification';
 import { LiveScheduleCarousel } from './components/LiveScheduleCarousel';
 import { WeekDaySelector } from './components/WeekDaySelector';
 import { TopGlow } from './components/TopGlow';
 import { LiveScheduleSection } from './components/LiveScheduleSection';
 import GroupSelector from './components/GroupSelector';
-import NotificationSettings from './components/NotificationSettings';
 import StatusTester from './StatusTester';
 import { TelegramProvider, useTelegram } from './contexts/TelegramContext';
 import { scheduleAPI, userAPI, achievementsAPI } from './services/api';
 import { getWeekNumberForDate } from './utils/dateUtils';
 import { useTranslation } from 'react-i18next';
 import './i18n/config';
+
+// Lazy load модальных окон для уменьшения начального bundle
+const CalendarModal = lazy(() => import('./components/CalendarModal').then(module => ({ default: module.CalendarModal })));
+const AnalyticsModal = lazy(() => import('./components/AnalyticsModal').then(module => ({ default: module.AnalyticsModal })));
+const AchievementsModal = lazy(() => import('./components/AchievementsModal').then(module => ({ default: module.AchievementsModal })));
+const AchievementNotification = lazy(() => import('./components/AchievementNotification').then(module => ({ default: module.AchievementNotification })));
+const NotificationSettings = lazy(() => import('./components/NotificationSettings'));
 
 const Home = () => {
   const { user, isReady, showAlert, hapticFeedback } = useTelegram();
