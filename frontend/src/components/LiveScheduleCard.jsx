@@ -39,7 +39,7 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
     <div className="mt-4 flex justify-center px-6 md:px-0">
       <motion.div 
         className="relative w-full max-w-[373px] md:max-w-[420px] lg:max-w-[480px]" 
-        style={{ paddingBottom: '49px' }}
+        style={{ paddingBottom: '22px' }}
         initial="initial"
         animate="animate"
         variants={liveCardVariants}
@@ -51,7 +51,7 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
             backgroundColor: '#212121',
             width: '83.4%', // 311/373
             height: '140px',
-            top: '49px',
+            top: '22px',
             zIndex: 1
           }}
           initial={{ opacity: 0, y: 15, scale: 0.95 }}
@@ -69,7 +69,7 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
             backgroundColor: '#2C2C2C',
             width: '93%', // 347/373
             height: '156px',
-            top: '22px',
+            top: '11px',
             zIndex: 2
           }}
           initial={{ opacity: 0, y: 10, scale: 0.97 }}
