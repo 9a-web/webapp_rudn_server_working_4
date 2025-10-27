@@ -359,8 +359,9 @@ const Home = () => {
     <div className="min-h-screen bg-background telegram-webapp relative">
       <TopGlow />
       
-      {/* Adaptive container with max-width for desktop */}
-      <div className="relative mx-auto max-w-[430px] md:max-w-2xl lg:max-w-4xl" style={{ zIndex: 10 }}>
+      {/* Adaptive container with responsive max-width */}
+      <div className="relative mx-auto max-w-[430px] md:max-w-3xl lg:max-w-7xl 2xl:max-w-[1920px]" style={{ zIndex: 10 }}>
+        {/* Header - full width */}
         <Header 
           onCalendarClick={handleCalendarClick}
           onAnalyticsClick={schedule.length > 0 ? handleAnalyticsClick : null}
@@ -369,38 +370,55 @@ const Home = () => {
           hapticFeedback={hapticFeedback}
         />
         
-        <LiveScheduleCarousel
-          currentClass={currentClass} 
-          minutesLeft={minutesLeft}
-          hapticFeedback={hapticFeedback}
-          allAchievements={allAchievements}
-          userAchievements={userAchievements}
-          userStats={userStats}
-          user={user}
-        />
-      
-        <WeekDaySelector 
-          selectedDate={selectedDate}
-          onDateSelect={handleDateSelect}
-          weekNumber={weekNumber}
-          hapticFeedback={hapticFeedback}
-        />
-        
-        {loading ? (
-          <div className="bg-white rounded-t-[40px] mt-6 pt-8">
-            <ScheduleListSkeleton count={4} />
+        {/* Two-column layout for tablet and desktop */}
+        <div className="lg:grid lg:grid-cols-[1fr_380px] lg:gap-6 lg:px-6">
+          {/* Main content column */}
+          <div className="lg:min-w-0">
+            <LiveScheduleCarousel
+              currentClass={currentClass} 
+              minutesLeft={minutesLeft}
+              hapticFeedback={hapticFeedback}
+              allAchievements={allAchievements}
+              userAchievements={userAchievements}
+              userStats={userStats}
+              user={user}
+            />
+          
+            <WeekDaySelector 
+              selectedDate={selectedDate}
+              onDateSelect={handleDateSelect}
+              weekNumber={weekNumber}
+              hapticFeedback={hapticFeedback}
+            />
+            
+            {loading ? (
+              <div className="bg-white rounded-t-[40px] mt-6 pt-8">
+                <ScheduleListSkeleton count={4} />
+              </div>
+            ) : (
+              <LiveScheduleSection 
+                selectedDate={selectedDate}
+                mockSchedule={schedule}
+                weekNumber={weekNumber}
+                onWeekChange={handleWeekChange}
+                groupName={userSettings?.group_name}
+                onChangeGroup={handleChangeGroup}
+                hapticFeedback={hapticFeedback}
+              />
+            )}
           </div>
-        ) : (
-          <LiveScheduleSection 
-            selectedDate={selectedDate}
-            mockSchedule={schedule}
-            weekNumber={weekNumber}
-            onWeekChange={handleWeekChange}
-            groupName={userSettings?.group_name}
-            onChangeGroup={handleChangeGroup}
-            hapticFeedback={hapticFeedback}
+          
+          {/* Desktop Sidebar - right column (desktop only) */}
+          <DesktopSidebar
+            user={user}
+            userStats={userStats}
+            userAchievements={userAchievements}
+            allAchievements={allAchievements}
+            onAchievementsClick={user ? handleAchievementsClick : null}
+            onAnalyticsClick={schedule.length > 0 ? handleAnalyticsClick : null}
+            onCalendarClick={handleCalendarClick}
           />
-        )}
+        </div>
         
         <Suspense fallback={null}>
           <CalendarModal
