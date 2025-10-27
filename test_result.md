@@ -439,6 +439,18 @@ frontend:
           agent: "testing"
           comment: "✅ Analytics counting fix successfully verified. Created comprehensive test with telegram_id 999888777: 1) Created test user and got initial stats (schedule_views: 0) 2) Simulated viewing schedule with 5 classes - correctly incremented by 5 (schedule_views: 5) 3) Simulated viewing schedule with 3 classes - correctly incremented by 3 more (schedule_views: 8) 4) Tested backwards compatibility without metadata - correctly incremented by 1 (schedule_views: 9). Backend properly accepts classes_count from metadata and increments schedule_views by that amount instead of always by 1. Defaults to 1 when no metadata provided. All test scenarios passed - the fix is working correctly."
 
+  - task: "Analytics - Fix Weekday Abbreviations"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/utils/analytics.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "🔧 Fixed weekday abbreviations in analytics modal. Previously used simple .slice(0, 2) which resulted in incorrect abbreviations (По, Вт, Ср, Че, Пя, Су, Во). Now uses proper mapping: Понедельник→Пн, Вторник→Вт, Среда→Ср, Четверг→Чт, Пятница→Пт, Суббота→Сб, Воскресенье→Вс. Updated getWeekLoadChart() function in analytics.js to use shortDays dictionary for correct abbreviations. Frontend hot-reloaded changes. Ready for visual testing."
+
 metadata:
   created_by: "main_agent"
   version: "1.5"
