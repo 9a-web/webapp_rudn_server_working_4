@@ -2,11 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { daySelectorVariants, listItemVariants } from '../utils/animations';
+import { useSwipe } from '../utils/gestures';
 
 export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, hapticFeedback }) => {
   const [weekDays, setWeekDays] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { t } = useTranslation();
+
+  // Обработчики свайпов
+  const handleSwipeLeft = () => {
+    // Свайп влево - следующий день
+    if (selectedIndex < weekDays.length - 1) {
+      const nextIndex = selectedIndex + 1;
+      handleDayClick(weekDays[nextIndex], nextIndex);
+    }
+  };
+
+  const handleSwipeRight = () => {
+    // Свайп вправо - предыдущий день
+    if (selectedIndex > 0) {
+      const prevIndex = selectedIndex - 1;
+      handleDayClick(weekDays[prevIndex], prevIndex);
+    }
+  };
+
+  const swipeRef = useSwipe(handleSwipeLeft, handleSwipeRight, 50);
 
   useEffect(() => {
     generateWeekDays(weekNumber);
