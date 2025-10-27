@@ -955,11 +955,25 @@ class RUDNScheduleAPITester:
                         return False
                     
                     # Check for required fields in user achievement
-                    required_fields = ['achievement_id', 'earned_at', 'is_new']
+                    required_fields = ['achievement', 'earned_at', 'seen']
                     for field in required_fields:
                         if field not in achievement:
                             self.log_test("GET /api/user-achievements/{telegram_id}", False, 
                                         f"User achievement missing required field: {field}")
+                            return False
+                    
+                    # Validate nested achievement object
+                    if not isinstance(achievement['achievement'], dict):
+                        self.log_test("GET /api/user-achievements/{telegram_id}", False, 
+                                    "Achievement field should be a dictionary")
+                        return False
+                    
+                    # Check achievement object has required fields
+                    achievement_fields = ['id', 'name', 'description', 'emoji', 'points', 'type', 'requirement']
+                    for field in achievement_fields:
+                        if field not in achievement['achievement']:
+                            self.log_test("GET /api/user-achievements/{telegram_id}", False, 
+                                        f"Achievement object missing required field: {field}")
                             return False
             
             self.log_test("GET /api/user-achievements/{telegram_id}", True, 
