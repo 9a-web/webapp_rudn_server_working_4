@@ -260,8 +260,8 @@ export const LiveScheduleCarousel = ({
         </motion.button>
       </div>
 
-      {/* Desktop - статичная LiveScheduleCard (показываем только на >= 1280px) */}
-      <div className="hidden lg:block mt-4">
+      {/* Tablet and Desktop - статичная LiveScheduleCard (показываем на tablet и desktop) */}
+      <div className="hidden md:block mt-4">
         <LiveScheduleCard 
           currentClass={currentClass} 
           minutesLeft={minutesLeft}
