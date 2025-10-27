@@ -222,25 +222,12 @@ export const LiveScheduleSection = ({
                   key={index}
                   variants={listItemVariants}
                   custom={index}
-                  className="rounded-2xl md:rounded-3xl p-4 md:p-5 transition-all duration-300 cursor-pointer hover:shadow-md relative overflow-hidden"
+                  className="rounded-2xl md:rounded-3xl p-4 md:p-5 transition-all duration-300 cursor-pointer hover:shadow-md"
                   style={{ 
                     backgroundColor: '#F5F5F5',
                   }}
-                  onClick={(e) => {
-                    addRipple(e);
-                    toggleExpand(index);
-                  }}
-                  whileHover={{ 
-                    y: -2,
-                    scale: 1.01,
-                    transition: { type: 'spring', stiffness: 350, damping: 20 }
-                  }}
-                  whileTap={{ 
-                    scale: 0.99,
-                    transition: { type: 'spring', stiffness: 600, damping: 25 }
-                  }}
+                  onClick={() => toggleExpand(index)}
                 >
-                  <RippleEffect ripples={ripples} />
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <p 
