@@ -34,8 +34,8 @@ export const MenuModal = React.memo(({
       label: t('menu.achievements', 'Достижения'),
       color: '#FFE66D',
       action: onAchievementsClick,
-      show: true,
-      disabled: true
+      show: !!onAchievementsClick,
+      disabled: false
     },
     {
       id: 'analytics',
