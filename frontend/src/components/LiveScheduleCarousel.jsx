@@ -215,47 +215,49 @@ export const LiveScheduleCarousel = ({
               )}
             </motion.div>
           </AnimatePresence>
-
-          {/* Навигационные кнопки */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-2 pointer-events-none z-10">
-            <motion.button
-              onClick={handlePrevious}
-              className="pointer-events-auto w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ChevronLeft className="w-5 h-5 text-white" />
-            </motion.button>
-
-            <motion.button
-              onClick={handleNext}
-              className="pointer-events-auto w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ChevronRight className="w-5 h-5 text-white" />
-            </motion.button>
-          </div>
         </div>
       </div>
 
-      {/* Индикаторы */}
-      <div className="flex justify-center gap-2 mt-4">
-        {cards.map((card, index) => (
-          <motion.button
-            key={card.id}
-            onClick={(e) => {
-              e.stopPropagation();
-              hapticFeedback && hapticFeedback('impact', 'light');
-              setCurrentIndex(index);
-            }}
-            className={`w-2 h-2 rounded-full transition-all ${
-              index === currentIndex ? 'bg-[#A3F7BF] w-6' : 'bg-gray-600'
-            }`}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-          />
-        ))}
+      {/* Навигационные кнопки и индикаторы по центру */}
+      <div className="flex items-center justify-center gap-4 mt-4">
+        {/* Кнопка назад */}
+        <motion.button
+          onClick={handlePrevious}
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <ChevronLeft className="w-5 h-5 text-white" />
+        </motion.button>
+
+        {/* Индикаторы */}
+        <div className="flex justify-center gap-2">
+          {cards.map((card, index) => (
+            <motion.button
+              key={card.id}
+              onClick={(e) => {
+                e.stopPropagation();
+                hapticFeedback && hapticFeedback('impact', 'light');
+                setCurrentIndex(index);
+              }}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === currentIndex ? 'bg-[#A3F7BF] w-6' : 'bg-gray-600'
+              }`}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+            />
+          ))}
+        </div>
+
+        {/* Кнопка вперед */}
+        <motion.button
+          onClick={handleNext}
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <ChevronRight className="w-5 h-5 text-white" />
+        </motion.button>
       </div>
 
       {/* Модалка достижений */}
