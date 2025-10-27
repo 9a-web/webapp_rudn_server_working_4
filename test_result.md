@@ -424,6 +424,18 @@ frontend:
           agent: "main"
           comment: "✅ Moved Calendar and Notifications buttons from hamburger menu to header. Updated Header.jsx: Added Calendar and Bell icons import from lucide-react. Created three-button layout in header right side: Calendar button (green gradient hover effect), Notifications button (pink gradient hover effect), Menu button (purple gradient hover effect). All buttons have proper animations, haptic feedback, and responsive sizing (12px/14px). Updated MenuModal.jsx: Removed Calendar and Notifications items from menu. Menu now contains only 3 items: Achievements (Trophy icon, yellow), Analytics (BarChart3 icon, cyan), Language switcher (Languages icon, purple). Removed unused Calendar and Bell icon imports from MenuModal. Frontend compiled successfully. Screenshot verified: All three buttons visible in header, menu shows correct 3 items only."
 
+  - task: "Analytics - Group Classes by Time Slot"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js, /app/backend/achievements.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "🔧 Fixed analytics counting logic. Previously, each class (discipline) was counted separately even if multiple classes occurred at the same time. Now groups classes by time slot (e.g., 10:30-11:50). Frontend (App.js): Modified trackScheduleView() to count unique time slots using Set data structure. Calculates uniqueTimeSlots.size and passes as classes_count in metadata. Backend (achievements.py): Updated view_schedule action handler to accept classes_count from metadata and increment schedule_views by that amount (defaults to 1 for backwards compatibility). Example: If 3 subjects occur at 10:30-11:50, counts as 1 class instead of 3. Backend auto-reloaded. Ready for testing."
+
 metadata:
   created_by: "main_agent"
   version: "1.4"
