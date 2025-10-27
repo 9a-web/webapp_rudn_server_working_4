@@ -988,6 +988,171 @@ class RUDNScheduleAPITester:
         except Exception as e:
             self.log_test("GET /api/user-achievements/{telegram_id}", False, f"Exception: {str(e)}")
             return False
+
+    def test_analytics_counting_fix(self) -> bool:
+        """Test analytics counting fix for schedule views - group classes by time slot"""
+        try:
+            print("🔍 Testing Analytics Counting Fix - Group Classes by Time Slot...")
+            
+            # Step 1: Create test user (telegram_id: 999888777)
+            test_telegram_id = 999888777
+            
+            # First create user settings to ensure user exists
+            user_payload = {
+                "telegram_id": test_telegram_id,
+                "username": "analytics_test_user",
+                "first_name": "Аналитика",
+                "last_name": "Тест",
+                "group_id": "analytics-test-group",
+                "group_name": "Группа для тестирования аналитики",
+                "facultet_id": "analytics-test-facultet",
+                "level_id": "analytics-test-level",
+                "kurs": "1",
+                "form_code": "д"
+            }
+            
+            user_response = self.session.post(
+                f"{self.base_url}/user-settings",
+                json=user_payload,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if user_response.status_code != 200:
+                self.log_test("Analytics Counting Fix - Create User", False, 
+                            f"Failed to create test user: HTTP {user_response.status_code}: {user_response.text}")
+                return False
+            
+            # Step 2: Get initial stats
+            initial_stats_response = self.session.get(f"{self.base_url}/user-stats/{test_telegram_id}")
+            
+            if initial_stats_response.status_code != 200:
+                self.log_test("Analytics Counting Fix - Get Initial Stats", False, 
+                            f"HTTP {initial_stats_response.status_code}: {initial_stats_response.text}")
+                return False
+            
+            initial_stats = initial_stats_response.json()
+            initial_schedule_views = initial_stats.get('schedule_views', 0)
+            
+            # Step 3: Simulate viewing schedule with 5 classes (multiple classes at same time)
+            track_payload_5_classes = {
+                "telegram_id": test_telegram_id,
+                "action_type": "view_schedule",
+                "metadata": {"classes_count": 5}
+            }
+            
+            track_response_1 = self.session.post(
+                f"{self.base_url}/track-action",
+                json=track_payload_5_classes,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if track_response_1.status_code != 200:
+                self.log_test("Analytics Counting Fix - Track 5 Classes", False, 
+                            f"HTTP {track_response_1.status_code}: {track_response_1.text}")
+                return False
+            
+            # Step 4: Verify schedule_views increased by 5
+            stats_after_5_response = self.session.get(f"{self.base_url}/user-stats/{test_telegram_id}")
+            
+            if stats_after_5_response.status_code != 200:
+                self.log_test("Analytics Counting Fix - Get Stats After 5", False, 
+                            f"HTTP {stats_after_5_response.status_code}: {stats_after_5_response.text}")
+                return False
+            
+            stats_after_5 = stats_after_5_response.json()
+            schedule_views_after_5 = stats_after_5.get('schedule_views', 0)
+            
+            expected_after_5 = initial_schedule_views + 5
+            if schedule_views_after_5 != expected_after_5:
+                self.log_test("Analytics Counting Fix - Verify 5 Classes Increment", False, 
+                            f"Expected schedule_views={expected_after_5}, got {schedule_views_after_5}")
+                return False
+            
+            # Step 5: Simulate viewing schedule with 3 classes
+            track_payload_3_classes = {
+                "telegram_id": test_telegram_id,
+                "action_type": "view_schedule",
+                "metadata": {"classes_count": 3}
+            }
+            
+            track_response_2 = self.session.post(
+                f"{self.base_url}/track-action",
+                json=track_payload_3_classes,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if track_response_2.status_code != 200:
+                self.log_test("Analytics Counting Fix - Track 3 Classes", False, 
+                            f"HTTP {track_response_2.status_code}: {track_response_2.text}")
+                return False
+            
+            # Step 6: Verify schedule_views increased by 3 more (total should be 8)
+            stats_after_3_response = self.session.get(f"{self.base_url}/user-stats/{test_telegram_id}")
+            
+            if stats_after_3_response.status_code != 200:
+                self.log_test("Analytics Counting Fix - Get Stats After 3", False, 
+                            f"HTTP {stats_after_3_response.status_code}: {stats_after_3_response.text}")
+                return False
+            
+            stats_after_3 = stats_after_3_response.json()
+            schedule_views_after_3 = stats_after_3.get('schedule_views', 0)
+            
+            expected_after_3 = expected_after_5 + 3
+            if schedule_views_after_3 != expected_after_3:
+                self.log_test("Analytics Counting Fix - Verify 3 Classes Increment", False, 
+                            f"Expected schedule_views={expected_after_3}, got {schedule_views_after_3}")
+                return False
+            
+            # Step 7: Test backwards compatibility - call track-action without metadata
+            track_payload_no_metadata = {
+                "telegram_id": test_telegram_id,
+                "action_type": "view_schedule"
+                # No metadata field
+            }
+            
+            track_response_3 = self.session.post(
+                f"{self.base_url}/track-action",
+                json=track_payload_no_metadata,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if track_response_3.status_code != 200:
+                self.log_test("Analytics Counting Fix - Track No Metadata", False, 
+                            f"HTTP {track_response_3.status_code}: {track_response_3.text}")
+                return False
+            
+            # Step 8: Verify schedule_views increased by 1 (default behavior)
+            final_stats_response = self.session.get(f"{self.base_url}/user-stats/{test_telegram_id}")
+            
+            if final_stats_response.status_code != 200:
+                self.log_test("Analytics Counting Fix - Get Final Stats", False, 
+                            f"HTTP {final_stats_response.status_code}: {final_stats_response.text}")
+                return False
+            
+            final_stats = final_stats_response.json()
+            final_schedule_views = final_stats.get('schedule_views', 0)
+            
+            expected_final = expected_after_3 + 1
+            if final_schedule_views != expected_final:
+                self.log_test("Analytics Counting Fix - Verify Backwards Compatibility", False, 
+                            f"Expected schedule_views={expected_final}, got {final_schedule_views}")
+                return False
+            
+            self.log_test("Analytics Counting Fix - Group Classes by Time Slot", True, 
+                        "Successfully verified analytics counting fix",
+                        {
+                            "initial_schedule_views": initial_schedule_views,
+                            "after_5_classes": schedule_views_after_5,
+                            "after_3_classes": schedule_views_after_3,
+                            "final_schedule_views": final_schedule_views,
+                            "total_increment": final_schedule_views - initial_schedule_views,
+                            "expected_increment": 9  # 5 + 3 + 1
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("Analytics Counting Fix - Group Classes by Time Slot", False, f"Exception: {str(e)}")
+            return False
     
     def run_all_tests(self):
         """Run all API tests in sequence"""
