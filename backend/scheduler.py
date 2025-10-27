@@ -42,6 +42,15 @@ class NotificationScheduler:
             replace_existing=True
         )
         
+        # Очищаем старые записи уведомлений раз в час
+        self.scheduler.add_job(
+            self.cleanup_old_notifications,
+            trigger=IntervalTrigger(hours=1),
+            id='cleanup_notifications',
+            name='Cleanup old notification records',
+            replace_existing=True
+        )
+        
         self.scheduler.start()
         logger.info("Notification scheduler started")
     
