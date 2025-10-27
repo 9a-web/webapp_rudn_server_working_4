@@ -187,3 +187,92 @@ class NotificationSettingsResponse(BaseModel):
     notifications_enabled: bool
     notification_time: int
     telegram_id: int
+
+
+
+# ============ Модели для достижений ============
+
+class Achievement(BaseModel):
+    """Модель достижения"""
+    id: str
+    name: str
+    description: str
+    emoji: str
+    points: int
+    type: str  # first_group, group_explorer, social_butterfly, schedule_gourmet, night_owl, early_bird
+    requirement: int  # Необходимое количество для получения
+    
+
+class UserAchievement(BaseModel):
+    """Достижение пользователя"""
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    telegram_id: int
+    achievement_id: str
+    earned_at: datetime = Field(default_factory=datetime.utcnow)
+    seen: bool = False  # Просмотрено ли уведомление
+    
+
+class UserStats(BaseModel):
+    """Статистика пользователя для достижений"""
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    telegram_id: int
+    
+    # Счетчики для достижений
+    groups_viewed: int = 0  # Количество просмотренных групп
+    unique_groups: List[str] = []  # Уникальные ID групп
+    friends_invited: int = 0  # Количество приглашенных друзей
+    schedule_views: int = 0  # Количество просмотров расписания
+    night_usage_count: int = 0  # Использование после 00:00
+    early_usage_count: int = 0  # Использование до 08:00
+    first_group_selected: bool = False  # Выбрана ли первая группа
+    
+    # Общая статистика
+    total_points: int = 0  # Всего очков
+    achievements_count: int = 0  # Количество достижений
+    
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class UserStatsResponse(BaseModel):
+    """Ответ со статистикой пользователя"""
+    telegram_id: int
+    groups_viewed: int
+    friends_invited: int
+    schedule_views: int
+    night_usage_count: int
+    early_usage_count: int
+    total_points: int
+    achievements_count: int
+
+
+class UserAchievementResponse(BaseModel):
+    """Ответ с достижением пользователя"""
+    achievement: Achievement
+    earned_at: datetime
+    seen: bool
+
+
+class TrackActionRequest(BaseModel):
+    """Запрос на отслеживание действия пользователя"""
+    telegram_id: int
+    action_type: str  # view_schedule, view_group, invite_friend, night_usage, early_usage, select_group
+    metadata: Optional[dict] = {}
+
+
+class NewAchievementsResponse(BaseModel):
+    """Ответ с новыми достижениями"""
+    new_achievements: List[Achievement]
+    total_points_earned: int
+
+
+# ============ Модели для погоды ============
+
+class WeatherResponse(BaseModel):
+    """Ответ с данными о погоде"""
+    temperature: int  # Температура в °C
+    feels_like: int  # Ощущается как
+    humidity: int  # Влажность в %
+    wind_speed: int  # Скорость ветра в км/ч
+    description: str  # Описание погоды
+    icon: str  # Иконка погоды (код)
