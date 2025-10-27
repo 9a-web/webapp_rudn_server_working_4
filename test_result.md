@@ -381,6 +381,9 @@ frontend:
         - working: false
           agent: "testing"
           comment: "❌ CRITICAL BACKEND ROUTING ISSUE BLOCKING TESTING: Cannot test new menu functionality due to backend API not accessible through external URL. Root cause: nginx configuration missing API proxy routes to backend (localhost:8001). External URL https://class-progress-1.preview.emergentagent.com/api/* returns 404, while localhost:8001/api/* works correctly. App shows 'Ошибка сети. Проверьте подключение к интернету' preventing access to main interface. DISCOVERED: Header.jsx has been updated with new MenuModal component implementing the requested menu with 5 items (Achievements, Analytics, Notifications, Calendar, Language) with proper icons and colors. MenuModal.jsx exists with all required functionality including animations and proper closing behavior. However, cannot verify functionality due to network connectivity issue. RECOMMENDATION: Main agent needs to fix nginx routing configuration to proxy /api/* requests to localhost:8001 backend service."
+        - working: "NA"
+          agent: "main"
+          comment: "🔧 FIX ATTEMPT: Identified root causes of language switching issue: 1) i18n configuration was not imported in index.js entry point, preventing initialization 2) Language switcher button in MenuModal had disabled: true flag. Applied fixes: Added import './i18n/config' to /app/frontend/src/index.js before App import to ensure i18n initializes on app start. Changed disabled flag from true to false in MenuModal.jsx line 55 for language switcher button. Translation files (ru.json, en.json) verified and contain all required translations. Frontend restarted successfully. Ready for testing to verify language switching now works correctly."
 
   - task: "Notification Settings Modal - Save and Close"
     implemented: true
