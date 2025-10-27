@@ -116,4 +116,4 @@ export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAna
       />
     </>
   );
-};
+});
