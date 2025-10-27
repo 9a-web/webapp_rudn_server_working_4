@@ -453,12 +453,13 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "1.5"
-  test_sequence: 6
+  version: "1.6"
+  test_sequence: 7
   run_ui: true
 
 test_plan:
   current_focus:
+    - "Analytics - Fix Weekday Abbreviations"
     - "Language Switching - i18n Integration"
   stuck_tasks:
     - "Language Switching - i18n Integration"
