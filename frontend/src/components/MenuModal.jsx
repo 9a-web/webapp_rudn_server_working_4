@@ -3,7 +3,7 @@ import { Languages, BarChart3, Trophy, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export const MenuModal = ({ 
+export const MenuModal = React.memo(({ 
   isOpen, 
   onClose, 
   onCalendarClick, 
