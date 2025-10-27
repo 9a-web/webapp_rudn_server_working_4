@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { userAPI } from '../services/api';
 import { useTranslation } from 'react-i18next';
 import { modalVariants, backdropVariants } from '../utils/animations';
+import { pluralizeMinutes } from '../utils/pluralize';
 
 export const NotificationSettings = ({ 
   telegramId, 
@@ -20,11 +21,11 @@ export const NotificationSettings = ({
 
   // Доступные варианты времени уведомления
   const timeOptions = [
-    { value: 5, label: '5 минут' },
-    { value: 10, label: '10 минут' },
-    { value: 15, label: '15 минут' },
-    { value: 20, label: '20 минут' },
-    { value: 30, label: '30 минут' },
+    { value: 5, label: `5 ${pluralizeMinutes(5)}` },
+    { value: 10, label: `10 ${pluralizeMinutes(10)}` },
+    { value: 15, label: `15 ${pluralizeMinutes(15)}` },
+    { value: 20, label: `20 ${pluralizeMinutes(20)}` },
+    { value: 30, label: `30 ${pluralizeMinutes(30)}` },
   ];
 
   // Загрузка текущих настроек
