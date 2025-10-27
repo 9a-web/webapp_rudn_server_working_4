@@ -64,12 +64,11 @@ class NotificationScheduler:
         Проверить и отправить уведомления о предстоящих парах
         """
         try:
-            logger.debug("Checking for upcoming classes...")
-            
-            # Получаем текущее время
-            now = datetime.now()
+            # Получаем текущее время в московской зоне
+            now = datetime.now(MOSCOW_TZ)
             current_day = now.strftime('%A')  # Название дня недели
-            current_time = now.time()
+            
+            logger.debug(f"Checking for upcoming classes at {now.strftime('%Y-%m-%d %H:%M:%S %Z')}")
             
             # Переводим день недели на русский
             day_mapping = {
@@ -88,7 +87,8 @@ class NotificationScheduler:
             
             # Получаем всех пользователей с включенными уведомлениями
             users = await self.db.user_settings.find({
-                "notifications_enabled": True
+                "notifications_enabled": True,
+                "group_id": {"$exists": True, "$ne": None}
             }).to_list(None)
             
             logger.debug(f"Found {len(users)} users with notifications enabled")
@@ -99,7 +99,6 @@ class NotificationScheduler:
                     user,
                     russian_day,
                     week_number,
-                    current_time,
                     now
                 )
         
