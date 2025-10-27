@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        '2xl': '1920px',
+      },
+      maxWidth: {
+        '8xl': '1920px',
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
