@@ -158,7 +158,7 @@ export const LiveScheduleCard = ({ currentClass, minutesLeft }) => {
                   exit={{ opacity: 0, x: 5 }}
                   transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 >
-                  {currentClass ? t('liveScheduleCard.timeLeft', { minutes: minutesLeft }) : t('liveScheduleCard.relax')}
+                  {currentClass ? `Осталось: ${minutesLeft} ${pluralizeMinutes(minutesLeft)}` : t('liveScheduleCard.relax')}
                 </motion.p>
               </AnimatePresence>
             </div>
