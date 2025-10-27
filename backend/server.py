@@ -36,6 +36,14 @@ from models import (
 )
 from notifications import get_notification_service
 from scheduler import get_scheduler
+from achievements import (
+    get_all_achievements,
+    get_user_achievements,
+    track_user_action,
+    get_or_create_user_stats,
+    mark_achievements_as_seen
+)
+from weather import get_moscow_weather
 
 
 ROOT_DIR = Path(__file__).parent
