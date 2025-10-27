@@ -5,12 +5,16 @@
 import logging
 from datetime import datetime, timedelta
 from typing import List, Dict
+import pytz
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from notifications import get_notification_service
 
 logger = logging.getLogger(__name__)
+
+# Московское время
+MOSCOW_TZ = pytz.timezone('Europe/Moscow')
 
 
 class NotificationScheduler:
