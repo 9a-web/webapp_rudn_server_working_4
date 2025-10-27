@@ -414,10 +414,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Notification Settings Modal - Save and Close"
-    - "Status Colors - Text Color Update"
+    - "New Menu System Implementation"
+    - "Language Switching - i18n Integration"
   stuck_tasks:
     - "Language Switching - i18n Integration"
+    - "New Menu System Implementation"
   test_all: false
   test_priority: "high_first"
   completed_tests:
