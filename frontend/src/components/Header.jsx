@@ -37,24 +37,71 @@ export const Header = ({ onCalendarClick, onNotificationsClick, onAnalyticsClick
           </h1>
         </motion.div>
 
-        {/* Right side - Menu button */}
-        <motion.button
-          onClick={handleMenuClick}
-          className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-xl md:rounded-2xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
-          aria-label="Open menu"
-          custom={1}
-          initial="initial"
-          animate="animate"
-          variants={headerItemVariants}
-          whileHover="hover"
-          whileTap="tap"
-          {...buttonVariants}
-        >
-          {/* Gradient glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 via-pink-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
-          <Menu className="w-6 h-6 md:w-7 md:h-7 relative z-10" style={{ color: '#E7E7E7' }} />
-        </motion.button>
+        {/* Right side - Calendar, Notifications, and Menu buttons */}
+        <div className="flex items-center gap-2 md:gap-3">
+          {/* Calendar button */}
+          <motion.button
+            onClick={() => {
+              if (hapticFeedback) hapticFeedback('impact', 'medium');
+              onCalendarClick();
+            }}
+            className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-xl md:rounded-2xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
+            aria-label="Open calendar"
+            custom={1}
+            initial="initial"
+            animate="animate"
+            variants={headerItemVariants}
+            whileHover="hover"
+            whileTap="tap"
+            {...buttonVariants}
+          >
+            {/* Gradient glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 via-teal-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            <Calendar className="w-6 h-6 md:w-7 md:h-7 relative z-10" style={{ color: '#E7E7E7' }} />
+          </motion.button>
+
+          {/* Notifications button */}
+          <motion.button
+            onClick={() => {
+              if (hapticFeedback) hapticFeedback('impact', 'medium');
+              onNotificationsClick();
+            }}
+            className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-xl md:rounded-2xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
+            aria-label="Open notifications"
+            custom={2}
+            initial="initial"
+            animate="animate"
+            variants={headerItemVariants}
+            whileHover="hover"
+            whileTap="tap"
+            {...buttonVariants}
+          >
+            {/* Gradient glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-400/20 via-rose-400/20 to-red-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            <Bell className="w-6 h-6 md:w-7 md:h-7 relative z-10" style={{ color: '#E7E7E7' }} />
+          </motion.button>
+
+          {/* Menu button */}
+          <motion.button
+            onClick={handleMenuClick}
+            className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-xl md:rounded-2xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
+            aria-label="Open menu"
+            custom={3}
+            initial="initial"
+            animate="animate"
+            variants={headerItemVariants}
+            whileHover="hover"
+            whileTap="tap"
+            {...buttonVariants}
+          >
+            {/* Gradient glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 via-pink-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            <Menu className="w-6 h-6 md:w-7 md:h-7 relative z-10" style={{ color: '#E7E7E7' }} />
+          </motion.button>
+        </div>
       </header>
 
       {/* Menu Modal */}
