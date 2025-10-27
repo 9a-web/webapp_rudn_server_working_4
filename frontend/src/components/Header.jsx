@@ -1,10 +1,10 @@
 import React from 'react';
-import { Calendar, Languages, Bell } from 'lucide-react';
+import { Calendar, Languages, Bell, BarChart3 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { headerItemVariants, buttonVariants } from '../utils/animations';
 
-export const Header = ({ onCalendarClick, onNotificationsClick }) => {
+export const Header = ({ onCalendarClick, onNotificationsClick, onAnalyticsClick }) => {
   const { t, i18n } = useTranslation();
 
   const toggleLanguage = () => {
@@ -35,15 +35,33 @@ export const Header = ({ onCalendarClick, onNotificationsClick }) => {
         </h1>
       </motion.div>
 
-      {/* Right side - Notifications, Language switcher and Calendar icon */}
+      {/* Right side - Analytics, Notifications, Language switcher and Calendar icon */}
       <div className="flex items-center gap-2">
+        {/* Analytics icon */}
+        {onAnalyticsClick && (
+          <motion.button
+            onClick={onAnalyticsClick}
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300"
+            aria-label="Analytics"
+            custom={1}
+            initial="initial"
+            animate="animate"
+            variants={headerItemVariants}
+            whileHover="hover"
+            whileTap="tap"
+            {...buttonVariants}
+          >
+            <BarChart3 className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#E7E7E7' }} />
+          </motion.button>
+        )}
+
         {/* Notifications icon */}
         {onNotificationsClick && (
           <motion.button
             onClick={onNotificationsClick}
             className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300"
             aria-label="Notifications settings"
-            custom={1}
+            custom={2}
             initial="initial"
             animate="animate"
             variants={headerItemVariants}
@@ -60,7 +78,7 @@ export const Header = ({ onCalendarClick, onNotificationsClick }) => {
           onClick={toggleLanguage}
           className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300"
           aria-label="Switch language"
-          custom={2}
+          custom={3}
           initial="initial"
           animate="animate"
           variants={headerItemVariants}
@@ -81,7 +99,7 @@ export const Header = ({ onCalendarClick, onNotificationsClick }) => {
           onClick={onCalendarClick}
           className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300"
           aria-label="Open calendar"
-          custom={3}
+          custom={4}
           initial="initial"
           animate="animate"
           variants={headerItemVariants}
