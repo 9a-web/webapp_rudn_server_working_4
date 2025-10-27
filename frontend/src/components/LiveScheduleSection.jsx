@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getWeekNumberForDate } from '../utils/dateUtils';
 import { useTranslation } from 'react-i18next';
 import { fadeInUp, listItemVariants, buttonVariants, staggerContainer } from '../utils/animations';
+import { translateDiscipline, translateLessonType } from '../i18n/subjects';
 
 export const LiveScheduleSection = ({ 
   selectedDate, 
