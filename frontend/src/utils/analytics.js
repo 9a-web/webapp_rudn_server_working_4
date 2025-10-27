@@ -105,10 +105,19 @@ export const findLightestDay = (classesByDay) => {
  */
 export const getWeekLoadChart = (classesByDay) => {
   const daysOrder = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+  const shortDays = {
+    'Понедельник': 'Пн',
+    'Вторник': 'Вт',
+    'Среда': 'Ср',
+    'Четверг': 'Чт',
+    'Пятница': 'Пт',
+    'Суббота': 'Сб',
+    'Воскресенье': 'Вс'
+  };
   
   return daysOrder.map(day => ({
     day: day,
-    shortDay: day.slice(0, 2),
+    shortDay: shortDays[day],
     classes: classesByDay[day]?.length || 0,
     hours: (classesByDay[day]?.length || 0) * 1.5,
   }));
