@@ -368,6 +368,7 @@ const Home = () => {
           onAnalyticsClick={schedule.length > 0 ? handleAnalyticsClick : null}
           onAchievementsClick={user ? handleAchievementsClick : null}
           onNotificationsClick={user ? handleNotificationsClick : null}
+          hapticFeedback={hapticFeedback}
         />
         
         <LiveScheduleCarousel
