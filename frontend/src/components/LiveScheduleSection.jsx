@@ -17,7 +17,7 @@ export const LiveScheduleSection = ({
 }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Update current time every 10 seconds for real-time status updates
   useEffect(() => {
