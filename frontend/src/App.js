@@ -8,6 +8,7 @@ import { WeekDaySelector } from './components/WeekDaySelector';
 import { TopGlow } from './components/TopGlow';
 import { LiveScheduleSection } from './components/LiveScheduleSection';
 import { LoadingScreen } from './components/LoadingScreen';
+import { ScheduleListSkeleton } from './components/SkeletonCard';
 import GroupSelector from './components/GroupSelector';
 import StatusTester from './StatusTester';
 import { TelegramProvider, useTelegram } from './contexts/TelegramContext';
