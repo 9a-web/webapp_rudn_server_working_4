@@ -368,7 +368,7 @@ frontend:
     implemented: true
     working: false
     file: "/app/frontend/src/i18n/config.js, /app/frontend/src/components/Header.jsx, /app/frontend/src/App.js"
-    stuck_count: 1
+    stuck_count: 2
     priority: "high"
     needs_retesting: false
     status_history:
@@ -378,6 +378,9 @@ frontend:
         - working: false
           agent: "testing"
           comment: "❌ CRITICAL ISSUE: Language switcher button is completely missing from the rendered HTML. Extensive testing revealed: 1) Header only renders calendar button, not the language switcher 2) Actual HTML structure doesn't match Header.jsx file - missing the 'Right side' div container with language switcher 3) i18n libraries not loaded in browser (reactI18nextExists: false, i18nextExists: false) 4) Header title shows 'Rudn Schedule' instead of using t('header.title') 5) Multiple rebuild attempts and cache clearing didn't resolve the issue. The Header component appears to be rendering an older version without i18n integration. Root cause: The updated Header.jsx with language switcher is not being compiled/served correctly. All translation files and dependencies are present, but the component is not rendering the expected structure."
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL BACKEND ROUTING ISSUE BLOCKING TESTING: Cannot test new menu functionality due to backend API not accessible through external URL. Root cause: nginx configuration missing API proxy routes to backend (localhost:8001). External URL https://class-progress-1.preview.emergentagent.com/api/* returns 404, while localhost:8001/api/* works correctly. App shows 'Ошибка сети. Проверьте подключение к интернету' preventing access to main interface. DISCOVERED: Header.jsx has been updated with new MenuModal component implementing the requested menu with 5 items (Achievements, Analytics, Notifications, Calendar, Language) with proper icons and colors. MenuModal.jsx exists with all required functionality including animations and proper closing behavior. However, cannot verify functionality due to network connectivity issue. RECOMMENDATION: Main agent needs to fix nginx routing configuration to proxy /api/* requests to localhost:8001 backend service."
 
   - task: "Notification Settings Modal - Save and Close"
     implemented: true
