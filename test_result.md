@@ -438,13 +438,13 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "1.4"
-  test_sequence: 5
+  version: "1.5"
+  test_sequence: 6
   run_ui: true
 
 test_plan:
   current_focus:
-    - "Header Buttons - Calendar and Notifications Moved from Menu"
+    - "Analytics - Group Classes by Time Slot"
     - "Language Switching - i18n Integration"
   stuck_tasks:
     - "Language Switching - i18n Integration"
