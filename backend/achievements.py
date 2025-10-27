@@ -193,7 +193,10 @@ async def track_user_action(db, telegram_id: int, action_type: str, metadata: di
         update_data["$inc"] = {"friends_invited": 1}
     
     elif action_type == "view_schedule":
-        update_data["$inc"] = {"schedule_views": 1}
+        # Получаем количество уникальных пар из metadata
+        # Если не передано, считаем как 1 просмотр для обратной совместимости
+        classes_count = metadata.get("classes_count", 1)
+        update_data["$inc"] = {"schedule_views": classes_count}
     
     elif action_type == "night_usage":
         update_data["$inc"] = {"night_usage_count": 1}
