@@ -162,7 +162,6 @@ class NotificationScheduler:
         telegram_id: int,
         class_event: Dict,
         notification_time: int,
-        current_time,
         now: datetime
     ):
         """
@@ -171,31 +170,53 @@ class NotificationScheduler:
         Args:
             telegram_id: ID пользователя в Telegram
             class_event: Событие (пара)
-            notification_time: За сколько минут уведомлять
-            current_time: Текущее время
-            now: Текущая дата и время
+            notification_time: За сколько минут уведомлять (из настроек пользователя)
+            now: Текущая дата и время (с timezone)
         """
         try:
             # Парсим время начала пары
             time_str = class_event.get('time', '')
             if not time_str or '-' not in time_str:
+                logger.debug(f"Invalid time format: {time_str}")
                 return
             
             start_time_str = time_str.split('-')[0].strip()
-            start_hour, start_minute = map(int, start_time_str.split(':'))
+            try:
+                start_hour, start_minute = map(int, start_time_str.split(':'))
+            except (ValueError, AttributeError):
+                logger.error(f"Failed to parse time: {start_time_str}")
+                return
             
-            # Вычисляем время уведомления
-            class_start_time = now.replace(hour=start_hour, minute=start_minute, second=0, microsecond=0)
+            # Создаем datetime для начала пары (сегодня, московское время)
+            class_start_time = now.replace(
+                hour=start_hour, 
+                minute=start_minute, 
+                second=0, 
+                microsecond=0
+            )
+            
+            # Вычисляем время, когда должно быть отправлено уведомление
             notification_datetime = class_start_time - timedelta(minutes=notification_time)
             
-            # Проверяем, нужно ли отправлять уведомление
-            # Отправляем если текущее время в диапазоне [notification_time, notification_time + 1 минута]
-            time_diff = (now - notification_datetime).total_seconds()
+            # Вычисляем разницу в минутах между текущим временем и временем уведомления
+            time_diff_seconds = (now - notification_datetime).total_seconds()
+            time_diff_minutes = time_diff_seconds / 60
             
-            if 0 <= time_diff <= 60:
-                # Проверяем, не отправляли ли уже уведомление
-                notification_key = f"{telegram_id}_{class_event.get('discipline')}_{time_str}_{now.strftime('%Y-%m-%d')}"
+            # Уведомление должно быть отправлено если:
+            # 1. Текущее время >= времени уведомления
+            # 2. Текущее время < времени уведомления + 2 минуты (окно для отправки)
+            # Это окно в 2 минуты предотвращает пропуск уведомлений
+            if -0.5 <= time_diff_minutes < 2:
+                discipline = class_event.get('discipline', 'Unknown')
                 
+                # Создаем уникальный ключ для предотвращения дублирования
+                # Формат: telegram_id_дисциплина_время_дата
+                today_date = now.strftime('%Y-%m-%d')
+                notification_key = f"{telegram_id}_{discipline}_{start_time_str}_{today_date}"
+                
+                logger.debug(f"Time to notify! Checking key: {notification_key}, time_diff={time_diff_minutes:.2f} min")
+                
+                # Проверяем, не отправляли ли уже уведомление (защита от дублирования)
                 sent_notification = await self.db.sent_notifications.find_one({
                     "notification_key": notification_key
                 })
@@ -203,6 +224,8 @@ class NotificationScheduler:
                 if sent_notification:
                     logger.debug(f"Notification already sent: {notification_key}")
                     return
+                
+                logger.info(f"Sending notification to {telegram_id} for '{discipline}' at {start_time_str} ({notification_time} min before)")
                 
                 # Отправляем уведомление
                 success = await self.notification_service.send_class_notification(
@@ -216,16 +239,28 @@ class NotificationScheduler:
                     await self.db.sent_notifications.insert_one({
                         "notification_key": notification_key,
                         "telegram_id": telegram_id,
-                        "class_discipline": class_event.get('discipline'),
+                        "class_discipline": discipline,
                         "class_time": time_str,
-                        "sent_at": now,
-                        "expires_at": now + timedelta(days=1)
+                        "notification_time_minutes": notification_time,
+                        "sent_at": now.replace(tzinfo=None),
+                        "date": today_date,
+                        "expires_at": now.replace(tzinfo=None) + timedelta(days=2)
                     })
                     
-                    logger.info(f"Notification sent to {telegram_id} for {class_event.get('discipline')}")
+                    logger.info(f"✅ Notification sent successfully to {telegram_id} for '{discipline}'")
+                else:
+                    logger.error(f"❌ Failed to send notification to {telegram_id} for '{discipline}'")
+            else:
+                # Логируем только если разница небольшая (для отладки)
+                if -5 <= time_diff_minutes < 5:
+                    logger.debug(
+                        f"Not time yet for {telegram_id}: class at {start_time_str}, "
+                        f"notify at {notification_datetime.strftime('%H:%M')}, "
+                        f"now {now.strftime('%H:%M')}, diff={time_diff_minutes:.2f} min"
+                    )
         
         except Exception as e:
-            logger.error(f"Error notifying about class: {e}")
+            logger.error(f"Error notifying about class: {e}", exc_info=True)
     
     def _get_week_number(self, date: datetime) -> int:
         """
