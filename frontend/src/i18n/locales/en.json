@@ -80,6 +80,17 @@
     "noOptions": "No available options",
     "unavailable": "Unavailable"
   },
+  "achievements": {
+    "title": "Achievements",
+    "totalPoints": "Total Points",
+    "progress": "Progress",
+    "viewAll": "View All",
+    "recent": "Recent Achievements",
+    "points": "points"
+  },
+  "sidebar": {
+    "quickActions": "Quick Actions"
+  },
   "common": {
     "loading": "Loading...",
     "retry": "Retry",
