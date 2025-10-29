@@ -337,13 +337,14 @@ export const botAPI = {
   },
 
   /**
-   * Получить URL фото профиля пользователя
+   * Получить URL фото профиля пользователя (через прокси для обхода CORS)
    * @param {number} telegramId - Telegram ID пользователя
    */
   getUserProfilePhoto: async (telegramId) => {
     try {
-      const response = await api.get(`/user-profile-photo/${telegramId}`);
-      return response.data.photo_url;
+      // Используем прокси-эндпоинт для обхода CORS проблем
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL || '';
+      return `${backendUrl}/user-profile-photo-proxy/${telegramId}`;
     } catch (error) {
       console.error('Error getting user profile photo:', error);
       return null;
