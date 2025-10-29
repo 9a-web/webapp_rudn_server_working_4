@@ -191,35 +191,39 @@ export const ProfileModal = ({
             )}
 
             {/* Username и группа */}
-            <div className="flex items-center justify-center gap-2 w-full flex-wrap">
-              {username && (
-                <span
-                  className="text-sm font-medium"
-                  style={{ 
-                    color: '#FFB4D1',
-                    fontWeight: '500',
-                  }}
-                >
-                  {username}
-                </span>
-              )}
-              
-              {username && groupName && (
-                <span style={{ color: '#555566', fontSize: '14px' }}>•</span>
-              )}
+            {isTelegramUser && (
+              <div className="flex items-center justify-center gap-2 w-full flex-wrap">
+                {username && (
+                  <span
+                    className="text-sm font-medium"
+                    style={{ 
+                      color: '#FFB4D1',
+                      fontWeight: '500',
+                    }}
+                  >
+                    {username}
+                  </span>
+                )}
+                
+                {username && groupName && (
+                  <span style={{ color: '#555566', fontSize: '14px' }}>•</span>
+                )}
 
-              <div
-                className="px-3 py-1.5 rounded-lg text-[13px] font-medium"
-                style={{
-                  backgroundColor: '#3A3A48',
-                  color: '#E8E8F0',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
-                  fontWeight: '500',
-                }}
-              >
-                {groupName}
+                {groupName && (
+                  <div
+                    className="px-3 py-1.5 rounded-lg text-[13px] font-medium"
+                    style={{
+                      backgroundColor: '#3A3A48',
+                      color: '#E8E8F0',
+                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      fontWeight: '500',
+                    }}
+                  >
+                    {groupName}
+                  </div>
+                )}
               </div>
-            </div>
+            )}
           </motion.div>
         </>
       )}
