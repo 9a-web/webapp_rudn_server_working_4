@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import { LiveScheduleCard } from './LiveScheduleCard';
-import { WeatherWidget } from './WeatherWidget';
 import { AchievementsModal } from './AchievementsModal';
 
 export const LiveScheduleCarousel = ({ 
