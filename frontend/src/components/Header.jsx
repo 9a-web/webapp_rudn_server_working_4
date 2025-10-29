@@ -120,32 +120,36 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
                 // TODO: Открыть модальное окно профиля
                 console.log('Profile clicked');
               }}
-              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
+              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group border-2 border-transparent hover:border-cyan-400/30"
               aria-label="Open profile"
               custom={1}
               initial="initial"
               animate="animate"
               variants={headerItemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {/* Gradient glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-blue-400/20 to-indigo-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-blue-400/20 to-indigo-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
               
               {profilePhoto ? (
                 <img 
                   src={profilePhoto} 
-                  alt="Profile" 
+                  alt="Profile Avatar" 
                   className="w-full h-full object-cover rounded-full relative z-10"
+                  style={{ objectPosition: 'center' }}
                   onError={(e) => {
-                    // Если не удалось загрузить фото, показываем иконку
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
+                    // Если не удалось загрузить фото, скрываем картинку и показываем иконку
+                    console.log('Failed to load profile photo, showing default icon');
+                    setProfilePhoto(null);
                   }}
                 />
-              ) : null}
-              <User 
-                className="w-5 h-5 md:w-6 md:h-6 relative z-10" 
-                style={{ color: '#E7E7E7', display: profilePhoto ? 'none' : 'block' }} 
-              />
+              ) : (
+                <User 
+                  className="w-5 h-5 md:w-6 md:h-6 relative z-10" 
+                  style={{ color: '#E7E7E7' }} 
+                />
+              )}
             </motion.button>
           )}
 
