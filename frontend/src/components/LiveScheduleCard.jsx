@@ -44,14 +44,14 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
         animate="animate"
         variants={liveCardVariants}
       >
-        {/* 3rd layer - самая маленькая и дальняя с параллакс эффектом */}
+        {/* 3-я карточка - самая маленькая и дальняя с параллакс эффектом */}
         <motion.div 
           className="absolute rounded-3xl mx-auto left-0 right-0"
           style={{ 
             backgroundColor: '#212121',
             width: '83.4%', // 311/373
             height: '140px',
-            top: '44px', // 33px от 2-й карточки (11 + 33 = 44)
+            top: '44px', // 22px от 2-й карточки (22 + 22 = 44)
             zIndex: 1
           }}
           initial={{ opacity: 0, y: 15, scale: 0.95 }}
@@ -62,14 +62,14 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
             ease: [0.25, 0.1, 0.25, 1]
           }}
         ></motion.div>
-        {/* 2nd layer - средняя с параллакс эффектом */}
+        {/* 2-я карточка - средняя с параллакс эффектом */}
         <motion.div 
           className="absolute rounded-3xl mx-auto left-0 right-0"
           style={{ 
             backgroundColor: '#2C2C2C',
             width: '93%', // 347/373
             height: '156px',
-            top: '11px', // 11px от главной карточки
+            top: '22px', // 22px от 1-й карточки
             zIndex: 2
           }}
           initial={{ opacity: 0, y: 10, scale: 0.97 }}
@@ -81,7 +81,7 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
           }}
         ></motion.div>
         
-        {/* Main card - 1-я карточка (самая большая) */}
+        {/* 1-я карточка - основная (самая большая) */}
         <motion.div 
           className="relative rounded-3xl p-6 md:p-8 lg:p-10 shadow-card overflow-hidden"
           style={{ 
