@@ -1388,6 +1388,8 @@ class RUDNScheduleAPITester:
             self.test_save_user_settings,
             self.test_get_user_settings,
             self.test_get_nonexistent_user,
+            # User Profile functionality test (as requested)
+            self.test_user_profile_functionality,
             # Notification endpoint tests
             self.test_create_user_with_default_notifications,
             self.test_get_default_notification_settings,
