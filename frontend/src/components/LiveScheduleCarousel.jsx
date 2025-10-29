@@ -218,7 +218,7 @@ export const LiveScheduleCarousel = ({
         </div>
       </div>
 
-      {/* Навигационные кнопки и индикаторы по центру - только для mobile */}
+      {/* Навигационные кнопки и индикаторы по центру - только для mobile (горизонтальная версия) */}
       <div className="flex items-center justify-center gap-4 md:hidden">
         {/* Кнопка назад */}
         <motion.button
@@ -260,12 +260,57 @@ export const LiveScheduleCarousel = ({
         </motion.button>
       </div>
 
-      {/* Tablet and Desktop - статичная LiveScheduleCard (показываем на tablet и desktop) */}
-      <div className="hidden md:block mt-4">
-        <LiveScheduleCard 
-          currentClass={currentClass} 
-          minutesLeft={minutesLeft}
-        />
+      {/* Tablet and Desktop - вертикальная карусель справа от основной карточки */}
+      <div className="hidden md:flex md:gap-4 mt-4 md:items-start">
+        {/* Основная LiveScheduleCard слева */}
+        <div className="flex-1">
+          <LiveScheduleCard 
+            currentClass={currentClass} 
+            minutesLeft={minutesLeft}
+          />
+        </div>
+
+        {/* Вертикальная карусель справа */}
+        <div className="flex flex-col items-center gap-3">
+          {/* Кнопка вверх */}
+          <motion.button
+            onClick={handlePrevious}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronUp className="w-5 h-5 text-white" />
+          </motion.button>
+
+          {/* Вертикальные индикаторы */}
+          <div className="flex flex-col justify-center gap-2">
+            {cards.map((card, index) => (
+              <motion.button
+                key={card.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  hapticFeedback && hapticFeedback('impact', 'light');
+                  setCurrentIndex(index);
+                }}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentIndex ? 'bg-[#A3F7BF] h-6' : 'bg-gray-600'
+                }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </div>
+
+          {/* Кнопка вниз */}
+          <motion.button
+            onClick={handleNext}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronDown className="w-5 h-5 text-white" />
+          </motion.button>
+        </div>
       </div>
 
       {/* Модалка достижений */}
