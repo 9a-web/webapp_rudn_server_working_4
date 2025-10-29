@@ -143,8 +143,25 @@ export const ShareScheduleModal = ({
   };
 
   // Шаринг через Telegram Web App API
-  const handleShareToTelegram = () => {
+  const handleShareToTelegram = async () => {
     if (hapticFeedback) hapticFeedback('impact', 'medium');
+    
+    // Отслеживаем действие поделиться расписанием
+    if (telegramId) {
+      try {
+        const result = await achievementsAPI.trackAction(telegramId, 'share_schedule', {
+          source: 'share_modal',
+          date: new Date().toISOString()
+        });
+        
+        // Если есть новые достижения, можно показать уведомление (опционально)
+        if (result.new_achievements && result.new_achievements.length > 0) {
+          console.log('New achievement earned:', result.new_achievements[0]);
+        }
+      } catch (error) {
+        console.error('Failed to track share_schedule action:', error);
+      }
+    }
     
     const text = generateTelegramText();
     
