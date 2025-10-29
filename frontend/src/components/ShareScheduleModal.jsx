@@ -151,7 +151,8 @@ export const ShareScheduleModal = ({
       // Используем Telegram.WebApp.switchInlineQuery для шаринга
       // Или открываем диалог выбора чата
       const encodedText = encodeURIComponent(text);
-      const url = `https://t.me/share/url?url=${encodedText}`;
+      const botUrl = `https://t.me/${botUsername}`;
+      const url = `https://t.me/share/url?url=${botUrl}&text=${encodedText}`;
       window.open(url, '_blank');
     } else {
       // Fallback: копируем в буфер
@@ -170,9 +171,10 @@ export const ShareScheduleModal = ({
   const handleInviteFriends = () => {
     if (hapticFeedback) hapticFeedback('impact', 'medium');
     
-    const inviteText = `🎓 Привет! Я использую RUDN Schedule для просмотра расписания.\n\nПрисоединяйся! 👇\n\n📱 RUDN Schedule – Telegram WebApp`;
+    const inviteText = `🎓 Привет! Я использую RUDN Schedule для просмотра расписания.\n\nПрисоединяйся! 👇`;
     const encodedText = encodeURIComponent(inviteText);
-    const url = `https://t.me/share/url?url=${encodedText}`;
+    const botUrl = `https://t.me/${botUsername}`;
+    const url = `https://t.me/share/url?url=${botUrl}&text=${encodedText}`;
     window.open(url, '_blank');
   };
 
