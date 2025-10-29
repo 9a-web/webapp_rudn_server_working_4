@@ -22,11 +22,6 @@ export const LiveScheduleCarousel = ({
     { id: 2, type: 'achievements' }
   ];
 
-  const handleCardClick = () => {
-    hapticFeedback && hapticFeedback('impact', 'light');
-    setCurrentIndex((prev) => (prev + 1) % cards.length);
-  };
-
   const handlePrevious = (e) => {
     e.stopPropagation();
     hapticFeedback && hapticFeedback('impact', 'light');
