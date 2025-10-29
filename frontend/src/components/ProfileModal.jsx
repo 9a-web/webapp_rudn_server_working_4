@@ -39,14 +39,22 @@ export const ProfileModal = ({
 
   if (!user) return null;
 
+  // Проверяем, зашел ли пользователь через Telegram или через сайт напрямую
+  const isTelegramUser = typeof window !== 'undefined' && 
+                          window.Telegram?.WebApp?.initDataUnsafe?.user;
+  
   // Формируем полное имя
-  const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ') || 'Пользователь';
+  const fullName = isTelegramUser 
+    ? ([user.first_name, user.last_name].filter(Boolean).join(' ') || 'Пользователь')
+    : 'Авторизуйтесь через';
   
   // Получаем username
-  const username = user.username ? `@${user.username}` : '';
+  const username = isTelegramUser && user.username ? `@${user.username}` : '';
 
   // Получаем название группы
-  const groupName = userSettings?.group_name || userSettings?.group_id || 'Группа не выбрана';
+  const groupName = isTelegramUser 
+    ? (userSettings?.group_name || userSettings?.group_id || 'Группа не выбрана')
+    : null;
 
   return (
     <AnimatePresence>
