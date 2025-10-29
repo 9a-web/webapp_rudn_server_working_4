@@ -161,14 +161,27 @@ export const getClassTypeStats = (schedule) => {
     return {};
   }
 
-  const typeStats = schedule.reduce((acc, classItem) => {
-    const type = classItem.type || 'Не указано';
-    if (!acc[type]) {
-      acc[type] = 0;
+  // Сначала получаем уникальные пары (день + время)
+  const uniqueClasses = new Map();
+  schedule.forEach(classItem => {
+    if (classItem.time && classItem.day) {
+      const uniqueKey = `${classItem.day}|${classItem.time}`;
+      // Сохраняем только первое вхождение каждой уникальной пары
+      if (!uniqueClasses.has(uniqueKey)) {
+        uniqueClasses.set(uniqueKey, classItem);
+      }
     }
-    acc[type]++;
-    return acc;
-  }, {});
+  });
+
+  // Теперь считаем типы по уникальным парам
+  const typeStats = {};
+  uniqueClasses.forEach((classItem) => {
+    const type = classItem.lessonType || classItem.type || 'Не указано';
+    if (!typeStats[type]) {
+      typeStats[type] = 0;
+    }
+    typeStats[type]++;
+  });
 
   return typeStats;
 };
