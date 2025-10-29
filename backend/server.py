@@ -560,6 +560,54 @@ async def get_user_profile_photo(telegram_id: int):
         return JSONResponse({"photo_url": None})
 
 
+@api_router.get("/user-profile-photo-proxy/{telegram_id}")
+async def get_user_profile_photo_proxy(telegram_id: int):
+    """Получить фото профиля пользователя через прокси (для обхода CORS)"""
+    try:
+        from telegram import Bot
+        
+        bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+        if not bot_token:
+            raise HTTPException(status_code=404, detail="Bot token not configured")
+        
+        bot = Bot(token=bot_token)
+        
+        # Получаем фото профиля пользователя
+        photos = await bot.get_user_profile_photos(telegram_id, limit=1)
+        
+        if photos.total_count > 0:
+            # Берём самое большое фото (последнее в списке sizes)
+            photo = photos.photos[0][-1]
+            file = await bot.get_file(photo.file_id)
+            
+            # Формируем URL для загрузки
+            if file.file_path.startswith('http'):
+                image_url = file.file_path
+            else:
+                image_url = f"https://api.telegram.org/file/bot{bot_token}/{file.file_path}"
+            
+            # Загружаем изображение
+            async with httpx.AsyncClient() as client:
+                response = await client.get(image_url)
+                if response.status_code == 200:
+                    # Возвращаем изображение с правильным content-type
+                    return StreamingResponse(
+                        iter([response.content]),
+                        media_type=response.headers.get('content-type', 'image/jpeg'),
+                        headers={
+                            'Cache-Control': 'public, max-age=86400',  # Кешируем на 24 часа
+                        }
+                    )
+        
+        raise HTTPException(status_code=404, detail="Profile photo not found")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Ошибка при проксировании фото профиля: {e}")
+        raise HTTPException(status_code=500, detail="Failed to load profile photo")
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
