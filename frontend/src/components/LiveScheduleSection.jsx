@@ -458,6 +458,16 @@ export const LiveScheduleSection = ({
         )}
         </div>
       </div>
+
+      {/* Share Schedule Modal */}
+      <ShareScheduleModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        schedule={mockSchedule}
+        selectedDate={selectedDate}
+        groupName={groupName}
+        hapticFeedback={hapticFeedback}
+      />
     </div>
   );
 };
