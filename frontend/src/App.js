@@ -489,6 +489,11 @@ const Home = () => {
             />
           </Suspense>
         )}
+        
+        {/* Swipe hint - показывается один раз */}
+        {!showGroupSelector && schedule.length > 0 && (
+          <SwipeHint />
+        )}
       </div>
     </div>
   );
