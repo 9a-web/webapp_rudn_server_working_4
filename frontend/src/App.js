@@ -170,6 +170,13 @@ const Home = () => {
         console.error('Error tracking time-based achievement:', err);
       }
     }
+    
+    // Отслеживаем ежедневную активность
+    try {
+      await achievementsAPI.trackAction(user.id, 'daily_activity');
+    } catch (err) {
+      console.error('Error tracking daily activity:', err);
+    }
   };
 
   // Отслеживание просмотра расписания
