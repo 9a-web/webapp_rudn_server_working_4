@@ -419,6 +419,7 @@ const Home = () => {
                 onWeekChange={handleWeekChange}
                 groupName={userSettings?.group_name}
                 onChangeGroup={handleChangeGroup}
+                onDateSelect={handleDateSelect}
                 hapticFeedback={hapticFeedback}
               />
             )}
