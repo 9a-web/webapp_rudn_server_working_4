@@ -216,11 +216,11 @@ export const LiveScheduleCarousel = ({
           {/* Кнопка вверх */}
           <motion.button
             onClick={handlePrevious}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <ChevronUp className="w-5 h-5 text-white" />
+            <ChevronUp className="w-4 h-4 text-white" />
           </motion.button>
 
           {/* Вертикальные индикаторы */}
@@ -245,11 +245,11 @@ export const LiveScheduleCarousel = ({
           {/* Кнопка вниз */}
           <motion.button
             onClick={handleNext}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800/80 hover:bg-gray-700/80 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <ChevronDown className="w-5 h-5 text-white" />
+            <ChevronDown className="w-4 h-4 text-white" />
           </motion.button>
         </div>
       </div>
