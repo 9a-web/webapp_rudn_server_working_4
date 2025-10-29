@@ -215,9 +215,9 @@ export const LiveScheduleCarousel = ({
         <div 
           className={`flex flex-col items-center gap-3 md:hidden ${
             currentCard.type === 'weather' 
-              ? 'mt-[41px] pr-[5px] pl-[6px]' 
+              ? 'mt-[44px] pr-[5px] pl-[6px]' 
               : currentCard.type === 'achievements'
-              ? 'mt-[41px] pr-[10px] pl-[5px]'
+              ? 'mt-[44px] pr-[10px] pl-[5px]'
               : 'mt-8 pr-[10px]'
           }`}
         >
