@@ -477,15 +477,18 @@ frontend:
 
   - task: "Achievement Notification - Mobile Adaptation"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/AchievementNotification.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "🔧 URGENT FIX: Achievement notification not adapted for mobile. Fixed responsive design issues: 1) Reduced top margin (top-2 on mobile, top-4 on desktop) 2) Increased width to 95% on mobile (was 90%) 3) Added px-2 padding on mobile 4) Reduced all paddings (p-3 on mobile, p-4 on desktop) 5) Made all text responsive with sm: breakpoints (text-xs→sm:text-sm, text-2xl→sm:text-3xl) 6) Reduced icon sizes (w-5 h-5 on mobile, w-6 h-6 on desktop) 7) Added truncate for achievement name, line-clamp-2 for description 8) Added touch-manipulation to close button 9) Reduced confetti size (w-1.5 h-1.5 on mobile). Now fully adapted for Telegram mobile viewport (430px width). Frontend hot-reloaded."
+        - working: true
+          agent: "main"
+          comment: "✅ ПОЛНАЯ МОБИЛЬНАЯ АДАПТАЦИЯ: Улучшена адаптация всплывающего окна достижений для мобильных устройств. Изменения: 1) Упрощена ширина контейнера - использует calc(100% - 24px) для отступов по краям без сложных брейкпоинтов 2) Унифицирован padding - всегда p-4 для стабильности 3) Увеличены все иконки до фиксированных размеров (Trophy: 6x6, Star: 4x4, Close: 5x5) 4) Улучшена читаемость текста: заголовок 14px, название 16px, описание 14px 5) Изменен layout эмодзи - теперь 3xl размер и правильное выравнивание 6) Убрана обрезка текста (truncate/line-clamp) в пользу break-words для полного отображения 7) Улучшены отступы между элементами (gap-3, gap-2.5) 8) Добавлено active:bg состояние для кнопки закрытия 9) Конфетти унифицированы до w-2 h-2. Теперь компонент оптимально отображается на экранах 320px-430px. Frontend скомпилирован успешно."
 
 metadata:
   created_by: "main_agent"
