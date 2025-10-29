@@ -205,125 +205,127 @@ export const ShareScheduleModal = ({
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[150]"
           />
 
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[160] w-[90%] max-w-md"
-          >
-            <div className="bg-white rounded-3xl p-6 shadow-2xl">
-              {/* Header */}
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">
-                  Поделиться расписанием
-                </h2>
-                <button
-                  onClick={() => {
-                    if (hapticFeedback) hapticFeedback('impact', 'light');
-                    onClose();
-                  }}
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-                >
-                  <X className="w-5 h-5 text-gray-600" />
-                </button>
-              </div>
+          {/* Modal Container - адаптивное позиционирование */}
+          <div className="fixed inset-0 z-[160] flex items-center justify-center p-4 sm:p-6 md:p-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="w-full max-w-[95vw] sm:max-w-md md:max-w-lg lg:max-w-xl max-h-[90vh] overflow-y-auto"
+            >
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 leading-tight pr-2">
+                    Поделиться расписанием
+                  </h2>
+                  <button
+                    onClick={() => {
+                      if (hapticFeedback) hapticFeedback('impact', 'light');
+                      onClose();
+                    }}
+                    className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 transition-colors"
+                  >
+                    <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                  </button>
+                </div>
 
-              {/* Info */}
-              <div className="mb-6 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl">
-                <p className="text-sm text-gray-600 text-center">
-                  📅 {formatDate(selectedDate)}
-                </p>
-                {groupName && (
-                  <p className="text-xs text-gray-500 text-center mt-1">
-                    Группа: {groupName}
+                {/* Info */}
+                <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl sm:rounded-2xl">
+                  <p className="text-xs sm:text-sm text-gray-600 text-center">
+                    📅 {formatDate(selectedDate)}
                   </p>
-                )}
-              </div>
-
-              {/* Share Options */}
-              <div className="space-y-3">
-                {/* Поделиться в Telegram */}
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={handleShareToTelegram}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:shadow-lg transition-shadow"
-                >
-                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20">
-                    <MessageCircle className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 text-left">
-                    <p className="font-semibold">Отправить в чат</p>
-                    <p className="text-xs text-white/80">Поделиться через Telegram</p>
-                  </div>
-                  <Share2 className="w-5 h-5" />
-                </motion.button>
-
-                {/* Копировать текст */}
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={handleCopyToClipboard}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-lg transition-shadow"
-                >
-                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20">
-                    {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
-                  </div>
-                  <div className="flex-1 text-left">
-                    <p className="font-semibold">
-                      {copied ? 'Скопировано!' : 'Копировать текст'}
+                  {groupName && (
+                    <p className="text-xs text-gray-500 text-center mt-1">
+                      Группа: {groupName}
                     </p>
-                    <p className="text-xs text-white/80">
-                      {copied ? 'Текст в буфере обмена' : 'Скопировать расписание'}
-                    </p>
-                  </div>
-                </motion.button>
+                  )}
+                </div>
 
-                {/* Поделиться как изображение */}
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={handleShareAsImage}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-green-500 to-teal-500 text-white hover:shadow-lg transition-shadow"
-                >
-                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20">
-                    <ImageIcon className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 text-left">
-                    <p className="font-semibold">Сохранить как картинку</p>
-                    <p className="text-xs text-white/80">Скриншот расписания</p>
-                  </div>
-                  <span className="text-xs bg-white/20 px-2 py-1 rounded-full">Скоро</span>
-                </motion.button>
+                {/* Share Options */}
+                <div className="space-y-2 sm:space-y-3">
+                  {/* Поделиться в Telegram */}
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleShareToTelegram}
+                    className="w-full flex items-center gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:shadow-lg active:shadow-md transition-shadow"
+                  >
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-white/20">
+                      <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <div className="flex-1 text-left min-w-0">
+                      <p className="font-semibold text-sm sm:text-base truncate">Отправить в чат</p>
+                      <p className="text-xs text-white/80 hidden sm:block">Поделиться через Telegram</p>
+                    </div>
+                    <Share2 className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                  </motion.button>
 
-                {/* Пригласить друзей */}
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={handleInviteFriends}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
-                >
-                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white">
-                    <Share2 className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 text-left">
-                    <p className="font-semibold">Пригласить друзей</p>
-                    <p className="text-xs text-gray-500">Рассказать о приложении</p>
-                  </div>
-                </motion.button>
+                  {/* Копировать текст */}
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleCopyToClipboard}
+                    className="w-full flex items-center gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-lg active:shadow-md transition-shadow"
+                  >
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-white/20">
+                      {copied ? <Check className="w-4 h-4 sm:w-5 sm:h-5" /> : <Copy className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    </div>
+                    <div className="flex-1 text-left min-w-0">
+                      <p className="font-semibold text-sm sm:text-base truncate">
+                        {copied ? 'Скопировано!' : 'Копировать текст'}
+                      </p>
+                      <p className="text-xs text-white/80 hidden sm:block">
+                        {copied ? 'Текст в буфере обмена' : 'Скопировать расписание'}
+                      </p>
+                    </div>
+                  </motion.button>
+
+                  {/* Поделиться как изображение */}
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleShareAsImage}
+                    className="w-full flex items-center gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-green-500 to-teal-500 text-white hover:shadow-lg active:shadow-md transition-shadow"
+                  >
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-white/20">
+                      <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <div className="flex-1 text-left min-w-0">
+                      <p className="font-semibold text-sm sm:text-base truncate">Сохранить как картинку</p>
+                      <p className="text-xs text-white/80 hidden sm:block">Скриншот расписания</p>
+                    </div>
+                    <span className="text-xs bg-white/20 px-2 py-0.5 sm:py-1 rounded-full flex-shrink-0">Скоро</span>
+                  </motion.button>
+
+                  {/* Пригласить друзей */}
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleInviteFriends}
+                    className="w-full flex items-center gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 transition-colors"
+                  >
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-white">
+                      <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <div className="flex-1 text-left min-w-0">
+                      <p className="font-semibold text-sm sm:text-base truncate">Пригласить друзей</p>
+                      <p className="text-xs text-gray-500 hidden sm:block">Рассказать о приложении</p>
+                    </div>
+                  </motion.button>
+                </div>
+
+                {/* Preview */}
+                <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-gray-50 rounded-lg sm:rounded-xl max-h-32 sm:max-h-40 md:max-h-48 overflow-y-auto">
+                  <p className="text-xs text-gray-500 mb-2">Предпросмотр:</p>
+                  <pre className="text-[10px] sm:text-xs text-gray-700 whitespace-pre-wrap font-mono leading-relaxed">
+                    {generateScheduleText()}
+                  </pre>
+                </div>
               </div>
-
-              {/* Preview */}
-              <div className="mt-6 p-4 bg-gray-50 rounded-xl max-h-48 overflow-y-auto">
-                <p className="text-xs text-gray-500 mb-2">Предпросмотр:</p>
-                <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono">
-                  {generateScheduleText()}
-                </pre>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
