@@ -314,4 +314,27 @@ export const weatherAPI = {
   },
 };
 
+/**
+ * API методы для информации о боте
+ */
+export const botAPI = {
+  /**
+   * Получить информацию о боте (username, id и т.д.)
+   */
+  getBotInfo: async () => {
+    try {
+      const response = await api.get('/bot-info');
+      return response.data;
+    } catch (error) {
+      handleError(error);
+      // Возвращаем fallback данные если API недоступен
+      return {
+        username: 'rudn_pro_bot',
+        first_name: 'RUDN Schedule',
+        id: 0
+      };
+    }
+  },
+};
+
 export default api;
