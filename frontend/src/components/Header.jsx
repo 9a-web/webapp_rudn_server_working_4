@@ -110,8 +110,45 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
           </h1>
         </motion.div>
 
-        {/* Right side - Calendar, Notifications, and Menu buttons */}
+        {/* Right side - Profile, Calendar, Notifications, and Menu buttons */}
         <div className="flex items-center gap-2">
+          {/* Profile button */}
+          {user && (
+            <motion.button
+              onClick={() => {
+                if (hapticFeedback) hapticFeedback('impact', 'medium');
+                // TODO: Открыть модальное окно профиля
+                console.log('Profile clicked');
+              }}
+              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
+              aria-label="Open profile"
+              custom={0}
+              initial="initial"
+              animate="animate"
+              variants={headerItemVariants}
+            >
+              {/* Gradient glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-blue-400/20 to-indigo-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              {profilePhoto ? (
+                <img 
+                  src={profilePhoto} 
+                  alt="Profile" 
+                  className="w-full h-full object-cover rounded-full relative z-10"
+                  onError={(e) => {
+                    // Если не удалось загрузить фото, показываем иконку
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'block';
+                  }}
+                />
+              ) : null}
+              <User 
+                className="w-5 h-5 md:w-6 md:h-6 relative z-10" 
+                style={{ color: '#E7E7E7', display: profilePhoto ? 'none' : 'block' }} 
+              />
+            </motion.button>
+          )}
+
           {/* Calendar button */}
           <motion.button
             onClick={() => {
