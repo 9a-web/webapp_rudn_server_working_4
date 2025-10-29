@@ -15,7 +15,8 @@ export const LiveScheduleSection = ({
   groupName,
   onChangeGroup,
   hapticFeedback,
-  onDateSelect // Добавляем коллбек для изменения даты
+  onDateSelect, // Добавляем коллбек для изменения даты
+  telegramId // Telegram ID для трекинга
 }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
