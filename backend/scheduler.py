@@ -294,6 +294,27 @@ class NotificationScheduler:
         
         # По умолчанию текущая неделя
         return 1
+    
+    async def cleanup_old_notifications(self):
+        """
+        Очистить старые записи отправленных уведомлений из базы данных
+        Удаляет записи старше expires_at
+        """
+        try:
+            now = datetime.now(MOSCOW_TZ).replace(tzinfo=None)
+            
+            # Удаляем все уведомления, у которых истёк срок
+            result = await self.db.sent_notifications.delete_many({
+                "expires_at": {"$lt": now}
+            })
+            
+            if result.deleted_count > 0:
+                logger.info(f"Cleaned up {result.deleted_count} old notification records")
+            else:
+                logger.debug("No old notifications to clean up")
+        
+        except Exception as e:
+            logger.error(f"Error cleaning up old notifications: {e}", exc_info=True)
 
 
 # Глобальный экземпляр планировщика
