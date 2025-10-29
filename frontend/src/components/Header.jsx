@@ -176,7 +176,7 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
             }}
             className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
             aria-label="Open notifications"
-            custom={2}
+            custom={3}
             initial="initial"
             animate="animate"
             variants={headerItemVariants}
