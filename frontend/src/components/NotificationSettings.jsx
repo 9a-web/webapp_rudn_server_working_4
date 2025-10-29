@@ -58,6 +58,23 @@ export const NotificationSettings = ({
         notifications_enabled: enabled,
         notification_time: notificationTime,
       });
+      
+      // Отслеживаем настройку уведомлений
+      if (enabled) {
+        try {
+          const result = await achievementsAPI.trackAction(telegramId, 'configure_notifications', {
+            notification_time: notificationTime,
+            date: new Date().toISOString()
+          });
+          
+          // Если есть новые достижения, можно показать уведомление
+          if (result.new_achievements && result.new_achievements.length > 0) {
+            console.log('New achievement earned:', result.new_achievements[0]);
+          }
+        } catch (error) {
+          console.error('Failed to track configure_notifications action:', error);
+        }
+      }
 
       showAlert && showAlert(
         enabled 
