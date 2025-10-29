@@ -34,7 +34,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-24px)] max-w-md"
+          className="fixed top-3 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-16px)] max-w-md px-2"
           initial={{ opacity: 0, y: -100, scale: 0.8 }}
           animate={{ 
             opacity: 1, 
@@ -54,7 +54,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
           }}
         >
           <motion.div
-            className="bg-gradient-to-br from-[#A3F7BF] via-[#FFE66D] to-[#A3F7BF] p-[2px] rounded-2xl shadow-2xl"
+            className="bg-gradient-to-br from-[#A3F7BF] via-[#FFE66D] to-[#A3F7BF] p-[2px] rounded-xl shadow-2xl"
             animate={{
               boxShadow: [
                 "0 0 20px rgba(163, 247, 191, 0.3)",
@@ -68,7 +68,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
               ease: "easeInOut"
             }}
           >
-            <div className="bg-[#2A2A2A] rounded-2xl p-4 relative overflow-hidden">
+            <div className="bg-[#2A2A2A] rounded-xl p-3 relative overflow-hidden">
               {/* Анимированный фон */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-[#A3F7BF]/10 via-[#FFE66D]/10 to-transparent"
@@ -84,7 +84,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
 
               {/* Контент */}
               <div className="relative z-10">
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-2.5">
                   {/* Иконка трофея */}
                   <motion.div
                     className="flex-shrink-0"
@@ -97,15 +97,15 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                       delay: 0.2,
                     }}
                   >
-                    <div className="bg-gradient-to-br from-[#FFE66D]/20 to-[#A3F7BF]/20 rounded-xl p-2.5">
-                      <Trophy className="w-6 h-6 text-[#FFE66D]" />
+                    <div className="bg-gradient-to-br from-[#FFE66D]/20 to-[#A3F7BF]/20 rounded-lg p-2">
+                      <Trophy className="w-5 h-5 text-[#FFE66D]" />
                     </div>
                   </motion.div>
 
                   {/* Текст */}
-                  <div className="flex-1 min-w-0 pr-1">
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <h3 className="text-sm font-bold text-[#A3F7BF]">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1 mb-1">
+                      <h3 className="text-xs font-bold text-[#A3F7BF]">
                         Новое достижение!
                       </h3>
                       <motion.div
@@ -118,20 +118,20 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                           ease: "linear"
                         }}
                       >
-                        <Star className="w-4 h-4 text-[#FFE66D]" />
+                        <Star className="w-3 h-3 text-[#FFE66D]" />
                       </motion.div>
                     </div>
 
-                    <div className="flex items-start gap-2.5 mb-2">
-                      <span className="text-3xl flex-shrink-0 leading-none">{achievement.emoji}</span>
+                    <div className="flex items-start gap-2 mb-1.5">
+                      <span className="text-2xl flex-shrink-0 leading-none">{achievement.emoji}</span>
                       <div className="min-w-0 flex-1">
-                        <h4 className="font-bold text-base text-white mb-0.5 break-words">{achievement.name}</h4>
-                        <p className="text-sm text-gray-300 break-words leading-snug">{achievement.description}</p>
+                        <h4 className="font-bold text-sm text-white mb-0.5 break-words leading-tight">{achievement.name}</h4>
+                        <p className="text-xs text-gray-300 break-words leading-snug">{achievement.description}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-sm font-semibold text-[#FFE66D]">
-                      <Star className="w-4 h-4 flex-shrink-0" />
+                    <div className="flex items-center gap-1 text-xs font-semibold text-[#FFE66D]">
+                      <Star className="w-3 h-3 flex-shrink-0" />
                       <span>+{achievement.points} очков</span>
                     </div>
                   </div>
@@ -139,28 +139,28 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                   {/* Кнопка закрытия */}
                   <button
                     onClick={handleClose}
-                    className="flex-shrink-0 p-1.5 hover:bg-white/10 active:bg-white/20 rounded-full transition-colors touch-manipulation -mt-1 -mr-1"
+                    className="flex-shrink-0 p-1 hover:bg-white/10 active:bg-white/20 rounded-full transition-colors touch-manipulation"
                   >
-                    <X className="w-5 h-5 text-gray-400" />
+                    <X className="w-4 h-4 text-gray-400" />
                   </button>
                 </div>
               </div>
 
               {/* Конфетти эффект */}
-              {[...Array(8)].map((_, i) => (
+              {[...Array(6)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-2 h-2 rounded-full"
+                  className="absolute w-1.5 h-1.5 rounded-full"
                   style={{
                     background: i % 2 === 0 ? '#A3F7BF' : '#FFE66D',
-                    left: `${20 + i * 10}%`,
+                    left: `${25 + i * 10}%`,
                     top: '50%',
                   }}
                   initial={{ scale: 0, y: 0 }}
                   animate={{
                     scale: [0, 1, 0],
-                    y: [-50, -100, -150],
-                    x: [(Math.random() - 0.5) * 50, (Math.random() - 0.5) * 100],
+                    y: [-40, -80, -120],
+                    x: [(Math.random() - 0.5) * 40, (Math.random() - 0.5) * 80],
                     opacity: [0, 1, 0],
                   }}
                   transition={{
