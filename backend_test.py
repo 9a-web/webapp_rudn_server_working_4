@@ -1265,7 +1265,9 @@ class RUDNScheduleAPITester:
             self.test_get_user_stats,
             self.test_get_user_achievements,
             # Analytics counting fix test
-            self.test_analytics_counting_fix
+            self.test_analytics_counting_fix,
+            # Bot info endpoint test
+            self.test_bot_info_endpoint
         ]
         
         passed = 0
