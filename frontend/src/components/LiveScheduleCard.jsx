@@ -240,11 +240,11 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
                   strokeWidth="14"
                   fill="none"
                   strokeLinecap="round"
-                  initial={{ opacity: 0.15 }}
+                  initial={{ opacity: 0.4 }}
                   animate={currentClass ? {
-                    opacity: [0.15, 0.25, 0.35, 0.25, 0.15]
+                    opacity: [0.4, 0.5, 0.6, 0.5, 0.4]
                   } : {
-                    opacity: 0.15
+                    opacity: 0.4
                   }}
                   transition={{
                     duration: 5,
