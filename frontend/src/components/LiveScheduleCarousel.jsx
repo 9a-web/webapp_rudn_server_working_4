@@ -212,7 +212,7 @@ export const LiveScheduleCarousel = ({
         </div>
 
         {/* Вертикальная карусель справа - скрыта на десктопах (md и больше) */}
-        <div className="flex flex-col items-center gap-3 md:hidden mt-12">
+        <div className="flex flex-col items-center gap-3 md:hidden mt-9">
           {/* Кнопка вверх */}
           <motion.button
             onClick={handlePrevious}
