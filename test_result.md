@@ -525,9 +525,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Analytics - Count Unique Time Slots"
-    - "Achievement Notification - Mobile Adaptation"
-    - "Analytics - Fix Weekday Abbreviations"
+    - "Profile Modal - User Mini-Profile Display"
   stuck_tasks:
     - "Language Switching - i18n Integration"
   test_all: false
@@ -540,6 +538,7 @@ test_plan:
     - "GET /api/user-achievements/{telegram_id} - Get User Achievements"
     - "Analytics - Group Classes by Time Slot"
     - "GET /api/bot-info - Bot Information Endpoint"
+    - "Profile Modal - User Mini-Profile Display"
 
 agent_communication:
     - agent: "testing"
