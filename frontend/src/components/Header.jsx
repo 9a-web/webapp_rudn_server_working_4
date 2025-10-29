@@ -122,7 +122,7 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
               }}
               className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
               aria-label="Open profile"
-              custom={0}
+              custom={1}
               initial="initial"
               animate="animate"
               variants={headerItemVariants}
