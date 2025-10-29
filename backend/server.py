@@ -522,6 +522,39 @@ async def get_bot_info():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@api_router.get("/user-profile-photo/{telegram_id}")
+async def get_user_profile_photo(telegram_id: int):
+    """Получить URL фото профиля пользователя из Telegram"""
+    try:
+        from telegram import Bot
+        
+        bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+        if not bot_token:
+            return JSONResponse({"photo_url": None})
+        
+        bot = Bot(token=bot_token)
+        
+        # Получаем фото профиля пользователя
+        photos = await bot.get_user_profile_photos(telegram_id, limit=1)
+        
+        if photos.total_count > 0:
+            # Берём самое большое фото (последнее в списке sizes)
+            photo = photos.photos[0][-1]
+            file = await bot.get_file(photo.file_id)
+            photo_url = file.file_path
+            
+            # Формируем полный URL
+            full_url = f"https://api.telegram.org/file/bot{bot_token}/{photo_url}"
+            
+            return JSONResponse({"photo_url": full_url})
+        else:
+            return JSONResponse({"photo_url": None})
+            
+    except Exception as e:
+        logger.error(f"Ошибка при получении фото профиля: {e}")
+        return JSONResponse({"photo_url": None})
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
