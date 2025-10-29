@@ -51,7 +51,7 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
             backgroundColor: '#212121',
             width: '83.4%', // 311/373
             height: '140px',
-            top: '22px', // 11px от 2-й карточки (11 + 11 = 22)
+            top: '20px', // 9px от 2-й карточки (11 + 9 = 20)
             zIndex: 1
           }}
           initial={{ opacity: 0, y: 15, scale: 0.95 }}
