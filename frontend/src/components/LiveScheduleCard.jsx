@@ -193,12 +193,12 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
               <motion.div
                 className="absolute w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full"
                 style={{
-                  background: 'radial-gradient(circle, rgba(163, 247, 191, 0.3) 0%, rgba(255, 230, 109, 0.2) 25%, rgba(255, 180, 209, 0.2) 50%, rgba(196, 163, 255, 0.2) 75%, rgba(128, 232, 255, 0.3) 100%)',
-                  filter: 'blur(20px)'
+                  background: 'radial-gradient(circle, rgba(163, 247, 191, 0.6) 0%, rgba(255, 230, 109, 0.5) 25%, rgba(255, 180, 209, 0.5) 50%, rgba(196, 163, 255, 0.5) 75%, rgba(128, 232, 255, 0.6) 100%)',
+                  filter: 'blur(25px)'
                 }}
                 animate={{ 
                   scale: [1, 1.15, 1],
-                  opacity: [0.4, 0.7, 0.4]
+                  opacity: [0.6, 0.9, 0.6]
                 }}
                 transition={{ 
                   duration: 3,
