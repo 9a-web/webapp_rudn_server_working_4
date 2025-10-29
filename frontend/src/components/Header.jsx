@@ -53,6 +53,26 @@ export const Header = React.memo(({ user, userSettings, onCalendarClick, onNotif
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleProfileClick = () => {
+    if (hapticFeedback) hapticFeedback('impact', 'medium');
+    setIsProfileOpen(!isProfileOpen);
+    
+    // Если фото не загрузилось, пробуем загрузить снова
+    if (photoError && user?.id) {
+      console.log('Retrying profile photo load...');
+      photoLoadedRef.current = false;
+      setPhotoError(false);
+      setProfilePhoto(null);
+      // Загрузка произойдёт автоматически через useEffect
+      botAPI.getUserProfilePhoto(user.id).then(url => {
+        if (url) {
+          setProfilePhoto(url);
+          photoLoadedRef.current = true;
+        }
+      });
+    }
+  };
+
   const handleLogoClick = () => {
     // Увеличиваем счётчик кликов
     const newCount = logoClickCount + 1;
