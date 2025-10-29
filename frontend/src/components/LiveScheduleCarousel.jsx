@@ -60,35 +60,35 @@ export const LiveScheduleCarousel = ({
 
               {currentCard.type === 'weather' && (
                 <div style={{ paddingBottom: '44px' }}>
-                  {/* 3rd layer */}
+                  {/* 3-я карточка */}
                   <motion.div 
                     className="absolute rounded-3xl mx-auto left-0 right-0"
                     style={{ 
                       backgroundColor: '#212121',
                       width: '83.4%',
                       height: '140px',
-                      top: '44px', // 33px от 2-й карточки (11 + 33 = 44)
+                      top: '44px', // 22px от 2-й карточки (22 + 22 = 44)
                       zIndex: 1
                     }}
                     initial={{ opacity: 0, y: 15, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ delay: 0.1, duration: 0.6 }}
                   />
-                  {/* 2nd layer */}
+                  {/* 2-я карточка */}
                   <motion.div 
                     className="absolute rounded-3xl mx-auto left-0 right-0"
                     style={{ 
                       backgroundColor: '#2C2C2C',
                       width: '93%',
                       height: '156px',
-                      top: '11px', // 11px от главной карточки
+                      top: '22px', // 22px от 1-й карточки
                       zIndex: 2
                     }}
                     initial={{ opacity: 0, y: 10, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ delay: 0.15, duration: 0.5 }}
                   />
-                  {/* Main card with weather */}
+                  {/* 1-я карточка - основная с погодой */}
                   <motion.div 
                     className="relative rounded-3xl overflow-hidden"
                     style={{ 
