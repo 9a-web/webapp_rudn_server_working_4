@@ -198,6 +198,45 @@ async def check_and_award_achievements(db, telegram_id: int, stats: UserStats) -
             earned = True
         elif achievement_id == "early_bird" and stats.early_usage_count >= 1:
             earned = True
+        # Новые достижения за исследование приложения
+        elif achievement_id == "analyst" and stats.analytics_views >= 1:
+            earned = True
+        elif achievement_id == "chart_lover" and stats.analytics_views >= 5:
+            earned = True
+        elif achievement_id == "organizer" and stats.calendar_opens >= 1:
+            earned = True
+        elif achievement_id == "settings_master" and stats.notifications_configured:
+            earned = True
+        elif achievement_id == "knowledge_sharer" and stats.schedule_shares >= 1:
+            earned = True
+        elif achievement_id == "ambassador" and stats.schedule_shares >= 5:
+            earned = True
+        elif achievement_id == "explorer" and len(stats.menu_items_visited) >= 4:
+            earned = True
+        elif achievement_id == "first_week":
+            # Проверяем 7 дней подряд
+            if len(stats.active_days) >= 7:
+                # Сортируем даты и проверяем последовательность
+                sorted_days = sorted(stats.active_days)
+                consecutive_count = 1
+                max_consecutive = 1
+                
+                for i in range(1, len(sorted_days)):
+                    prev_date = datetime.strptime(sorted_days[i-1], "%Y-%m-%d").date()
+                    curr_date = datetime.strptime(sorted_days[i], "%Y-%m-%d").date()
+                    
+                    if (curr_date - prev_date).days == 1:
+                        consecutive_count += 1
+                        max_consecutive = max(max_consecutive, consecutive_count)
+                    else:
+                        consecutive_count = 1
+                
+                if max_consecutive >= 7:
+                    earned = True
+        elif achievement_id == "perfectionist":
+            # Проверяем, что получены все остальные достижения
+            if len(existing_ids) >= 14:  # Все кроме самого перфекциониста
+                earned = True
         
         # Если заработано, добавляем
         if earned:
