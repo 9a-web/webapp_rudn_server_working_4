@@ -177,11 +177,12 @@ const Home = () => {
     if (!user || !userSettings) return;
     
     try {
-      // Подсчитываем уникальные временные слоты (группируем по времени начала и окончания)
+      // Подсчитываем уникальные пары (группируем по ДНЮ + ВРЕМЕНИ, чтобы одинаковое время в разные дни считалось отдельно)
       const uniqueTimeSlots = new Set();
       schedule.forEach(event => {
-        if (event.time) {
-          uniqueTimeSlots.add(event.time); // Например: "10:30 - 11:50"
+        if (event.time && event.day) {
+          // Создаём уникальный ключ: день + время
+          uniqueTimeSlots.add(`${event.day}|${event.time}`); // Например: "Понедельник|10:30 - 11:50"
         }
       });
       
