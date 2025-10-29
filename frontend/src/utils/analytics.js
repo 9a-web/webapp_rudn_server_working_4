@@ -17,11 +17,13 @@ export const calculateScheduleStats = (schedule) => {
     };
   }
 
-  // Подсчет уникальных временных слотов (группируем по времени начала и окончания)
+  // Подсчет уникальных пар (группируем по ДНЮ + ВРЕМЕНИ)
+  // Одно и то же время в разные дни = разные пары
   const uniqueTimeSlots = new Set();
   schedule.forEach(classItem => {
-    if (classItem.time) {
-      uniqueTimeSlots.add(classItem.time);
+    if (classItem.time && classItem.day) {
+      // Создаём уникальный ключ: день + время
+      uniqueTimeSlots.add(`${classItem.day}|${classItem.time}`);
     }
   });
   
@@ -30,7 +32,7 @@ export const calculateScheduleStats = (schedule) => {
   // Подсчет общего количества часов (каждая пара = 1.5 часа)
   const totalHours = totalClasses * 1.5;
 
-  // Группировка по дням с подсчетом уникальных временных слотов
+  // Группировка по дням с подсчетом уникальных временных слотов В КАЖДОМ ДНЕ
   const classesByDay = schedule.reduce((acc, classItem) => {
     const day = classItem.day || 'unknown';
     if (!acc[day]) {
@@ -41,6 +43,7 @@ export const calculateScheduleStats = (schedule) => {
     }
     acc[day].items.push(classItem);
     if (classItem.time) {
+      // Теперь правильно считаем уникальные времена внутри каждого дня
       acc[day].uniqueTimes.add(classItem.time);
     }
     return acc;
@@ -49,7 +52,7 @@ export const calculateScheduleStats = (schedule) => {
   // Преобразуем в массивы для обратной совместимости
   const classesByDayArray = {};
   Object.keys(classesByDay).forEach(day => {
-    // Создаем массив с количеством элементов = количество уникальных временных слотов
+    // Создаем массив с количеством элементов = количество уникальных временных слотов в этом дне
     classesByDayArray[day] = Array.from(classesByDay[day].uniqueTimes).map(time => {
       // Берем первый предмет с этим временем для отображения
       return classesByDay[day].items.find(item => item.time === time);
