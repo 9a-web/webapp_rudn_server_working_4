@@ -445,7 +445,7 @@ const Home = () => {
         */}
         <div className="md:grid md:grid-cols-2 md:gap-6 md:px-6 lg:grid-cols-2 xl:grid-cols-[1fr_380px]">
           {/* Main content column */}
-          <div className="md:min-w-0">
+          <div className="md:min-w-0 md:overflow-visible">
             <LiveScheduleCarousel
               currentClass={currentClass} 
               minutesLeft={minutesLeft}
