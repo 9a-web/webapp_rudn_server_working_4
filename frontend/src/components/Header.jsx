@@ -15,6 +15,22 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
   const [profilePhoto, setProfilePhoto] = useState(null);
   const clickTimerRef = useRef(null);
 
+  // Загрузка фото профиля пользователя
+  useEffect(() => {
+    const loadProfilePhoto = async () => {
+      if (user?.id) {
+        try {
+          const photoUrl = await botAPI.getUserProfilePhoto(user.id);
+          setProfilePhoto(photoUrl);
+        } catch (error) {
+          console.error('Failed to load profile photo:', error);
+        }
+      }
+    };
+
+    loadProfilePhoto();
+  }, [user]);
+
   const handleMenuClick = () => {
     if (hapticFeedback) hapticFeedback('impact', 'medium');
     setIsMenuOpen(!isMenuOpen);
