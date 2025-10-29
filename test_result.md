@@ -509,6 +509,7 @@ test_plan:
     - "GET /api/user-stats/{telegram_id} - Get User Statistics"
     - "GET /api/user-achievements/{telegram_id} - Get User Achievements"
     - "Analytics - Group Classes by Time Slot"
+    - "GET /api/bot-info - Bot Information Endpoint"
 
 agent_communication:
     - agent: "testing"
