@@ -147,18 +147,27 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
               {/* Gradient glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-blue-400/20 to-indigo-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
               
-              {profilePhoto ? (
+              {profilePhoto && !photoError ? (
                 <img 
                   src={profilePhoto} 
                   alt="Profile Avatar" 
                   className="w-full h-full object-cover rounded-full relative z-10"
                   style={{ objectPosition: 'center' }}
+                  onLoad={() => {
+                    console.log('Profile photo loaded into img element');
+                  }}
                   onError={(e) => {
-                    // Если не удалось загрузить фото, скрываем картинку и показываем иконку
-                    console.log('Failed to load profile photo, showing default icon');
+                    // Если не удалось загрузить фото, показываем иконку
+                    console.error('Failed to load profile photo image, showing default icon');
+                    setPhotoError(true);
                     setProfilePhoto(null);
+                    photoLoadedRef.current = false;
                   }}
                 />
+              ) : photoLoading ? (
+                <div className="w-full h-full flex items-center justify-center relative z-10">
+                  <div className="w-4 h-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                </div>
               ) : (
                 <User 
                   className="w-5 h-5 md:w-6 md:h-6 relative z-10" 
