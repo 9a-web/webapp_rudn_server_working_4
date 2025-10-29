@@ -62,6 +62,88 @@ ACHIEVEMENTS = [
         "points": 10,
         "type": "early_bird",
         "requirement": 1
+    },
+    # Новые достижения за исследование приложения
+    {
+        "id": "analyst",
+        "name": "Аналитик",
+        "description": "Открыл раздел аналитики",
+        "emoji": "📈",
+        "points": 10,
+        "type": "analyst",
+        "requirement": 1
+    },
+    {
+        "id": "chart_lover",
+        "name": "Любитель графиков",
+        "description": "Проверил статистику 5 раз",
+        "emoji": "📊",
+        "points": 15,
+        "type": "chart_lover",
+        "requirement": 5
+    },
+    {
+        "id": "organizer",
+        "name": "Организатор",
+        "description": "Использовал календарь",
+        "emoji": "📅",
+        "points": 10,
+        "type": "organizer",
+        "requirement": 1
+    },
+    {
+        "id": "settings_master",
+        "name": "Мастер настроек",
+        "description": "Настроил уведомления",
+        "emoji": "⚙️",
+        "points": 10,
+        "type": "settings_master",
+        "requirement": 1
+    },
+    {
+        "id": "knowledge_sharer",
+        "name": "Делишься знаниями",
+        "description": "Поделился расписанием",
+        "emoji": "🔗",
+        "points": 15,
+        "type": "knowledge_sharer",
+        "requirement": 1
+    },
+    {
+        "id": "ambassador",
+        "name": "Амбассадор",
+        "description": "Поделился расписанием 5 раз",
+        "emoji": "🎤",
+        "points": 25,
+        "type": "ambassador",
+        "requirement": 5
+    },
+    {
+        "id": "explorer",
+        "name": "Исследователь",
+        "description": "Открыл все разделы меню",
+        "emoji": "🔎",
+        "points": 20,
+        "type": "explorer",
+        "requirement": 4  # Достижения, Аналитика, Уведомления, Календарь
+    },
+    {
+        "id": "first_week",
+        "name": "Первая неделя",
+        "description": "Использовал приложение 7 дней подряд",
+        "emoji": "📆",
+        "points": 30,
+        "type": "first_week",
+        "requirement": 7
+    },
+    {
+        "id": "perfectionist",
+        "name": "Перфекционист",
+        "description": "Получил все базовые достижения",
+        "emoji": "✨",
+        "points": 50,
+        "type": "perfectionist",
+        "requirement": 14  # Все остальные достижения (15 - 1)
     }
 ]
 
