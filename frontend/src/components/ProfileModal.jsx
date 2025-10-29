@@ -115,25 +115,38 @@ export const ProfileModal = ({
                 className="w-full h-full rounded-full overflow-hidden"
                 style={{
                   border: '3px solid rgba(255, 255, 255, 0.12)',
-                  background: 'linear-gradient(145deg, #404050, #2D2D3A)',
+                  background: isTelegramUser 
+                    ? 'linear-gradient(145deg, #404050, #2D2D3A)'
+                    : 'linear-gradient(145deg, #667eea 0%, #764ba2 100%)',
                   boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
                 }}
               >
-                {profilePhoto ? (
-                  <img 
-                    src={profilePhoto} 
-                    alt="Profile" 
-                    className="w-full h-full object-cover"
-                  />
+                {isTelegramUser ? (
+                  profilePhoto ? (
+                    <img 
+                      src={profilePhoto} 
+                      alt="Profile" 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div 
+                      className="w-full h-full flex items-center justify-center text-4xl font-bold"
+                      style={{
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        color: '#FFFFFF',
+                      }}
+                    >
+                      {user.first_name?.[0]?.toUpperCase() || '👤'}
+                    </div>
+                  )
                 ) : (
                   <div 
-                    className="w-full h-full flex items-center justify-center text-4xl font-bold"
+                    className="w-full h-full flex items-center justify-center text-4xl"
                     style={{
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                       color: '#FFFFFF',
                     }}
                   >
-                    {user.first_name?.[0]?.toUpperCase() || '👤'}
+                    🔒
                   </div>
                 )}
               </div>
