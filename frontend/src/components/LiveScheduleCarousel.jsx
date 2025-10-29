@@ -114,7 +114,7 @@ export const LiveScheduleCarousel = ({
                     e.stopPropagation();
                     setIsAchievementsOpen(true);
                   }}
-                  style={{ paddingBottom: '22px' }}
+                  style={{ paddingBottom: '44px' }}
                 >
                   {/* 3rd layer */}
                   <motion.div 
@@ -123,7 +123,7 @@ export const LiveScheduleCarousel = ({
                       backgroundColor: '#212121',
                       width: '83.4%',
                       height: '140px',
-                      top: '22px', // 11px от 2-й карточки (11 + 11 = 22)
+                      top: '44px', // 33px от 2-й карточки (11 + 33 = 44)
                       zIndex: 1
                     }}
                     initial={{ opacity: 0, y: 15, scale: 0.95 }}
