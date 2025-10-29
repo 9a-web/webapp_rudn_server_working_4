@@ -1,17 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Menu, Calendar, Bell } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { headerItemVariants } from '../utils/animations';
 import { MenuModal } from './MenuModal';
+import { rainbowConfetti } from '../utils/confetti';
 
 export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAnalyticsClick, onAchievementsClick, hapticFeedback }) => {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [logoClickCount, setLogoClickCount] = useState(0);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const clickTimerRef = useRef(null);
 
   const handleMenuClick = () => {
     if (hapticFeedback) hapticFeedback('impact', 'medium');
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogoClick = () => {
+    // Увеличиваем счётчик кликов
+    const newCount = logoClickCount + 1;
+    setLogoClickCount(newCount);
+
+    // Лёгкая вибрация при каждом клике
+    if (hapticFeedback) hapticFeedback('impact', 'light');
+
+    // Сбрасываем таймер
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+    }
+
+    // Если достигли 10 кликов - запускаем пасхалку!
+    if (newCount >= 10) {
+      activateEasterEgg();
+      setLogoClickCount(0);
+      return;
+    }
+
+    // Сбрасываем счётчик через 2 секунды неактивности
+    clickTimerRef.current = setTimeout(() => {
+      setLogoClickCount(0);
+    }, 2000);
+  };
+
+  const activateEasterEgg = () => {
+    // Сильная вибрация
+    if (hapticFeedback) hapticFeedback('notification', 'success');
+    
+    // Запускаем радужное конфетти!
+    rainbowConfetti();
+    
+    // Показываем секретное сообщение
+    setShowEasterEgg(true);
+    
+    // Скрываем через 4 секунды
+    setTimeout(() => {
+      setShowEasterEgg(false);
+    }, 4000);
   };
 
   return (
@@ -19,19 +65,28 @@ export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAna
       <header className="px-6 md:px-8 lg:px-10 py-5 md:py-6 flex items-center justify-between">
         {/* Left side - Logo and text */}
         <motion.div 
-          className="flex items-center gap-3 md:gap-4"
+          className="flex items-center gap-3 md:gap-4 cursor-pointer select-none"
           custom={0}
           initial="initial"
           animate="animate"
           variants={headerItemVariants}
+          onClick={handleLogoClick}
+          whileTap={{ scale: 0.95 }}
         >
-          <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+          <motion.div 
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center"
+            animate={logoClickCount > 0 ? {
+              rotate: [0, -10, 10, -10, 10, 0],
+              scale: [1, 1.1, 1]
+            } : {}}
+            transition={{ duration: 0.5 }}
+          >
             <img 
               src="/LogoRudn.png" 
               alt="RUDN Logo" 
               className="w-full h-full object-contain"
             />
-          </div>
+          </motion.div>
           <h1 className="text-sm md:text-base lg:text-lg font-bold tracking-tight" style={{ color: '#E7E7E7' }}>
             {t('header.title')}
           </h1>
