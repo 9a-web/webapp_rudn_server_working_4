@@ -150,7 +150,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
               {[...Array(8)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full"
+                  className="absolute w-2 h-2 rounded-full"
                   style={{
                     background: i % 2 === 0 ? '#A3F7BF' : '#FFE66D',
                     left: `${20 + i * 10}%`,
