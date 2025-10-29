@@ -40,7 +40,7 @@ export const LiveScheduleCarousel = ({
   return (
     <>
       {/* Вертикальная карусель справа от основной карточки - для ВСЕХ устройств */}
-      <div className="flex gap-3 md:gap-4 mt-4 items-center px-6 md:px-0">
+      <div className="flex gap-3 md:gap-4 mt-4 items-start px-6 md:px-0">
         {/* Основная карточка слева - меняется в зависимости от currentIndex */}
         <div className="flex-1 relative">
           <AnimatePresence mode="wait">
