@@ -276,19 +276,34 @@ export const LiveScheduleSection = ({
           </div>
         )}
 
-        {/* Change group button */}
-        {onChangeGroup && (
+        {/* Action buttons */}
+        <div className="flex gap-2 mb-4">
+          {/* Change group button */}
+          {onChangeGroup && (
+            <button
+              onClick={() => {
+                if (hapticFeedback) hapticFeedback('impact', 'medium');
+                onChangeGroup();
+              }}
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all"
+            >
+              <Users className="w-4 h-4" />
+              {t('liveScheduleSection.changeGroup')}
+            </button>
+          )}
+          
+          {/* Share button */}
           <button
             onClick={() => {
               if (hapticFeedback) hapticFeedback('impact', 'medium');
-              onChangeGroup();
+              setIsShareModalOpen(true);
             }}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all mb-4"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:shadow-lg transition-all"
           >
-            <Users className="w-4 h-4" />
-            {t('liveScheduleSection.changeGroup')}
+            <Share2 className="w-4 h-4" />
+            Поделиться
           </button>
-        )}
+        </div>
 
         {/* Schedule list with swipe container */}
         <div className="relative" ref={swipeContainerRef}>
