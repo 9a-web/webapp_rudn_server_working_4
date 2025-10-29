@@ -288,23 +288,53 @@ export const LiveScheduleSection = ({
           </button>
         )}
 
-        {/* Schedule list */}
-        {todaySchedule.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-400 text-base md:text-lg">
-              {mockSchedule.length === 0 
-                ? t('liveScheduleSection.loading')
-                : t('liveScheduleSection.noClasses')}
-            </p>
-          </div>
-        ) : (
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-3 md:gap-4"
-            initial="initial"
-            animate="animate"
-            variants={staggerContainer}
-          >
-            {todaySchedule.map((classItem, index) => {
+        {/* Schedule list with swipe container */}
+        <div className="relative" ref={swipeContainerRef}>
+          {/* Swipe indicators */}
+          <AnimatePresence>
+            {swipeDirection !== 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute top-1/2 z-10 pointer-events-none"
+                style={{
+                  left: swipeDirection === 1 ? '20px' : 'auto',
+                  right: swipeDirection === -1 ? '20px' : 'auto',
+                  transform: 'translateY(-50%)'
+                }}
+              >
+                <motion.div
+                  style={{ opacity, scale }}
+                  className="flex items-center justify-center w-12 h-12 rounded-full bg-black/20 backdrop-blur-sm"
+                >
+                  {swipeDirection === 1 ? (
+                    <ChevronLeft className="w-6 h-6 text-white" />
+                  ) : (
+                    <ChevronRight className="w-6 h-6 text-white" />
+                  )}
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
+          {/* Schedule content */}
+          {todaySchedule.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-400 text-base md:text-lg">
+                {mockSchedule.length === 0 
+                  ? t('liveScheduleSection.loading')
+                  : t('liveScheduleSection.noClasses')}
+              </p>
+            </div>
+          ) : (
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-3 md:gap-4"
+              initial="initial"
+              animate="animate"
+              variants={staggerContainer}
+            >
+              {todaySchedule.map((classItem, index) => {
               const { status, color } = getClassStatus(classItem);
               const isExpanded = expandedIndex === index;
 
