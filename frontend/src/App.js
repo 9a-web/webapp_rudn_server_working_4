@@ -430,6 +430,7 @@ const Home = () => {
         {/* Header - full width */}
         <Header 
           user={user}
+          userSettings={userSettings}
           onCalendarClick={handleCalendarClick}
           onAnalyticsClick={schedule.length > 0 ? handleAnalyticsClick : null}
           onAchievementsClick={user ? handleAchievementsClick : null}
