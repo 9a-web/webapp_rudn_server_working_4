@@ -226,6 +226,14 @@ class UserStats(BaseModel):
     early_usage_count: int = 0  # Использование до 08:00
     first_group_selected: bool = False  # Выбрана ли первая группа
     
+    # Новые счетчики для исследования приложения
+    analytics_views: int = 0  # Количество просмотров аналитики
+    calendar_opens: int = 0  # Количество открытий календаря
+    notifications_configured: bool = False  # Настроены ли уведомления
+    schedule_shares: int = 0  # Количество поделившихся расписанием
+    menu_items_visited: List[str] = []  # Посещённые пункты меню
+    active_days: List[str] = []  # Дни активности (даты в формате YYYY-MM-DD)
+    
     # Общая статистика
     total_points: int = 0  # Всего очков
     achievements_count: int = 0  # Количество достижений
