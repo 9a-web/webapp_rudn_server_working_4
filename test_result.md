@@ -463,6 +463,18 @@ frontend:
           agent: "main"
           comment: "🔧 URGENT FIX: Analytics modal counting incorrect number of classes. Fixed calculateScheduleStats() function to group classes by unique time slots instead of counting all disciplines separately. Now uses Set to track uniqueTimeSlots and counts schedule.length becomes uniqueTimeSlots.size. Updated classesByDay grouping to track unique times per day using Set structure. Creates arrays with one element per unique time slot for display. Example: 3 subjects at 10:30-11:50 now counts as 1 class instead of 3 in all analytics (total classes, hours, average per day, week chart). Frontend hot-reloaded. Ready for testing."
 
+  - task: "GET /api/bot-info - Bot Information Endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Successfully retrieves bot information from Telegram Bot API. Returns proper JSON with all required fields: username='rudn_pro_bot', first_name='RUDN SCHEDULE', id=7331940900 (positive integer), can_join_groups=true, can_read_all_group_messages=false, supports_inline_queries=false. All data types validated correctly (string, int, boolean). HTTP 200 status code. Endpoint uses TELEGRAM_BOT_TOKEN from .env file and integrates with python-telegram-bot library correctly."
+
   - task: "Achievement Notification - Mobile Adaptation"
     implemented: true
     working: "NA"
