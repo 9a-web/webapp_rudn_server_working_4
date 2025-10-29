@@ -546,9 +546,9 @@ const Home = () => {
           </Suspense>
         )}
         
-        {/* Swipe hint - показывается один раз */}
+        {/* Swipe hint - показывается один раз, скрывается через 10 секунд или при первом свайпе */}
         {!showGroupSelector && schedule.length > 0 && (
-          <SwipeHint />
+          <SwipeHint onSwipe={true} />
         )}
       </div>
     </div>
