@@ -1153,6 +1153,87 @@ class RUDNScheduleAPITester:
         except Exception as e:
             self.log_test("Analytics Counting Fix - Group Classes by Time Slot", False, f"Exception: {str(e)}")
             return False
+
+    def test_bot_info_endpoint(self) -> bool:
+        """Test GET /api/bot-info endpoint"""
+        try:
+            print("🔍 Testing GET /api/bot-info...")
+            
+            response = self.session.get(f"{self.base_url}/bot-info")
+            
+            if response.status_code != 200:
+                self.log_test("GET /api/bot-info", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            bot_info = response.json()
+            
+            # Validate response structure
+            if not isinstance(bot_info, dict):
+                self.log_test("GET /api/bot-info", False, 
+                            "Response is not a dictionary")
+                return False
+            
+            # Check required fields as per request
+            required_fields = ['username', 'first_name', 'id', 'can_join_groups', 
+                             'can_read_all_group_messages', 'supports_inline_queries']
+            for field in required_fields:
+                if field not in bot_info:
+                    self.log_test("GET /api/bot-info", False, 
+                                f"Bot info missing required field: {field}")
+                    return False
+            
+            # Validate specific expected values from request
+            if bot_info['username'] != "rudn_pro_bot":
+                self.log_test("GET /api/bot-info", False, 
+                            f"Expected username='rudn_pro_bot', got '{bot_info['username']}'")
+                return False
+            
+            # Validate data types
+            if not isinstance(bot_info['first_name'], str):
+                self.log_test("GET /api/bot-info", False, 
+                            f"Field 'first_name' should be string, got {type(bot_info['first_name'])}")
+                return False
+            
+            if not isinstance(bot_info['id'], int):
+                self.log_test("GET /api/bot-info", False, 
+                            f"Field 'id' should be integer, got {type(bot_info['id'])}")
+                return False
+            
+            boolean_fields = ['can_join_groups', 'can_read_all_group_messages', 'supports_inline_queries']
+            for field in boolean_fields:
+                if not isinstance(bot_info[field], bool):
+                    self.log_test("GET /api/bot-info", False, 
+                                f"Field '{field}' should be boolean, got {type(bot_info[field])}")
+                    return False
+            
+            # Validate that first_name is not empty
+            if not bot_info['first_name'].strip():
+                self.log_test("GET /api/bot-info", False, 
+                            "Field 'first_name' should not be empty")
+                return False
+            
+            # Validate that id is a positive number
+            if bot_info['id'] <= 0:
+                self.log_test("GET /api/bot-info", False, 
+                            f"Field 'id' should be positive, got {bot_info['id']}")
+                return False
+            
+            self.log_test("GET /api/bot-info", True, 
+                        "Successfully retrieved bot information",
+                        {
+                            "username": bot_info['username'],
+                            "first_name": bot_info['first_name'],
+                            "id": bot_info['id'],
+                            "can_join_groups": bot_info['can_join_groups'],
+                            "can_read_all_group_messages": bot_info['can_read_all_group_messages'],
+                            "supports_inline_queries": bot_info['supports_inline_queries']
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("GET /api/bot-info", False, f"Exception: {str(e)}")
+            return False
     
     def run_all_tests(self):
         """Run all API tests in sequence"""
