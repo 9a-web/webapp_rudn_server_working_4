@@ -541,11 +541,15 @@ async def get_user_profile_photo(telegram_id: int):
             # Берём самое большое фото (последнее в списке sizes)
             photo = photos.photos[0][-1]
             file = await bot.get_file(photo.file_id)
-            photo_url = file.file_path
             
-            # Формируем полный URL
-            full_url = f"https://api.telegram.org/file/bot{bot_token}/{photo_url}"
+            # file.file_path может быть как полным URL, так и просто путём
+            # Проверяем, если это уже URL, используем его, иначе формируем полный URL
+            if file.file_path.startswith('http'):
+                full_url = file.file_path
+            else:
+                full_url = f"https://api.telegram.org/file/bot{bot_token}/{file.file_path}"
             
+            logger.info(f"Profile photo URL for {telegram_id}: {full_url}")
             return JSONResponse({"photo_url": full_url})
         else:
             return JSONResponse({"photo_url": None})
