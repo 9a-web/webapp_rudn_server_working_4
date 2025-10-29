@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Star, X } from 'lucide-react';
+import { celebrateAchievement } from '../utils/confetti';
 
 export const AchievementNotification = ({ achievement, onClose, hapticFeedback }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -8,6 +9,9 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
   useEffect(() => {
     // Вибрация при появлении
     hapticFeedback && hapticFeedback('notification', 'success');
+    
+    // 🎉 ЗАПУСКАЕМ КОНФЕТТИ!
+    celebrateAchievement();
     
     // Автоматически закрываем через 5 секунд
     const timer = setTimeout(() => {
