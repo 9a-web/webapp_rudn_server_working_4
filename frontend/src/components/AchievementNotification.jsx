@@ -34,7 +34,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed top-2 sm:top-4 left-1/2 -translate-x-1/2 z-[100] w-[95%] sm:w-[90%] max-w-md px-2 sm:px-0"
+          className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-24px)] max-w-md"
           initial={{ opacity: 0, y: -100, scale: 0.8 }}
           animate={{ 
             opacity: 1, 
@@ -68,7 +68,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
               ease: "easeInOut"
             }}
           >
-            <div className="bg-[#2A2A2A] rounded-2xl p-3 sm:p-4 relative overflow-hidden">
+            <div className="bg-[#2A2A2A] rounded-2xl p-4 relative overflow-hidden">
               {/* Анимированный фон */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-[#A3F7BF]/10 via-[#FFE66D]/10 to-transparent"
