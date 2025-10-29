@@ -11,6 +11,9 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
 
   // Обработчики свайпов
   const handleSwipeLeft = () => {
+    // Отправляем событие о свайпе для скрытия подсказки
+    window.dispatchEvent(new Event('swipe-detected'));
+    
     // Свайп влево - следующий день
     if (selectedIndex < weekDays.length - 1) {
       const nextIndex = selectedIndex + 1;
@@ -19,6 +22,9 @@ export const WeekDaySelector = ({ selectedDate, onDateSelect, weekNumber = 1, ha
   };
 
   const handleSwipeRight = () => {
+    // Отправляем событие о свайпе для скрытия подсказки
+    window.dispatchEvent(new Event('swipe-detected'));
+    
     // Свайп вправо - предыдущий день
     if (selectedIndex > 0) {
       const prevIndex = selectedIndex - 1;
