@@ -207,25 +207,7 @@ export const Header = React.memo(({ user, userSettings, onCalendarClick, onNotif
           {/* Profile button */}
           {user && (
             <motion.button
-              onClick={() => {
-                if (hapticFeedback) hapticFeedback('impact', 'medium');
-                // Если фото не загрузилось, пробуем загрузить снова
-                if (photoError && user?.id) {
-                  console.log('Retrying profile photo load...');
-                  photoLoadedRef.current = false;
-                  setPhotoError(false);
-                  setProfilePhoto(null);
-                  // Загрузка произойдёт автоматически через useEffect
-                  botAPI.getUserProfilePhoto(user.id).then(url => {
-                    if (url) {
-                      setProfilePhoto(url);
-                      photoLoadedRef.current = true;
-                    }
-                  });
-                }
-                // TODO: Открыть модальное окно профиля
-                console.log('Profile clicked, user:', user);
-              }}
+              onClick={handleProfileClick}
               className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group border-2 border-transparent hover:border-cyan-400/30"
               aria-label="Open profile"
               custom={4}
@@ -278,6 +260,16 @@ export const Header = React.memo(({ user, userSettings, onCalendarClick, onNotif
         onNotificationsClick={onNotificationsClick}
         onAnalyticsClick={onAnalyticsClick}
         onAchievementsClick={onAchievementsClick}
+        hapticFeedback={hapticFeedback}
+      />
+
+      {/* Profile Modal */}
+      <ProfileModal
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+        user={user}
+        userSettings={userSettings}
+        profilePhoto={profilePhoto}
         hapticFeedback={hapticFeedback}
       />
 
