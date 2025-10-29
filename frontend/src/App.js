@@ -272,24 +272,69 @@ const Home = () => {
     }
   };
 
-  const handleCalendarClick = () => {
+  const handleCalendarClick = async () => {
     hapticFeedback('impact', 'light');
     setIsCalendarOpen(true);
+    
+    // Отслеживаем открытие календаря
+    if (user) {
+      try {
+        const result = await achievementsAPI.trackAction(user.id, 'open_calendar');
+        if (result.new_achievements && result.new_achievements.length > 0) {
+          setNewAchievement(result.new_achievements[0]);
+          loadAchievementsData();
+        }
+      } catch (err) {
+        console.error('Error tracking calendar open:', err);
+      }
+    }
   };
 
-  const handleAnalyticsClick = () => {
+  const handleAnalyticsClick = async () => {
     hapticFeedback('impact', 'light');
     setIsAnalyticsOpen(true);
+    
+    // Отслеживаем открытие аналитики и посещение пункта меню
+    if (user) {
+      try {
+        const result = await achievementsAPI.trackAction(user.id, 'view_analytics');
+        await achievementsAPI.trackAction(user.id, 'visit_menu_item', { menu_item: 'analytics' });
+        if (result.new_achievements && result.new_achievements.length > 0) {
+          setNewAchievement(result.new_achievements[0]);
+          loadAchievementsData();
+        }
+      } catch (err) {
+        console.error('Error tracking analytics view:', err);
+      }
+    }
   };
 
-  const handleAchievementsClick = () => {
+  const handleAchievementsClick = async () => {
     hapticFeedback('impact', 'light');
     setIsAchievementsOpen(true);
+    
+    // Отслеживаем посещение пункта меню достижений
+    if (user) {
+      try {
+        await achievementsAPI.trackAction(user.id, 'visit_menu_item', { menu_item: 'achievements' });
+      } catch (err) {
+        console.error('Error tracking achievements view:', err);
+      }
+    }
   };
 
-  const handleNotificationsClick = () => {
+  const handleNotificationsClick = async () => {
     hapticFeedback('impact', 'light');
     setIsNotificationSettingsOpen(true);
+    
+    // Отслеживаем посещение пункта меню уведомлений
+    if (user) {
+      try {
+        await achievementsAPI.trackAction(user.id, 'visit_menu_item', { menu_item: 'notifications' });
+      } catch (err) {
+        console.error('Error tracking notifications view:', err);
+      }
+    }
   };
 
   const handleDateSelect = (date) => {
