@@ -335,6 +335,20 @@ export const botAPI = {
       };
     }
   },
+
+  /**
+   * Получить URL фото профиля пользователя
+   * @param {number} telegramId - Telegram ID пользователя
+   */
+  getUserProfilePhoto: async (telegramId) => {
+    try {
+      const response = await api.get(`/user-profile-photo/${telegramId}`);
+      return response.data.photo_url;
+    } catch (error) {
+      console.error('Error getting user profile photo:', error);
+      return null;
+    }
+  },
 };
 
 export default api;
