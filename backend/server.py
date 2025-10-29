@@ -40,7 +40,8 @@ from models import (
     UserStatsResponse,
     TrackActionRequest,
     NewAchievementsResponse,
-    WeatherResponse
+    WeatherResponse,
+    BotInfo
 )
 from notifications import get_notification_service
 from scheduler import get_scheduler
