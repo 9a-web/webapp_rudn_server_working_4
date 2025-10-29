@@ -216,6 +216,7 @@ export const LiveScheduleCarousel = ({
             </motion.div>
           </AnimatePresence>
         </div>
+        </div>
       </div>
 
       {/* Навигационные кнопки и индикаторы по центру - только для mobile */}
