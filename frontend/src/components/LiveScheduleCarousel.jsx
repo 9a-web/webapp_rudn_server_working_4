@@ -114,7 +114,7 @@ export const LiveScheduleCarousel = ({
                     e.stopPropagation();
                     setIsAchievementsOpen(true);
                   }}
-                  style={{ paddingBottom: '35px' }}
+                  style={{ paddingBottom: '38px' }}
                 >
                   {/* 3-я карточка */}
                   <motion.div 
@@ -123,7 +123,7 @@ export const LiveScheduleCarousel = ({
                       backgroundColor: '#212121',
                       width: '83.4%',
                       height: '140px',
-                      top: '35px', // 24px от 2-й карточки (11 + 24 = 35)
+                      top: '38px', // 25px от 2-й карточки (13 + 25 = 38)
                       zIndex: 1
                     }}
                     initial={{ opacity: 0, y: 15, scale: 0.95 }}
@@ -137,7 +137,7 @@ export const LiveScheduleCarousel = ({
                       backgroundColor: '#2C2C2C',
                       width: '93%',
                       height: '156px',
-                      top: '11px', // 11px от 1-й карточки
+                      top: '13px', // 13px от 1-й карточки
                       zIndex: 2
                     }}
                     initial={{ opacity: 0, y: 10, scale: 0.97 }}
