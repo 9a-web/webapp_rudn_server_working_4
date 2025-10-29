@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, ChevronRight, ChevronDown, RefreshCw, Users } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Calendar, ChevronRight, ChevronDown, RefreshCw, Users, ChevronLeft } from 'lucide-react';
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { getWeekNumberForDate } from '../utils/dateUtils';
 import { useTranslation } from 'react-i18next';
 import { fadeInUp, listItemVariants, buttonVariants, staggerContainer } from '../utils/animations';
@@ -13,11 +13,25 @@ export const LiveScheduleSection = ({
   onWeekChange,
   groupName,
   onChangeGroup,
-  hapticFeedback 
+  hapticFeedback,
+  onDateSelect // Добавляем коллбек для изменения даты
 }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [swipeDirection, setSwipeDirection] = useState(0); // -1 left, 0 none, 1 right
   const { t, i18n } = useTranslation();
+  
+  // Motion values для swipe индикатора
+  const x = useMotionValue(0);
+  const opacity = useTransform(x, [-100, 0, 100], [0.5, 0, 0.5]);
+  const scale = useTransform(x, [-100, 0, 100], [1.2, 1, 1.2]);
+  
+  // Refs для swipe detection
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchEndY = useRef(0);
+  const swipeContainerRef = useRef(null);
 
   // Update current time every 10 seconds for real-time status updates
   useEffect(() => {
