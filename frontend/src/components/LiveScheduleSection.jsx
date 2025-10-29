@@ -439,6 +439,7 @@ export const LiveScheduleSection = ({
             })}
           </motion.div>
         )}
+        </div>
       </div>
     </div>
   );
