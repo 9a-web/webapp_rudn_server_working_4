@@ -120,8 +120,9 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
               className="w-full h-full object-contain"
             />
           </motion.div>
-          <h1 className="text-sm md:text-base lg:text-lg font-bold tracking-tight" style={{ color: '#E7E7E7' }}>
-            {t('header.title')}
+          <h1 className="text-sm md:text-base lg:text-lg font-bold tracking-tight leading-tight" style={{ color: '#E7E7E7' }}>
+            <span className="block">Rudn</span>
+            <span className="block">Schedule</span>
           </h1>
         </motion.div>
 
