@@ -38,7 +38,7 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
   return (
     <div className="mt-4 flex justify-center px-6 md:px-0">
       <motion.div 
-        className="relative w-full max-w-[373px] md:max-w-[420px] lg:max-w-[480px]" 
+        className="relative w-full max-w-[373px] md:max-w-[500px] lg:max-w-[560px]" 
         style={{ paddingBottom: '50px' }}
         initial="initial"
         animate="animate"
