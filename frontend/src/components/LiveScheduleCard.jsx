@@ -51,7 +51,7 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
             backgroundColor: '#212121',
             width: '83.4%', // 311/373
             height: '140px',
-            top: '44px', // 22px от 2-й карточки (22 + 22 = 44)
+            top: '22px', // 11px от 2-й карточки (11 + 11 = 22)
             zIndex: 1
           }}
           initial={{ opacity: 0, y: 15, scale: 0.95 }}
@@ -69,7 +69,7 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
             backgroundColor: '#2C2C2C',
             width: '93%', // 347/373
             height: '156px',
-            top: '22px', // 22px от 1-й карточки
+            top: '11px', // 11px от 1-й карточки
             zIndex: 2
           }}
           initial={{ opacity: 0, y: 10, scale: 0.97 }}
