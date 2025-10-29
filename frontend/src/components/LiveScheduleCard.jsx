@@ -36,9 +36,9 @@ export const LiveScheduleCard = React.memo(({ currentClass, minutesLeft }) => {
   const circleCircumference = 2 * Math.PI * circleRadius;
 
   return (
-    <div className="mt-4 flex justify-start md:justify-center px-2 md:px-0">
+    <div className="mt-4 flex justify-start md:justify-center pl-0 pr-6 md:px-0">
       <motion.div 
-        className="relative w-full max-w-[300px] md:max-w-[500px] lg:max-w-[560px]" 
+        className="relative w-full max-w-[320px] md:max-w-[500px] lg:max-w-[560px]" 
         style={{ paddingBottom: '50px' }}
         initial="initial"
         animate="animate"
