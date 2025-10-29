@@ -422,6 +422,7 @@ const Home = () => {
                 onChangeGroup={handleChangeGroup}
                 onDateSelect={handleDateSelect}
                 hapticFeedback={hapticFeedback}
+                telegramId={user?.id}
               />
             )}
           </div>
