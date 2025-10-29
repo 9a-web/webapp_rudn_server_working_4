@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Calendar, ChevronRight, ChevronDown, RefreshCw, Users, ChevronLeft } from 'lucide-react';
+import { Calendar, ChevronRight, ChevronDown, RefreshCw, Users, ChevronLeft, Share2 } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { getWeekNumberForDate } from '../utils/dateUtils';
 import { useTranslation } from 'react-i18next';
 import { fadeInUp, listItemVariants, buttonVariants, staggerContainer } from '../utils/animations';
 import { translateDiscipline, translateLessonType } from '../i18n/subjects';
+import { ShareScheduleModal } from './ShareScheduleModal';
 
 export const LiveScheduleSection = ({ 
   selectedDate, 
@@ -19,6 +20,7 @@ export const LiveScheduleSection = ({
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [swipeDirection, setSwipeDirection] = useState(0); // -1 left, 0 none, 1 right
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const { t, i18n } = useTranslation();
   
   // Motion values для swipe индикатора
