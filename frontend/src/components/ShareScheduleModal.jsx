@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Share2, Copy, Check, MessageCircle, Image as ImageIcon, X } from 'lucide-react';
+import { botAPI } from '../services/api';
 
 /**
  * Компонент для шаринга расписания
@@ -14,6 +15,33 @@ export const ShareScheduleModal = ({
   hapticFeedback 
 }) => {
   const [copied, setCopied] = useState(false);
+  const [botUsername, setBotUsername] = useState('rudn_pro_bot');
+  const [webAppUrl, setWebAppUrl] = useState('');
+
+  // Получаем информацию о боте при монтировании
+  useEffect(() => {
+    const fetchBotInfo = async () => {
+      try {
+        const botInfo = await botAPI.getBotInfo();
+        if (botInfo && botInfo.username) {
+          setBotUsername(botInfo.username);
+        }
+      } catch (error) {
+        console.error('Failed to fetch bot info:', error);
+      }
+    };
+
+    fetchBotInfo();
+
+    // Определяем URL WebApp
+    if (window.Telegram?.WebApp?.initDataUnsafe?.start_param) {
+      // Если открыто через Telegram WebApp
+      setWebAppUrl(`https://t.me/${botUsername}`);
+    } else {
+      // Используем текущий URL
+      setWebAppUrl(window.location.origin);
+    }
+  }, [botUsername]);
 
   if (!isOpen) return null;
 
