@@ -84,7 +84,7 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
 
               {/* Контент */}
               <div className="relative z-10">
-                <div className="flex items-start gap-2 sm:gap-3">
+                <div className="flex items-start gap-3">
                   {/* Иконка трофея */}
                   <motion.div
                     className="flex-shrink-0"
@@ -97,15 +97,15 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                       delay: 0.2,
                     }}
                   >
-                    <div className="bg-gradient-to-br from-[#FFE66D]/20 to-[#A3F7BF]/20 rounded-xl p-2">
-                      <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-[#FFE66D]" />
+                    <div className="bg-gradient-to-br from-[#FFE66D]/20 to-[#A3F7BF]/20 rounded-xl p-2.5">
+                      <Trophy className="w-6 h-6 text-[#FFE66D]" />
                     </div>
                   </motion.div>
 
                   {/* Текст */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-xs sm:text-sm font-bold text-[#A3F7BF]">
+                  <div className="flex-1 min-w-0 pr-1">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <h3 className="text-sm font-bold text-[#A3F7BF]">
                         Новое достижение!
                       </h3>
                       <motion.div
@@ -118,20 +118,20 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                           ease: "linear"
                         }}
                       >
-                        <Star className="w-3 h-3 sm:w-4 sm:h-4 text-[#FFE66D]" />
+                        <Star className="w-4 h-4 text-[#FFE66D]" />
                       </motion.div>
                     </div>
 
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-2xl sm:text-3xl flex-shrink-0">{achievement.emoji}</span>
-                      <div className="min-w-0">
-                        <h4 className="font-bold text-sm sm:text-base text-white truncate">{achievement.name}</h4>
-                        <p className="text-xs sm:text-sm text-gray-300 line-clamp-2">{achievement.description}</p>
+                    <div className="flex items-start gap-2.5 mb-2">
+                      <span className="text-3xl flex-shrink-0 leading-none">{achievement.emoji}</span>
+                      <div className="min-w-0 flex-1">
+                        <h4 className="font-bold text-base text-white mb-0.5 break-words">{achievement.name}</h4>
+                        <p className="text-sm text-gray-300 break-words leading-snug">{achievement.description}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#FFE66D]">
-                      <Star className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <div className="flex items-center gap-1.5 text-sm font-semibold text-[#FFE66D]">
+                      <Star className="w-4 h-4 flex-shrink-0" />
                       <span>+{achievement.points} очков</span>
                     </div>
                   </div>
@@ -139,9 +139,9 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
                   {/* Кнопка закрытия */}
                   <button
                     onClick={handleClose}
-                    className="flex-shrink-0 p-1 hover:bg-white/10 rounded-full transition-colors touch-manipulation"
+                    className="flex-shrink-0 p-1.5 hover:bg-white/10 active:bg-white/20 rounded-full transition-colors touch-manipulation -mt-1 -mr-1"
                   >
-                    <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+                    <X className="w-5 h-5 text-gray-400" />
                   </button>
                 </div>
               </div>
