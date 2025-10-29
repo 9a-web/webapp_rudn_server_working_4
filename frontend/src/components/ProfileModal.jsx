@@ -140,20 +140,55 @@ export const ProfileModal = ({
             </div>
 
             {/* Имя пользователя с градиентом */}
-            <h2 
-              className="text-[19px] font-bold text-center mb-3 leading-tight px-2"
-              style={{
-                background: 'linear-gradient(100deg, #9AB8E8 0%, #D4A5E8 35%, #FFB4D1 70%, #FFFFFF 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                filter: 'drop-shadow(0 2px 8px rgba(154, 184, 232, 0.25))',
-                fontWeight: '700',
-                letterSpacing: '-0.01em',
-              }}
-            >
-              {fullName}
-            </h2>
+            {isTelegramUser ? (
+              <h2 
+                className="text-[19px] font-bold text-center mb-3 leading-tight px-2"
+                style={{
+                  background: 'linear-gradient(100deg, #9AB8E8 0%, #D4A5E8 35%, #FFB4D1 70%, #FFFFFF 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  filter: 'drop-shadow(0 2px 8px rgba(154, 184, 232, 0.25))',
+                  fontWeight: '700',
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                {fullName}
+              </h2>
+            ) : (
+              <div className="text-center mb-3 px-2">
+                <p 
+                  className="text-[16px] font-semibold mb-1.5"
+                  style={{
+                    color: '#E8E8F0',
+                    fontWeight: '600',
+                  }}
+                >
+                  {fullName}
+                </p>
+                <a
+                  href="https://t.me/rudn_mosbot"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[17px] font-bold inline-block"
+                  style={{
+                    background: 'linear-gradient(100deg, #9AB8E8 0%, #D4A5E8 35%, #FFB4D1 70%, #FFFFFF 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    filter: 'drop-shadow(0 2px 8px rgba(154, 184, 232, 0.25))',
+                    fontWeight: '700',
+                    textDecoration: 'none',
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (hapticFeedback) hapticFeedback('impact', 'light');
+                  }}
+                >
+                  @rudn_mosbot
+                </a>
+              </div>
+            )}
 
             {/* Username и группа */}
             <div className="flex items-center justify-center gap-2 w-full flex-wrap">
