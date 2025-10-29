@@ -106,6 +106,83 @@ export const LiveScheduleSection = ({
     if (hapticFeedback) hapticFeedback('selection');
     setExpandedIndex(expandedIndex === index ? null : index);
   };
+  
+  // Навигация между днями
+  const navigateDay = useCallback((direction) => {
+    if (!onDateSelect) return;
+    
+    const newDate = new Date(selectedDate);
+    newDate.setDate(selectedDate.getDate() + direction);
+    
+    if (hapticFeedback) hapticFeedback('impact', 'medium');
+    onDateSelect(newDate);
+  }, [selectedDate, onDateSelect, hapticFeedback]);
+  
+  // Обработчики свайпов
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+  
+  const handleTouchMove = useCallback((e) => {
+    touchEndX.current = e.touches[0].clientX;
+    touchEndY.current = e.touches[0].clientY;
+    
+    const deltaX = touchEndX.current - touchStartX.current;
+    const deltaY = Math.abs(touchEndY.current - touchStartY.current);
+    
+    // Обновляем motion value для визуальной обратной связи
+    if (Math.abs(deltaX) > deltaY) {
+      x.set(deltaX);
+      
+      // Показываем индикатор направления
+      if (deltaX > 30) {
+        setSwipeDirection(1); // Right - previous day
+      } else if (deltaX < -30) {
+        setSwipeDirection(-1); // Left - next day
+      } else {
+        setSwipeDirection(0);
+      }
+    }
+  }, [x]);
+  
+  const handleTouchEnd = useCallback(() => {
+    const deltaX = touchEndX.current - touchStartX.current;
+    const deltaY = Math.abs(touchEndY.current - touchStartY.current);
+    const threshold = 80; // Минимальное расстояние для срабатывания
+    
+    // Проверяем, что горизонтальное движение больше вертикального
+    if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > threshold) {
+      if (deltaX > 0) {
+        // Свайп вправо - предыдущий день
+        navigateDay(-1);
+      } else {
+        // Свайп влево - следующий день
+        navigateDay(1);
+      }
+    }
+    
+    // Сброс
+    animate(x, 0, { duration: 0.3, ease: 'easeOut' });
+    setSwipeDirection(0);
+  }, [x, navigateDay]);
+  
+  // Подключаем обработчики
+  useEffect(() => {
+    const element = swipeContainerRef.current;
+    if (!element) return;
+    
+    element.addEventListener('touchstart', handleTouchStart, { passive: true });
+    element.addEventListener('touchmove', handleTouchMove, { passive: false });
+    element.addEventListener('touchend', handleTouchEnd, { passive: true });
+    
+    return () => {
+      element.removeEventListener('touchstart', handleTouchStart);
+      element.removeEventListener('touchmove', handleTouchMove);
+      element.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   // Фильтруем расписание по выбранному дню
   const currentDayName = selectedDate.toLocaleDateString('ru-RU', { weekday: 'long' });
