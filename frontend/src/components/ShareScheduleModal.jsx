@@ -170,8 +170,20 @@ export const ShareScheduleModal = ({
   };
 
   // Создание приглашения в группу
-  const handleInviteFriends = () => {
+  const handleInviteFriends = async () => {
     if (hapticFeedback) hapticFeedback('impact', 'medium');
+    
+    // Трекинг действия приглашения друга
+    if (telegramId) {
+      try {
+        await achievementsAPI.trackAction(telegramId, 'invite_friend', {
+          source: 'share_modal',
+          date: new Date().toISOString()
+        });
+      } catch (error) {
+        console.error('Failed to track invite_friend action:', error);
+      }
+    }
     
     const inviteText = `🎓 Привет! Я использую RUDN Schedule для просмотра расписания.\n\nПрисоединяйся! 👇`;
     const encodedText = encodeURIComponent(inviteText);
