@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
 import { LiveScheduleCard } from './LiveScheduleCard';
 import { WeatherWidget } from './WeatherWidget';
 import { AchievementsModal } from './AchievementsModal';
