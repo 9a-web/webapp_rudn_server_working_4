@@ -325,6 +325,34 @@ async def track_user_action(db, telegram_id: int, action_type: str, metadata: di
     elif action_type == "early_usage":
         update_data["$inc"] = {"early_usage_count": 1}
     
+    # Новые действия для исследования приложения
+    elif action_type == "view_analytics":
+        update_data["$inc"] = {"analytics_views": 1}
+    
+    elif action_type == "open_calendar":
+        update_data["$inc"] = {"calendar_opens": 1}
+    
+    elif action_type == "configure_notifications":
+        update_data["$set"]["notifications_configured"] = True
+    
+    elif action_type == "share_schedule":
+        update_data["$inc"] = {"schedule_shares": 1}
+    
+    elif action_type == "visit_menu_item":
+        menu_item = metadata.get("menu_item")
+        if menu_item and menu_item not in stats.menu_items_visited:
+            if "$push" not in update_data:
+                update_data["$push"] = {}
+            update_data["$push"]["menu_items_visited"] = menu_item
+    
+    elif action_type == "daily_activity":
+        # Отслеживаем активность по дням
+        today = datetime.utcnow().strftime("%Y-%m-%d")
+        if today not in stats.active_days:
+            if "$push" not in update_data:
+                update_data["$push"] = {}
+            update_data["$push"]["active_days"] = today
+    
     # Обновляем статистику в БД
     await db.user_stats.update_one(
         {"telegram_id": telegram_id},
