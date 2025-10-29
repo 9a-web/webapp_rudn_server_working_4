@@ -276,3 +276,15 @@ class WeatherResponse(BaseModel):
     wind_speed: int  # Скорость ветра в км/ч
     description: str  # Описание погоды
     icon: str  # Иконка погоды (код)
+
+
+# ============ Модели для информации о боте ============
+
+class BotInfo(BaseModel):
+    """Информация о боте"""
+    username: str  # Username бота (например, @rudn_pro_bot)
+    first_name: str  # Имя бота
+    id: int  # ID бота
+    can_join_groups: bool = False
+    can_read_all_group_messages: bool = False
+    supports_inline_queries: bool = False
