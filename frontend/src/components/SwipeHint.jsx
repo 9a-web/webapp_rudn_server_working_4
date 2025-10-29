@@ -5,8 +5,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 /**
  * Компонент подсказки о swipe-навигации
  * Показывается один раз при первом входе
+ * Скрывается через 10 секунд или при первом свайпе
  */
-export const SwipeHint = () => {
+export const SwipeHint = ({ onSwipe }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -19,11 +20,11 @@ export const SwipeHint = () => {
         setIsVisible(true);
       }, 2000);
 
-      // Автоматически скрываем через 5 секунд
+      // Автоматически скрываем через 10 секунд (2 сек задержка + 10 сек показа = 12 сек)
       const hideTimer = setTimeout(() => {
         setIsVisible(false);
         localStorage.setItem('hasSeenSwipeHint', 'true');
-      }, 7000);
+      }, 12000);
 
       return () => {
         clearTimeout(timer);
@@ -31,6 +32,23 @@ export const SwipeHint = () => {
       };
     }
   }, []);
+
+  // Обработка свайпа - скрываем подсказку
+  useEffect(() => {
+    if (onSwipe && isVisible) {
+      const handleSwipeEvent = () => {
+        setIsVisible(false);
+        localStorage.setItem('hasSeenSwipeHint', 'true');
+      };
+      
+      // Подписываемся на событие свайпа
+      window.addEventListener('swipe-detected', handleSwipeEvent);
+      
+      return () => {
+        window.removeEventListener('swipe-detected', handleSwipeEvent);
+      };
+    }
+  }, [onSwipe, isVisible]);
 
   const handleDismiss = () => {
     setIsVisible(false);
