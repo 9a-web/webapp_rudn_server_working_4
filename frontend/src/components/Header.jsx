@@ -125,8 +125,62 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
           </h1>
         </motion.div>
 
-        {/* Right side - Profile, Calendar, Notifications, and Menu buttons */}
+        {/* Right side - Calendar, Notifications, Menu, and Profile buttons */}
         <div className="flex items-center gap-2">
+          {/* Calendar button */}
+          <motion.button
+            onClick={() => {
+              if (hapticFeedback) hapticFeedback('impact', 'medium');
+              onCalendarClick();
+            }}
+            className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
+            aria-label="Open calendar"
+            custom={1}
+            initial="initial"
+            animate="animate"
+            variants={headerItemVariants}
+          >
+            {/* Gradient glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 via-teal-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            <Calendar className="w-5 h-5 md:w-6 md:h-6 relative z-10" style={{ color: '#E7E7E7' }} />
+          </motion.button>
+
+          {/* Notifications button */}
+          <motion.button
+            onClick={() => {
+              if (hapticFeedback) hapticFeedback('impact', 'medium');
+              onNotificationsClick();
+            }}
+            className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
+            aria-label="Open notifications"
+            custom={2}
+            initial="initial"
+            animate="animate"
+            variants={headerItemVariants}
+          >
+            {/* Gradient glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-400/20 via-rose-400/20 to-red-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            <Bell className="w-5 h-5 md:w-6 md:h-6 relative z-10" style={{ color: '#E7E7E7' }} />
+          </motion.button>
+
+          {/* Menu button */}
+          <motion.button
+            onClick={handleMenuClick}
+            className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
+            aria-label="Open menu"
+            custom={3}
+            initial="initial"
+            animate="animate"
+            variants={headerItemVariants}
+          >
+            {/* Gradient glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 via-pink-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            <Menu className="w-5 h-5 md:w-6 md:h-6 relative z-10" style={{ color: '#E7E7E7' }} />
+          </motion.button>
+
           {/* Profile button */}
           {user && (
             <motion.button
@@ -151,7 +205,7 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
               }}
               className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group border-2 border-transparent hover:border-cyan-400/30"
               aria-label="Open profile"
-              custom={1}
+              custom={4}
               initial="initial"
               animate="animate"
               variants={headerItemVariants}
@@ -190,60 +244,6 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
               )}
             </motion.button>
           )}
-
-          {/* Calendar button */}
-          <motion.button
-            onClick={() => {
-              if (hapticFeedback) hapticFeedback('impact', 'medium');
-              onCalendarClick();
-            }}
-            className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
-            aria-label="Open calendar"
-            custom={2}
-            initial="initial"
-            animate="animate"
-            variants={headerItemVariants}
-          >
-            {/* Gradient glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 via-teal-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
-            <Calendar className="w-5 h-5 md:w-6 md:h-6 relative z-10" style={{ color: '#E7E7E7' }} />
-          </motion.button>
-
-          {/* Notifications button */}
-          <motion.button
-            onClick={() => {
-              if (hapticFeedback) hapticFeedback('impact', 'medium');
-              onNotificationsClick();
-            }}
-            className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
-            aria-label="Open notifications"
-            custom={3}
-            initial="initial"
-            animate="animate"
-            variants={headerItemVariants}
-          >
-            {/* Gradient glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-400/20 via-rose-400/20 to-red-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
-            <Bell className="w-5 h-5 md:w-6 md:h-6 relative z-10" style={{ color: '#E7E7E7' }} />
-          </motion.button>
-
-          {/* Menu button */}
-          <motion.button
-            onClick={handleMenuClick}
-            className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 relative overflow-hidden group"
-            aria-label="Open menu"
-            custom={4}
-            initial="initial"
-            animate="animate"
-            variants={headerItemVariants}
-          >
-            {/* Gradient glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 via-pink-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
-            <Menu className="w-5 h-5 md:w-6 md:h-6 relative z-10" style={{ color: '#E7E7E7' }} />
-          </motion.button>
         </div>
       </header>
 
