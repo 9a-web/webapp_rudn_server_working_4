@@ -13,23 +13,38 @@ export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick,
   const [logoClickCount, setLogoClickCount] = useState(0);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
   const [profilePhoto, setProfilePhoto] = useState(null);
+  const [photoLoading, setPhotoLoading] = useState(false);
+  const [photoError, setPhotoError] = useState(false);
   const clickTimerRef = useRef(null);
+  const photoLoadedRef = useRef(false);
 
   // Загрузка фото профиля пользователя
   useEffect(() => {
     const loadProfilePhoto = async () => {
-      if (user?.id) {
+      if (user?.id && !photoLoadedRef.current) {
+        setPhotoLoading(true);
+        setPhotoError(false);
         try {
           const photoUrl = await botAPI.getUserProfilePhoto(user.id);
-          setProfilePhoto(photoUrl);
+          if (photoUrl) {
+            setProfilePhoto(photoUrl);
+            photoLoadedRef.current = true;
+            console.log('Profile photo loaded successfully:', photoUrl);
+          } else {
+            console.log('No profile photo available for user');
+            setPhotoError(true);
+          }
         } catch (error) {
           console.error('Failed to load profile photo:', error);
+          setPhotoError(true);
+        } finally {
+          setPhotoLoading(false);
         }
       }
     };
 
     loadProfilePhoto();
-  }, [user]);
+  }, [user?.id]);
 
   const handleMenuClick = () => {
     if (hapticFeedback) hapticFeedback('impact', 'medium');
