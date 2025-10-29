@@ -468,6 +468,7 @@ export const LiveScheduleSection = ({
         selectedDate={selectedDate}
         groupName={groupName}
         hapticFeedback={hapticFeedback}
+        telegramId={telegramId}
       />
     </div>
   );
