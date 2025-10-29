@@ -13,10 +13,10 @@ export const AchievementNotification = ({ achievement, onClose, hapticFeedback }
     // 🎉 ЗАПУСКАЕМ КОНФЕТТИ!
     celebrateAchievement();
     
-    // Автоматически закрываем через 5 секунд
+    // Автоматически закрываем через 7 секунд
     const timer = setTimeout(() => {
       handleClose();
-    }, 5000);
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, []);
