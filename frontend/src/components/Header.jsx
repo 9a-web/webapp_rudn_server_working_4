@@ -160,6 +160,57 @@ export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAna
         onAchievementsClick={onAchievementsClick}
         hapticFeedback={hapticFeedback}
       />
+
+      {/* Easter Egg Message */}
+      <AnimatePresence>
+        {showEasterEgg && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: -50 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1, 
+              y: 0,
+              transition: {
+                type: "spring",
+                damping: 15,
+                stiffness: 300
+              }
+            }}
+            exit={{ 
+              opacity: 0, 
+              scale: 0.8,
+              y: -50,
+              transition: { duration: 0.3 }
+            }}
+            className="fixed top-20 left-1/2 -translate-x-1/2 z-[200] px-6 py-4 rounded-2xl shadow-2xl"
+            style={{
+              background: 'linear-gradient(135deg, #A3F7BF, #FFE66D, #FFB4D1, #C4A3FF, #80E8FF)',
+              backgroundSize: '300% 300%',
+              animation: 'gradient 3s ease infinite'
+            }}
+          >
+            <motion.div
+              animate={{
+                scale: [1, 1.05, 1],
+                rotate: [0, 5, -5, 0]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="text-center"
+            >
+              <p className="text-2xl font-bold text-white mb-1">
+                🎉 Секрет раскрыт! 🎉
+              </p>
+              <p className="text-sm text-white/90">
+                Ты нашёл пасхалку! {logoClickCount > 10 ? `(${logoClickCount} кликов!)` : ''}
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 });
