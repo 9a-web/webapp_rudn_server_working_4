@@ -1235,6 +1235,142 @@ class RUDNScheduleAPITester:
         except Exception as e:
             self.log_test("GET /api/bot-info", False, f"Exception: {str(e)}")
             return False
+
+    def test_user_profile_functionality(self) -> bool:
+        """Test user profile functionality as requested - GET /api/user-settings/{telegram_id} with group_name"""
+        try:
+            print("🔍 Testing User Profile Functionality - GET /api/user-settings/{telegram_id} with group_name...")
+            
+            # Use the specific telegram_id from the request
+            telegram_id = 123456789
+            
+            # First ensure the user exists by creating/updating user settings
+            user_payload = {
+                "telegram_id": telegram_id,
+                "username": "profile_test_user",
+                "first_name": "Профиль",
+                "last_name": "Тестовый",
+                "group_id": "profile-test-group-id",
+                "group_name": "Тестовая группа для профиля",
+                "facultet_id": "profile-test-facultet",
+                "level_id": "profile-test-level",
+                "kurs": "2",
+                "form_code": "о"
+            }
+            
+            # Create/update user settings
+            create_response = self.session.post(
+                f"{self.base_url}/user-settings",
+                json=user_payload,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if create_response.status_code != 200:
+                self.log_test("User Profile - Create/Update User", False, 
+                            f"Failed to create/update user: HTTP {create_response.status_code}: {create_response.text}")
+                return False
+            
+            # Now test the GET endpoint for user profile
+            response = self.session.get(f"{self.base_url}/user-settings/{telegram_id}")
+            
+            if response.status_code != 200:
+                self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, 
+                            f"HTTP {response.status_code}: {response.text}")
+                return False
+            
+            user_data = response.json()
+            
+            # Validate response structure
+            if not isinstance(user_data, dict):
+                self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, 
+                            "Response is not a dictionary")
+                return False
+            
+            # Check required fields for user profile (especially group_name as requested)
+            required_fields = ['id', 'telegram_id', 'username', 'first_name', 'last_name', 
+                             'group_id', 'group_name', 'facultet_id', 'level_id', 'kurs', 'form_code',
+                             'created_at', 'updated_at', 'last_activity']
+            
+            missing_fields = []
+            for field in required_fields:
+                if field not in user_data:
+                    missing_fields.append(field)
+            
+            if missing_fields:
+                self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, 
+                            f"Missing required fields: {missing_fields}")
+                return False
+            
+            # Validate telegram_id matches the requested one
+            if user_data['telegram_id'] != telegram_id:
+                self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, 
+                            f"Telegram ID mismatch: expected {telegram_id}, got {user_data['telegram_id']}")
+                return False
+            
+            # Validate that group_name is present and not empty (key requirement from request)
+            if not user_data['group_name'] or not user_data['group_name'].strip():
+                self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, 
+                            "group_name field is missing or empty - this is required for profile display")
+                return False
+            
+            # Validate that all user data fields are properly filled
+            user_fields_to_check = ['username', 'first_name', 'group_id', 'group_name', 'facultet_id']
+            empty_fields = []
+            for field in user_fields_to_check:
+                if not user_data.get(field) or not str(user_data[field]).strip():
+                    empty_fields.append(field)
+            
+            if empty_fields:
+                self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, 
+                            f"Empty or missing user data fields: {empty_fields}")
+                return False
+            
+            # Validate data types
+            string_fields = ['username', 'first_name', 'last_name', 'group_id', 'group_name', 
+                           'facultet_id', 'level_id', 'kurs', 'form_code']
+            for field in string_fields:
+                if field in user_data and user_data[field] is not None:
+                    if not isinstance(user_data[field], str):
+                        self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, 
+                                    f"Field '{field}' should be string, got {type(user_data[field])}")
+                        return False
+            
+            if not isinstance(user_data['telegram_id'], int):
+                self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, 
+                            f"Field 'telegram_id' should be integer, got {type(user_data['telegram_id'])}")
+                return False
+            
+            # Test that the API returns complete data for profile display
+            profile_display_data = {
+                "user_id": user_data['id'],
+                "telegram_id": user_data['telegram_id'],
+                "username": user_data['username'],
+                "full_name": f"{user_data['first_name']} {user_data['last_name']}".strip(),
+                "group_name": user_data['group_name'],
+                "group_id": user_data['group_id'],
+                "facultet_id": user_data['facultet_id'],
+                "level_id": user_data['level_id'],
+                "kurs": user_data['kurs'],
+                "form_code": user_data['form_code'],
+                "last_activity": user_data['last_activity']
+            }
+            
+            self.log_test("User Profile - GET /api/user-settings/{telegram_id}", True, 
+                        "Successfully retrieved complete user profile data with group_name",
+                        {
+                            "telegram_id": user_data['telegram_id'],
+                            "username": user_data['username'],
+                            "full_name": profile_display_data['full_name'],
+                            "group_name": user_data['group_name'],
+                            "group_id": user_data['group_id'],
+                            "all_fields_present": True,
+                            "profile_ready": True
+                        })
+            return True
+            
+        except Exception as e:
+            self.log_test("User Profile - GET /api/user-settings/{telegram_id}", False, f"Exception: {str(e)}")
+            return False
     
     def run_all_tests(self):
         """Run all API tests in sequence"""
