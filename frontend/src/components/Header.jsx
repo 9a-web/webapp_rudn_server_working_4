@@ -1,16 +1,18 @@
-import React, { useState, useRef } from 'react';
-import { Menu, Calendar, Bell } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Menu, Calendar, Bell, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { headerItemVariants } from '../utils/animations';
 import { MenuModal } from './MenuModal';
 import { rainbowConfetti } from '../utils/confetti';
+import { botAPI } from '../services/api';
 
-export const Header = React.memo(({ onCalendarClick, onNotificationsClick, onAnalyticsClick, onAchievementsClick, hapticFeedback }) => {
+export const Header = React.memo(({ user, onCalendarClick, onNotificationsClick, onAnalyticsClick, onAchievementsClick, hapticFeedback }) => {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoClickCount, setLogoClickCount] = useState(0);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [profilePhoto, setProfilePhoto] = useState(null);
   const clickTimerRef = useRef(null);
 
   const handleMenuClick = () => {
