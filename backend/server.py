@@ -494,6 +494,34 @@ async def get_weather_endpoint():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ============ Эндпоинты для информации о боте ============
+
+@api_router.get("/bot-info", response_model=BotInfo)
+async def get_bot_info():
+    """Получить информацию о боте (username, id и т.д.)"""
+    try:
+        from telegram import Bot
+        
+        bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+        if not bot_token:
+            raise HTTPException(status_code=500, detail="Bot token не настроен")
+        
+        bot = Bot(token=bot_token)
+        me = await bot.get_me()
+        
+        return BotInfo(
+            username=me.username or "",
+            first_name=me.first_name,
+            id=me.id,
+            can_join_groups=me.can_join_groups or False,
+            can_read_all_group_messages=me.can_read_all_group_messages or False,
+            supports_inline_queries=me.supports_inline_queries or False
+        )
+    except Exception as e:
+        logger.error(f"Ошибка при получении информации о боте: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
