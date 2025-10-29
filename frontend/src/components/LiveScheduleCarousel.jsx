@@ -43,7 +43,7 @@ export const LiveScheduleCarousel = ({
   const currentCard = cards[currentIndex];
 
   return (
-    <div className="relative">
+    <>
       {/* Карусель карточек - Показываем только на mobile, скрываем на tablet и desktop */}
       <div className="mt-4 px-6 md:hidden" onClick={handleCardClick}>
         <div className="relative w-full max-w-[373px] mx-auto">
